@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOME CONTROLE</title>
+
+<style>
+:root{
+  --bg:#050505;
+  --card:#111111;
+  --line:#292929;
+  --text:#ffffff;
+  --gray:#8e8e93;
+  --green:#30d158;
+  --yellow:#ffd60a;
+  --orange:#ff9f0a;
+  --red:#ff453a;
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
+}
+
+.app{
+  max-width:650px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:110px;
+}
+
+.header{
+  padding:28px 20px 20px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-icon{
+  width:50px;
+  height:50px;
+  border-radius:16px;
+  background:white;
+  color:black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+}
+
+.logo h1{
+  margin:0;
+  font-size:25px;
+  letter-spacing:1px;
+}
+
+.logo p{
+  margin:4px 0 0;
+  color:var(--gray);
+  font-size:11px;
+  letter-spacing:1px;
+}
+
+.page{
+  display:none;
+  padding:0 16px;
+}
+
+.page.active{
+  display:block;
+}
+
+.hero,
+.form-card,
+.money-card,
+.money-input-card,
+.task-card,
+.history-item{
+  background:var(--card);
+  border:1px solid var(--line);
+}
+
+.hero{
+  border-radius:28px;
+  padding:28px;
+  margin-bottom:18px;
+}
+
+.hero small{
+  color:var(--gray);
+  letter-spacing:2px;
+}
+
+.hero h2{
+  margin:12px 0 8px;
+  font-size:30px;
+}
+
+.hero p{
+  margin:0;
+  color:var(--gray);
+}
+
+.menu-card{
+  width:100%;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:white;
+  border-radius:23px;
+  padding:19px;
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-family:inherit;
+}
+
+.menu-left{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.menu-icon{
+  width:50px;
+  height:50px;
+  border-radius:16px;
+  background:white;
+  color:black;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+.menu-text h3{
+  margin:0 0 5px;
+  font-size:17px;
+}
+
+.menu-text p{
+  margin:0;
+  color:var(--gray);
+  font-size:13px;
+}
+
+.arrow{
+  color:var(--gray);
+  font-size:25px;
+}
+
+.page-title{
+  margin:8px 4px 20px;
+}
+
+.page-title h2{
+  margin:0 0 6px;
+  font-size:27px;
+}
+
+.page-title p{
+  margin:0;
+  color:var(--gray);
+  font-size:14px;
+}
+
+.form-card,
+.money-card,
+.money-input-card{
+  border-radius:24px;
+  padding:20px;
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  color:var(--gray);
+  font-size:12px;
+  margin:16px 0 7px;
+}
+
+input,
+textarea{
+  width:100%;
+  background:#080808;
+  color:white;
+  border:1px solid #303030;
+  border-radius:14px;
+  padding:15px;
+  font-size:16px;
+  font-family:inherit;
+}
+
+textarea{
+  min-height:80px;
+  resize:none;
+}
+
+.primary-btn{
+  width:100%;
+  margin-top:18px;
+  border:none;
+  border-radius:16px;
+  padding:16px;
+  background:white;
+  color:black;
+  font-family:inherit;
+  font-weight:800;
+}
+
+.task-card{
+  border-radius:20px;
+  padding:17px;
+  margin-bottom:12px;
+  border-left:5px solid var(--green);
+}
+
+.task-card.yellow{
+  border-left-color:var(--yellow);
+}
+
+.task-card.red{
+  border-left-color:var(--red);
+}
+
+.task-card.completed{
+  border-left-color:var(--green);
+  opacity:.7;
+}
+
+.task-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.task-name{
+  font-size:17px;
+  font-weight:750;
+}
+
+.status{
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:10px;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.green-status{
+  background:rgba(48,209,88,.15);
+  color:var(--green);
+}
+
+.yellow-status{
+  background:rgba(255,214,10,.15);
+  color:var(--yellow);
+}
+
+.red-status{
+  background:rgba(255,69,58,.15);
+  color:var(--red);
+}
+
+.task-description{
+  color:var(--gray);
+  font-size:14px;
+  margin-top:10px;
+}
+
+.task-info{
+  margin-top:12px;
+  color:#aaa;
+  font-size:13px;
+}
+
+.timer{
+  margin-top:12px;
+  padding:12px;
+  background:#090909;
+  border-radius:13px;
+  color:var(--red);
+  font-weight:700;
+}
+
+.task-actions{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+}
+
+.small-btn{
+  flex:1;
+  border:none;
+  border-radius:12px;
+  padding:12px;
+  font-family:inherit;
+  font-weight:700;
+}
+
+.complete-btn{
+  background:rgba(48,209,88,.15);
+  color:var(--green);
+}
+
+.delete-btn{
+  background:#222;
+  color:#aaa;
+}
+
+.empty{
+  color:var(--gray);
+  text-align:center;
+  padding:40px 20px;
+  border:1px dashed #333;
+  border-radius:20px;
+}
+
+/* MONEY */
+
+.money-value{
+  font-size:42px;
+  font-weight:800;
+  margin-top:8px;
+}
+
+.money-label{
+  color:var(--gray);
+  font-size:12px;
+}
+
+.money-percent{
+  margin-top:8px;
+  color:var(--gray);
+}
+
+.money-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:20px;
+}
+
+.stat{
+  background:#080808;
+  padding:14px;
+  border-radius:16px;
+}
+
+.stat span{
+  display:block;
+  color:var(--gray);
+  font-size:10px;
+}
+
+.stat strong{
+  display:block;
+  margin-top:7px;
+}
+
+.progress-bg{
+  width:100%;
+  height:9px;
+  background:#292929;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:20px;
+}
+
+.progress{
+  height:100%;
+  width:0%;
+  transition:.3s;
+}
+
+.money-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:15px;
+}
+
+.add-btn,
+.spend-btn{
+  border:none;
+  border-radius:15px;
+  padding:15px;
+  font-family:inherit;
+  font-weight:800;
+}
+
+.add-btn{
+  background:var(--green);
+}
+
+.spend-btn{
+  background:var(--red);
+  color:white;
+}
+
+.reset-btn,
+.more-btn{
+  width:100%;
+  margin-top:12px;
+  padding:13px;
+  border-radius:14px;
+  background:#181818;
+  color:#aaa;
+  border:1px solid #333;
+}
+
+.history-title{
+  font-size:20px;
+  margin:25px 4px 12px;
+}
+
+.history-item{
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:9px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.history-left strong{
+  display:block;
+  font-size:14px;
+}
+
+.history-left small{
+  color:var(--gray);
+  font-size:11px;
+}
+
+.plus{
+  color:var(--green);
+}
+
+.minus{
+  color:var(--red);
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:rgba(10,10,10,.97);
+  border-top:1px solid var(--line);
+}
+
+.nav-container{
+  max-width:650px;
+  margin:auto;
+  display:flex;
+  justify-content:space-around;
+}
+
+.nav-item{
+  background:none;
+  border:none;
+  color:var(--gray);
+  font-family:inherit;
+  padding:12px 4px 16px;
+  font-size:10px;
+}
+
+.nav-item.active{
+  color:white;
+}
+
+.nav-icon{
+  display:block;
+  font-size:20px;
+  margin-bottom:4px;
+}
+
+button:active{
+  transform:scale(.97);
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="header">
+<div class="logo">
+<div class="logo-icon">⌂</div>
+<div>
+<h1>HOME CONTROLE</h1>
+<p>ORGANIZE YOUR HOME</p>
+</div>
+</div>
+</div>
+
+<!-- HOME -->
+
+<div id="home" class="page active">
+
+<div class="hero">
+<small>HOME SYSTEM</small>
+<h2>Everything under control.</h2>
+<p>Plan your tasks, manage your time and control your money.</p>
+</div>
+
+<button class="menu-card" onclick="showPage('enter')">
+<div class="menu-left">
+<div class="menu-icon">✓</div>
+<div class="menu-text">
+<h3>ENTER</h3>
+<p>Complete your tasks</p>
+</div>
+</div>
+<div class="arrow">›</div>
+</button>
+
+<button class="menu-card" onclick="showPage('quick')">
+<div class="menu-left">
+<div class="menu-icon">!</div>
+<div class="menu-text">
+<h3>QUICK CHECK</h3>
+<p>Urgent tasks only</p>
+</div>
+</div>
+<div class="arrow">›</div>
+</button>
+
+<button class="menu-card" onclick="showPage('plan')">
+<div class="menu-left">
+<div class="menu-icon">⌗</div>
+<div class="menu-text">
+<h3>PLAN</h3>
+<p>Create new tasks</p>
+</div>
+</div>
+<div class="arrow">›</div>
+</button>
+
+<button class="menu-card" onclick="showPage('money')">
+<div class="menu-left">
+<div class="menu-icon">DT</div>
+<div class="menu-text">
+<h3>POCKET MONEY</h3>
+<p>Control your balance</p>
+</div>
+</div>
+<div class="arrow">›</div>
+</button>
+
+</div>
+
+<!-- ENTER -->
+
+<div id="enter" class="page">
+
+<div class="page-title">
+<h2>ENTER</h2>
+<p>Complete your planned tasks.</p>
+</div>
+
+<div id="enterTasks"></div>
+
+</div>
+
+<!-- QUICK -->
+
+<div id="quick" class="page">
+
+<div class="page-title">
+<h2>QUICK CHECK</h2>
+<p>Urgent tasks with less than 24 hours left.</p>
+</div>
+
+<div id="quickTasks"></div>
+
+</div>
+
+<!-- PLAN -->
+
+<div id="plan" class="page">
+
+<div class="page-title">
+<h2>PLAN</h2>
+<p>Create a task with an exact deadline.</p>
+</div>
+
+<div class="form-card">
+
+<label>TASK NAME</label>
+<input id="taskName" placeholder="Example: Grocery">
+
+<label>DESCRIPTION</label>
+<textarea id="taskDescription" placeholder="Describe the task..."></textarea>
+
+<label>DATE AND TIME</label>
+<input id="taskDate" type="datetime-local">
+
+<label>PRIX (OPTIONAL - DT)</label>
+<input id="taskPrice" type="number" step="0.001" placeholder="Example: 20">
+
+<button class="primary-btn" onclick="addTask()">
+ADD TASK
+</button>
+
+</div>
+
+<div id="planTasks"></div>
+
+</div>
+
+<!-- MONEY -->
+
+<div id="money" class="page">
+
+<div class="page-title">
+<h2>POCKET MONEY</h2>
+<p>Control your money and spending.</p>
+</div>
+
+<div class="money-card" id="moneyCard">
+
+<div class="money-label">MONEY REMAINING</div>
+
+<div class="money-value" id="remainingMoney">0.000 DT</div>
+
+<div class="money-percent" id="moneyPercent">0% remaining</div>
+
+<div class="money-stats">
+
+<div class="stat">
+<span>TOTAL ADDED</span>
+<strong id="totalAdded">0.000 DT</strong>
+</div>
+
+<div class="stat">
+<span>TOTAL SPENT</span>
+<strong id="totalSpent">0.000 DT</strong>
+</div>
+
+</div>
+
+<div class="progress-bg">
+<div class="progress" id="moneyProgress"></div>
+</div>
+
+</div>
+
+<div class="money-input-card">
+
+<label>AMOUNT (DT)</label>
+<input id="moneyAmount" type="number" step="0.001" placeholder="Example: 100">
+
+<label>DESCRIPTION</label>
+<input id="moneyDescription" placeholder="Example: Pocket money">
+
+<div class="money-buttons">
+
+<button class="add-btn" onclick="addMoney()">
++ ADD MONEY
+</button>
+
+<button class="spend-btn" onclick="spendMoney()">
+− SPEND
+</button>
+
+</div>
+
+<button class="reset-btn" onclick="resetMoney()">
+RESET MONEY
+</button>
+
+</div>
+
+<div class="history-title">MONEY HISTORY</div>
+
+<div id="moneyHistory"></div>
+
+<button class="more-btn" id="moreHistory" onclick="showMoreHistory()">
+MORE
+</button>
+
+</div>
+
+<div style="text-align:center;color:#666;font-size:11px;letter-spacing:1px;padding:25px 0 10px;">
+by Jasser Naouili
+</div>
+
+</div>
+
+<!-- NAV -->
+
+<div class="bottom-nav">
+<div class="nav-container">
+
+<button class="nav-item active" id="nav-home" onclick="showPage('home')">
+<span class="nav-icon">⌂</span>Home
+</button>
+
+<button class="nav-item" id="nav-enter" onclick="showPage('enter')">
+<span class="nav-icon">✓</span>Enter
+</button>
+
+<button class="nav-item" id="nav-quick" onclick="showPage('quick')">
+<span class="nav-icon">!</span>Quick
+</button>
+
+<button class="nav-item" id="nav-plan" onclick="showPage('plan')">
+<span class="nav-icon">⌗</span>Plan
+</button>
+
+<button class="nav-item" id="nav-money" onclick="showPage('money')">
+<span class="nav-icon">DT</span>Money
+</button>
+
+</div>
+</div>
+
+<script>
+
+let tasks = JSON.parse(localStorage.getItem("homeControleTasks")) || [];
+
+let moneyData = JSON.parse(localStorage.getItem("homeControleMoney")) || {
+added:0,
+spent:0,
+history:[]
+};
+
+let historyLimit = 5;
+
+function playSound(){
+
+try{
+
+const AudioContextClass =
+window.AudioContext || window.webkitAudioContext;
+
+const ctx = new AudioContextClass();
+
+const oscillator = ctx.createOscillator();
+const gain = ctx.createGain();
+
+oscillator.connect(gain);
+gain.connect(ctx.destination);
+
+oscillator.frequency.value = 650;
+oscillator.type = "sine";
+
+gain.gain.setValueAtTime(.025,ctx.currentTime);
+gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.06);
+
+oscillator.start();
+oscillator.stop(ctx.currentTime+.06);
+
+}catch(e){}
+
+}
+
+function showPage(page){
+
+playSound();
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
+});
+
+document.getElementById(page).classList.add("active");
+
+document.querySelectorAll(".nav-item").forEach(n=>{
+n.classList.remove("active");
+});
+
+const nav=document.getElementById("nav-"+page);
+
+if(nav) nav.classList.add("active");
+
+renderAll();
+
+window.scrollTo(0,0);
+
+}
+
+function addTask(){
+
+const name=document.getElementById("taskName").value.trim();
+const description=document.getElementById("taskDescription").value.trim();
+const date=document.getElementById("taskDate").value;
+const price=Number(document.getElementById("taskPrice").value) || 0;
+
+if(!name || !date){
+
+alert("Please enter a task name and exact date and time.");
+
+return;
+
+}
+
+tasks.push({
+id:Date.now(),
+name:name,
+description:description,
+date:date,
+price:price,
+done:false,
+priceCharged:false,
+completedAt:null
+});
+
+saveTasks();
+
+document.getElementById("taskName").value="";
+document.getElementById("taskDescription").value="";
+document.getElementById("taskDate").value="";
+document.getElementById("taskPrice").value="";
+
+playSound();
+
+renderAll();
+
+}
+
+function saveTasks(){
+
+localStorage.setItem(
+"homeControleTasks",
+JSON.stringify(tasks)
+);
+
+}
+
+function getTaskStatus(task){
+
+if(task.done){
+return{
+color:"green",
+text:"COMPLETED",
+difference:0
+};
+}
+
+const now=new Date().getTime();
+const deadline=new Date(task.date).getTime();
+
+const difference=deadline-now;
+
+if(difference <= 0){
+return{
+color:"red",
+text:"OVERDUE",
+difference:difference
+};
+}
+
+const hours=difference/(1000*60*60);
+
+if(hours < 24){
+return{
+color:"red",
+text:"URGENT!",
+difference:difference
+};
+}
+
+if(hours <= 48){
+return{
+color:"yellow",
+text:"SOON",
+difference:difference
+};
+}
+
+return{
+color:"green",
+text:"ON TIME",
+difference:difference
+};
+
+}
+
+function formatTimer(milliseconds){
+
+if(milliseconds<=0){
+return "TIME ENDED";
+}
+
+let seconds=Math.floor(milliseconds/1000);
+
+const days=Math.floor(seconds/86400);
+
+seconds=seconds%86400;
+
+const hours=Math.floor(seconds/3600);
+
+seconds=seconds%3600;
+
+const minutes=Math.floor(seconds/60);
+
+seconds=seconds%60;
+
+if(days>0){
+
+return days+"d "+
+String(hours).padStart(2,"0")+"h "+
+String(minutes).padStart(2,"0")+"m";
+
+}
+
+return String(hours).padStart(2,"0")+"h "+
+String(minutes).padStart(2,"0")+"m "+
+String(seconds).padStart(2,"0")+"s";
+
+}
+
+function completeTask(id){
+
+const task=tasks.find(t=>t.id===id);
+
+if(!task || task.done) return;
+
+task.done=true;
+task.completedAt=new Date().toLocaleString();
+
+if(task.price>0 && !task.priceCharged){
+
+moneyData.spent += task.price;
+
+moneyData.history.unshift({
+type:"spent",
+amount:task.price,
+description:"Task: "+task.name,
+time:new Date().toLocaleString()
+});
+
+task.priceCharged=true;
+
+saveMoneyData();
+
+}
+
+saveTasks();
+
+playSound();
+
+renderAll();
+
+}
+
+function deleteTask(id){
+
+tasks=tasks.filter(t=>t.id!==id);
+
+saveTasks();
+
+playSound();
+
+renderAll();
+
+}
+
+function createTaskCard(task,mode){
+
+const status=getTaskStatus(task);
+
+let timer="";
+
+if(!task.done){
+
+timer=`
+<div class="timer live-timer" data-date="${task.date}">
+⏳ ${formatTimer(status.difference)}
+</div>
+`;
+
+}
+
+let priceInfo="";
+
+if(task.price>0){
+
+priceInfo=`
+<div class="task-info">
+💰 Prix: ${task.price.toFixed(3)} DT
+</div>
+`;
+
+}
+
+let actions="";
+
+if(mode==="enter" && !task.done){
+
+actions=`
+<div class="task-actions">
+<button class="small-btn complete-btn" onclick="completeTask(${task.id})">
+✓ COMPLETE
+</button>
+</div>
+`;
+
+}
+
+if(mode==="plan"){
+
+actions=`
+<div class="task-actions">
+
+${!task.done ? `
+<button class="small-btn complete-btn" onclick="completeTask(${task.id})">
+✓ COMPLETE
+</button>
+` : ""}
+
+<button class="small-btn delete-btn" onclick="deleteTask(${task.id})">
+DELETE
+</button>
+
+</div>
+`;
+
+}
+
+return `
+
+<div class="task-card ${status.color} ${task.done ? "completed" : ""}">
+
+<div class="task-top">
+
+<div class="task-name">
+${task.name}
+</div>
+
+<div class="status ${status.color}-status">
+${status.text}
+</div>
+
+</div>
+
+${task.description ? `
+<div class="task-description">
+${task.description}
+</div>
+` : ""}
+
+<div class="task-info">
+📅 ${new Date(task.date).toLocaleString()}
+</div>
+
+${priceInfo}
+
+${timer}
+
+${actions}
+
+</div>
+
+`;
+
+}
+
+function renderPlan(){
+
+const container=document.getElementById("planTasks");
+
+if(!tasks.length){
+
+container.innerHTML='<div class="empty">No tasks yet.</div>';
+
+return;
+
+}
+
+const sorted=[...tasks].sort((a,b)=>
+new Date(a.date)-new Date(b.date)
+);
+
+container.innerHTML=sorted.map(task=>
+createTaskCard(task,"plan")
+).join("");
+
+}
+
+function renderEnter(){
+
+const container=document.getElementById("enterTasks");
+
+const active=tasks.filter(t=>!t.done);
+
+if(!active.length){
+
+container.innerHTML='<div class="empty">✓ All tasks completed!</div>';
+
+return;
+
+}
+
+const sorted=[...active].sort((a,b)=>
+new Date(a.date)-new Date(b.date)
+);
+
+container.innerHTML=sorted.map(task=>
+createTaskCard(task,"enter")
+).join("");
+
+}
+
+function renderQuick(){
+
+const container=document.getElementById("quickTasks");
+
+const urgent=tasks.filter(task=>{
+
+const status=getTaskStatus(task);
+
+return status.color==="red" && !task.done;
+
+});
+
+if(!urgent.length){
+
+container.innerHTML=`
+<div class="empty">
+✓ NO URGENT TASKS
+<br><br>
+Everything is under control.
+</div>
+`;
+
+return;
+
+}
+
+container.innerHTML=urgent.map(task=>
+createTaskCard(task,"quick")
+).join("");
+
+}
+
+function addMoney(){
+
+const amount=Number(
+document.getElementById("moneyAmount").value
+);
+
+const description=
+document.getElementById("moneyDescription").value.trim();
+
+if(!amount || amount<=0){
+
+alert("Enter a valid amount.");
+
+return;
+
+}
+
+moneyData.added+=amount;
+
+moneyData.history.unshift({
+type:"added",
+amount:amount,
+description:description || "Money added",
+time:new Date().toLocaleString()
+});
+
+saveMoneyData();
+
+clearMoneyInputs();
+
+playSound();
+
+renderMoney();
+
+}
+
+function spendMoney(){
+
+const amount=Number(
+document.getElementById("moneyAmount").value
+);
+
+const description=
+document.getElementById("moneyDescription").value.trim();
+
+if(!amount || amount<=0){
+
+alert("Enter a valid amount.");
+
+return;
+
+}
+
+moneyData.spent+=amount;
+
+moneyData.history.unshift({
+type:"spent",
+amount:amount,
+description:description || "Money spent",
+time:new Date().toLocaleString()
+});
+
+saveMoneyData();
+
+clearMoneyInputs();
+
+playSound();
+
+renderMoney();
+
+}
+
+function clearMoneyInputs(){
+
+document.getElementById("moneyAmount").value="";
+document.getElementById("moneyDescription").value="";
+
+}
+
+function saveMoneyData(){
+
+localStorage.setItem(
+"homeControleMoney",
+JSON.stringify(moneyData)
+);
+
+}
+
+function resetMoney(){
+
+if(!confirm("Reset all money data?")) return;
+
+moneyData={
+added:0,
+spent:0,
+history:[]
+};
+
+saveMoneyData();
+
+historyLimit=5;
+
+playSound();
+
+renderMoney();
+
+}
+
+function renderMoney(){
+
+const remaining=
+moneyData.added-moneyData.spent;
+
+const displayRemaining=Math.max(0,remaining);
+
+let percentage=0;
+
+if(moneyData.added>0){
+
+percentage=
+(displayRemaining/moneyData.added)*100;
+
+}
+
+percentage=Math.max(0,Math.min(100,percentage));
+
+document.getElementById("remainingMoney").textContent=
+displayRemaining.toFixed(3)+" DT";
+
+document.getElementById("totalAdded").textContent=
+moneyData.added.toFixed(3)+" DT";
+
+document.getElementById("totalSpent").textContent=
+moneyData.spent.toFixed(3)+" DT";
+
+document.getElementById("moneyPercent").textContent=
+percentage.toFixed(0)+"% remaining";
+
+const progress=
+document.getElementById("moneyProgress");
+
+const card=
+document.getElementById("moneyCard");
+
+progress.style.width=percentage+"%";
+
+if(percentage>75){
+
+progress.style.background="var(--green)";
+card.style.borderColor="var(--green)";
+
+}else if(percentage>50){
+
+progress.style.background="var(--orange)";
+card.style.borderColor="var(--orange)";
+
+}else if(percentage>=25){
+
+progress.style.background="var(--yellow)";
+card.style.borderColor="var(--yellow)";
+
+}else{
+
+progress.style.background="var(--red)";
+card.style.borderColor="var(--red)";
+
+}
+
+renderHistory();
+
+}
+
+function renderHistory(){
+
+const container=
+document.getElementById("moneyHistory");
+
+const moreButton=
+document.getElementById("moreHistory");
+
+if(!moneyData.history.length){
+
+container.innerHTML=
+'<div class="empty">No money activity yet.</div>';
+
+moreButton.style.display="none";
+
+return;
+
+}
+
+const visible=
+moneyData.history.slice(0,historyLimit);
+
+container.innerHTML=visible.map(item=>`
+
+<div class="history-item">
+
+<div class="history-left">
+
+<strong>${item.description}</strong>
+
+<small>${item.time}</small>
+
+</div>
+
+<strong class="${item.type==="added" ? "plus" : "minus"}">
+
+${item.type==="added" ? "+" : "-"}
+${Number(item.amount).toFixed(3)} DT
+
+</strong>
+
+</div>
+
+`).join("");
+
+moreButton.style.display=
+historyLimit>=moneyData.history.length
+? "none"
+: "block";
+
+}
+
+function showMoreHistory(){
+
+historyLimit+=10;
+
+playSound();
+
+renderHistory();
+
+}
+
+function updateTimers(){
+
+document.querySelectorAll(".live-timer").forEach(timer=>{
+
+const deadline=
+new Date(
+timer.getAttribute("data-date")
+).getTime();
+
+const difference=
+deadline-new Date().getTime();
+
+timer.innerHTML=
+"⏳ "+formatTimer(difference);
+
+});
+
+}
+
+function renderAll(){
+
+renderPlan();
+renderEnter();
+renderQuick();
+renderMoney();
+
+}
+
+renderAll();
+
+setInterval(updateTimers,1000);
+
+</script>
+
+</body>
+</html>
