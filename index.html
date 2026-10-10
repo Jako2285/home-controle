@@ -1,1420 +1,549 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HOME CONTROLE</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080808">
+<title>VYRO_01</title>
 <style>
-:root{
-  --bg:#050505;
-  --card:#111111;
-  --line:#292929;
-  --text:#ffffff;
-  --gray:#8e8e93;
-  --green:#30d158;
-  --yellow:#ffd60a;
-  --orange:#ff9f0a;
-  --red:#ff453a;
-}
-
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
-}
-
-.app{
-  max-width:650px;
-  margin:auto;
-  min-height:100vh;
-  padding-bottom:110px;
-}
-
-.header{
-  padding:28px 20px 20px;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.logo-icon{
-  width:50px;
-  height:50px;
-  border-radius:16px;
-  background:white;
-  color:black;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-}
-
-.logo h1{
-  margin:0;
-  font-size:25px;
-  letter-spacing:1px;
-}
-
-.logo p{
-  margin:4px 0 0;
-  color:var(--gray);
-  font-size:11px;
-  letter-spacing:1px;
-}
-
-.page{
-  display:none;
-  padding:0 16px;
-}
-
-.page.active{
-  display:block;
-}
-
-.hero,
-.form-card,
-.money-card,
-.money-input-card,
-.task-card,
-.history-item{
-  background:var(--card);
-  border:1px solid var(--line);
-}
-
-.hero{
-  border-radius:28px;
-  padding:28px;
-  margin-bottom:18px;
-}
-
-.hero small{
-  color:var(--gray);
-  letter-spacing:2px;
-}
-
-.hero h2{
-  margin:12px 0 8px;
-  font-size:30px;
-}
-
-.hero p{
-  margin:0;
-  color:var(--gray);
-}
-
-.menu-card{
-  width:100%;
-  border:1px solid var(--line);
-  background:var(--card);
-  color:white;
-  border-radius:23px;
-  padding:19px;
-  margin-bottom:12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  font-family:inherit;
-}
-
-.menu-left{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.menu-icon{
-  width:50px;
-  height:50px;
-  border-radius:16px;
-  background:white;
-  color:black;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
-
-.menu-text h3{
-  margin:0 0 5px;
-  font-size:17px;
-}
-
-.menu-text p{
-  margin:0;
-  color:var(--gray);
-  font-size:13px;
-}
-
-.arrow{
-  color:var(--gray);
-  font-size:25px;
-}
-
-.page-title{
-  margin:8px 4px 20px;
-}
-
-.page-title h2{
-  margin:0 0 6px;
-  font-size:27px;
-}
-
-.page-title p{
-  margin:0;
-  color:var(--gray);
-  font-size:14px;
-}
-
-.form-card,
-.money-card,
-.money-input-card{
-  border-radius:24px;
-  padding:20px;
-  margin-bottom:18px;
-}
-
-label{
-  display:block;
-  color:var(--gray);
-  font-size:12px;
-  margin:16px 0 7px;
-}
-
-input,
-textarea{
-  width:100%;
-  background:#080808;
-  color:white;
-  border:1px solid #303030;
-  border-radius:14px;
-  padding:15px;
-  font-size:16px;
-  font-family:inherit;
-}
-
-textarea{
-  min-height:80px;
-  resize:none;
-}
-
-.primary-btn{
-  width:100%;
-  margin-top:18px;
-  border:none;
-  border-radius:16px;
-  padding:16px;
-  background:white;
-  color:black;
-  font-family:inherit;
-  font-weight:800;
-}
-
-.task-card{
-  border-radius:20px;
-  padding:17px;
-  margin-bottom:12px;
-  border-left:5px solid var(--green);
-}
-
-.task-card.yellow{
-  border-left-color:var(--yellow);
-}
-
-.task-card.red{
-  border-left-color:var(--red);
-}
-
-.task-card.completed{
-  border-left-color:var(--green);
-  opacity:.7;
-}
-
-.task-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.task-name{
-  font-size:17px;
-  font-weight:750;
-}
-
-.status{
-  padding:6px 10px;
-  border-radius:20px;
-  font-size:10px;
-  font-weight:800;
-  white-space:nowrap;
-}
-
-.green-status{
-  background:rgba(48,209,88,.15);
-  color:var(--green);
-}
-
-.yellow-status{
-  background:rgba(255,214,10,.15);
-  color:var(--yellow);
-}
-
-.red-status{
-  background:rgba(255,69,58,.15);
-  color:var(--red);
-}
-
-.task-description{
-  color:var(--gray);
-  font-size:14px;
-  margin-top:10px;
-}
-
-.task-info{
-  margin-top:12px;
-  color:#aaa;
-  font-size:13px;
-}
-
-.timer{
-  margin-top:12px;
-  padding:12px;
-  background:#090909;
-  border-radius:13px;
-  color:var(--red);
-  font-weight:700;
-}
-
-.task-actions{
-  display:flex;
-  gap:8px;
-  margin-top:14px;
-}
-
-.small-btn{
-  flex:1;
-  border:none;
-  border-radius:12px;
-  padding:12px;
-  font-family:inherit;
-  font-weight:700;
-}
-
-.complete-btn{
-  background:rgba(48,209,88,.15);
-  color:var(--green);
-}
-
-.delete-btn{
-  background:#222;
-  color:#aaa;
-}
-
-.empty{
-  color:var(--gray);
-  text-align:center;
-  padding:40px 20px;
-  border:1px dashed #333;
-  border-radius:20px;
-}
-
-/* MONEY */
-
-.money-value{
-  font-size:42px;
-  font-weight:800;
-  margin-top:8px;
-}
-
-.money-label{
-  color:var(--gray);
-  font-size:12px;
-}
-
-.money-percent{
-  margin-top:8px;
-  color:var(--gray);
-}
-
-.money-stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:20px;
-}
-
-.stat{
-  background:#080808;
-  padding:14px;
-  border-radius:16px;
-}
-
-.stat span{
-  display:block;
-  color:var(--gray);
-  font-size:10px;
-}
-
-.stat strong{
-  display:block;
-  margin-top:7px;
-}
-
-.progress-bg{
-  width:100%;
-  height:9px;
-  background:#292929;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:20px;
-}
-
-.progress{
-  height:100%;
-  width:0%;
-  transition:.3s;
-}
-
-.money-buttons{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:15px;
-}
-
-.add-btn,
-.spend-btn{
-  border:none;
-  border-radius:15px;
-  padding:15px;
-  font-family:inherit;
-  font-weight:800;
-}
-
-.add-btn{
-  background:var(--green);
-}
-
-.spend-btn{
-  background:var(--red);
-  color:white;
-}
-
-.reset-btn,
-.more-btn{
-  width:100%;
-  margin-top:12px;
-  padding:13px;
-  border-radius:14px;
-  background:#181818;
-  color:#aaa;
-  border:1px solid #333;
-}
-
-.history-title{
-  font-size:20px;
-  margin:25px 4px 12px;
-}
-
-.history-item{
-  border-radius:16px;
-  padding:15px;
-  margin-bottom:9px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.history-left strong{
-  display:block;
-  font-size:14px;
-}
-
-.history-left small{
-  color:var(--gray);
-  font-size:11px;
-}
-
-.plus{
-  color:var(--green);
-}
-
-.minus{
-  color:var(--red);
-}
-
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:rgba(10,10,10,.97);
-  border-top:1px solid var(--line);
-}
-
-.nav-container{
-  max-width:650px;
-  margin:auto;
-  display:flex;
-  justify-content:space-around;
-}
-
-.nav-item{
-  background:none;
-  border:none;
-  color:var(--gray);
-  font-family:inherit;
-  padding:12px 4px 16px;
-  font-size:10px;
-}
-
-.nav-item.active{
-  color:white;
-}
-
-.nav-icon{
-  display:block;
-  font-size:20px;
-  margin-bottom:4px;
-}
-
-button:active{
-  transform:scale(.97);
-}
+:root{--bg:#080808;--panel:#151515;--line:#303030;--muted:#999;--red:#e63232}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#fff;font-family:Arial,Helvetica,sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.hidden{display:none!important}
+header{height:68px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:#080808f5;z-index:5}
+.logo{font-weight:900;font-size:22px;letter-spacing:2px}
+.logo span{color:var(--red)}
+.actions{display:flex;gap:8px}
+.btn{border:1px solid white;background:white;color:#080808;padding:12px 17px;font-weight:800;border-radius:2px}
+.btn:hover{opacity:.85}
+.outline{background:transparent;color:white;border-color:#444}
+.red{background:var(--red);border-color:var(--red);color:white}
+.small{padding:9px 11px;font-size:12px}
+.hero{min-height:calc(100vh - 68px);display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:radial-gradient(ellipse at 50% 30%,#292929,#111 48%,#080808 80%)}
+.hero-content{max-width:760px}
+.eyebrow{color:#aaa;letter-spacing:5px;font-size:11px}
+.hero h1{font-size:clamp(55px,12vw,110px);letter-spacing:-4px;margin:24px 0 12px}
+.hero p{color:#aaa;line-height:1.8}
+.hero-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}
+.section{max-width:1400px;margin:auto;padding:40px 5% 65px}
+.heading{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:25px}
+.heading h2{margin:0;font-size:28px}
+.muted{color:var(--muted)}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.product{background:#111;border:1px solid #292929;min-width:0}
+.product-image{aspect-ratio:3/4;background:#1b1b1b}
+.product-image img{width:100%;height:100%;object-fit:cover;display:block}
+.product-info{padding:13px}
+.product-info h3{margin:0 0 8px}
+.description{font-size:13px;line-height:1.5;color:#aaa;white-space:pre-wrap}
+.price{font-weight:900;margin:13px 0}
+.product-info button{width:100%}
+.stock{font-size:11px;color:#aaa;margin-bottom:12px}
+.empty{border:1px dashed #383838;padding:35px;text-align:center;color:#888;grid-column:1/-1}
+footer{padding:25px;text-align:center;color:#777;border-top:1px solid var(--line);font-size:12px}
+.overlay{position:fixed;inset:0;background:#000c;z-index:20;display:flex;align-items:center;justify-content:center;padding:18px}
+.modal{width:min(440px,100%);max-height:90vh;overflow:auto;background:#141414;border:1px solid #383838;padding:24px}
+.modal h2{margin-top:0}
+.field{display:flex;flex-direction:column;gap:7px;margin:14px 0}
+.field label{font-size:12px;color:#bbb}
+.field input,.field textarea,.field select{width:100%;padding:12px;background:#080808;color:white;border:1px solid #383838;border-radius:2px}
+.field textarea{min-height:85px;resize:vertical}
+.field input[type=file]{padding:9px}
+.row{display:flex;gap:9px}
+.row>*{flex:1;min-width:0}
+.admin-layout{display:grid;grid-template-columns:185px minmax(0,1fr);gap:25px}
+.admin-nav{display:flex;flex-direction:column;gap:8px}
+.admin-nav button{text-align:left}
+.admin-nav button.active{border-color:var(--red);color:var(--red)}
+.admin-content{min-width:0}
+.notice{padding:12px;background:#191919;border:1px solid #333;color:#bbb;font-size:12px;line-height:1.6;margin-bottom:20px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0}
+.stat{background:#151515;border:1px solid #303030;padding:16px}
+.stat span{display:block;color:#999;font-size:11px;margin-bottom:8px}
+.stat strong{font-size:25px;overflow-wrap:anywhere}
+.admin-product,.order-card{background:#121212;border:1px solid #303030;padding:13px;margin-bottom:10px}
+.admin-product{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.admin-product img{width:65px;height:78px;object-fit:cover;background:#222}
+.admin-product-info{flex:1;min-width:100px}
+.admin-product-info strong{display:block;margin-bottom:6px}
+.admin-product-actions{display:flex;gap:6px;flex-wrap:wrap}
+.order-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.order-details{white-space:pre-wrap;color:#bbb;font-size:13px;line-height:1.8;margin:12px 0}
+.badge{font-size:11px;padding:5px 8px;background:#292929}
+.order-items{border-top:1px solid #333;padding-top:10px;font-size:13px;line-height:1.8}
+.check{display:flex;align-items:center;gap:9px;font-size:13px}
+.check input{width:auto}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:white;color:#111;padding:13px 18px;z-index:40;max-width:90%;font-size:13px}
+@media(max-width:900px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}.admin-layout{grid-template-columns:1fr}.admin-nav{display:grid;grid-template-columns:repeat(3,1fr)}.admin-nav button{text-align:center;font-size:12px;padding:10px 4px}}
+@media(max-width:600px){header{height:60px;padding:0 4%}.logo{font-size:18px}.actions{gap:5px}.actions .btn{padding:9px 7px;font-size:10px}.hero{min-height:85vh}.hero h1{letter-spacing:-2px}.section{padding:30px 4% 50px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.product-info{padding:9px}.product-info h3{font-size:14px}.product-info button{font-size:11px;padding:10px 4px}.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:1/-1}.admin-product-actions{width:100%}}
 </style>
 </head>
-
 <body>
+<header>
+  <div class="logo">VYRO<span>_01</span></div>
+  <div class="actions">
+    <button class="btn outline small" onclick="showPage('home')">HOME</button>
+    <button class="btn small" onclick="openParameters()">PARAMETERS</button>
+  </div>
+</header>
 
-<div class="app">
+<main>
+<section id="homePage" class="hero">
+  <div class="hero-content">
+    <div class="eyebrow" id="heroTag">THE OFFICIAL COLLECTION</div>
+    <h1 id="heroTitle">VYRO_01</h1>
+    <p id="heroDescription">Discover the collection. Define your style.</p>
+    <div class="hero-buttons">
+      <button class="btn" onclick="showPage('shop')">START SHOPPING</button>
+      <button class="btn outline" onclick="openParameters()">PARAMETERS</button>
+    </div>
+  </div>
+</section>
 
-<div class="header">
-<div class="logo">
-<div class="logo-icon">⌂</div>
-<div>
-<h1>HOME CONTROLE</h1>
-<p>ORGANIZE YOUR HOME</p>
-</div>
-</div>
-</div>
+<section id="shopPage" class="section hidden">
+  <div class="heading">
+    <div><div class="eyebrow">VYRO_01 COLLECTION</div><h2 id="shopTitle">OUR PRODUCTS</h2></div>
+    <button class="btn outline small" onclick="showPage('home')">BACK HOME</button>
+  </div>
+  <p id="shopDescription" class="muted"></p>
+  <div id="productsGrid" class="products"></div>
+</section>
 
-<!-- HOME -->
+<section id="adminPage" class="section hidden">
+  <div class="heading">
+    <div><div class="eyebrow">PRIVATE AREA</div><h2>CONTROL PANEL</h2></div>
+    <button class="btn outline small" onclick="logout()">LOG OUT</button>
+  </div>
+  <div id="connectionNotice" class="notice"></div>
+  <div class="admin-layout">
+    <nav class="admin-nav">
+      <button class="btn outline active" data-tab="dashboard" onclick="openTab('dashboard')">Dashboard</button>
+      <button class="btn outline" data-tab="products" onclick="openTab('products')">Products</button>
+      <button class="btn outline" data-tab="orders" onclick="openTab('orders')">Orders</button>
+      <button class="btn outline" data-tab="customize" onclick="openTab('customize')">Customize</button>
+      <button class="btn outline" data-tab="settings" onclick="openTab('settings')">Settings</button>
+    </nav>
+    <div id="adminContent" class="admin-content"></div>
+  </div>
+</section>
+</main>
+<footer id="footerText">VYRO_01 · OFFICIAL STORE</footer>
 
-<div id="home" class="page active">
-
-<div class="hero">
-<small>HOME SYSTEM</small>
-<h2>Everything under control.</h2>
-<p>Plan your tasks, manage your time and control your money.</p>
-</div>
-
-<button class="menu-card" onclick="showPage('enter')">
-<div class="menu-left">
-<div class="menu-icon">✓</div>
-<div class="menu-text">
-<h3>ENTER</h3>
-<p>Complete your tasks</p>
-</div>
-</div>
-<div class="arrow">›</div>
-</button>
-
-<button class="menu-card" onclick="showPage('quick')">
-<div class="menu-left">
-<div class="menu-icon">!</div>
-<div class="menu-text">
-<h3>QUICK CHECK</h3>
-<p>Urgent tasks only</p>
-</div>
-</div>
-<div class="arrow">›</div>
-</button>
-
-<button class="menu-card" onclick="showPage('plan')">
-<div class="menu-left">
-<div class="menu-icon">⌗</div>
-<div class="menu-text">
-<h3>PLAN</h3>
-<p>Create new tasks</p>
-</div>
-</div>
-<div class="arrow">›</div>
-</button>
-
-<button class="menu-card" onclick="showPage('money')">
-<div class="menu-left">
-<div class="menu-icon">DT</div>
-<div class="menu-text">
-<h3>POCKET MONEY</h3>
-<p>Control your balance</p>
-</div>
-</div>
-<div class="arrow">›</div>
-</button>
-
+<div id="passwordOverlay" class="overlay hidden">
+  <form class="modal" onsubmit="login(event)">
+    <h2>STAFF ACCESS</h2>
+    <p class="muted">Enter your staff password.</p>
+    <div class="field"><label>PASSWORD</label><input id="passwordInput" type="password" required autocomplete="current-password"></div>
+    <div class="row"><button class="btn outline" type="button" onclick="closePassword()">CANCEL</button><button class="btn" type="submit">ENTER</button></div>
+  </form>
 </div>
 
-<!-- ENTER -->
-
-<div id="enter" class="page">
-
-<div class="page-title">
-<h2>ENTER</h2>
-<p>Complete your planned tasks.</p>
+<div id="orderOverlay" class="overlay hidden">
+  <form class="modal" onsubmit="submitOrder(event)">
+    <h2>PLACE YOUR ORDER</h2>
+    <p id="orderSummary" class="muted"></p>
+    <div class="field"><label>FULL NAME *</label><input id="customerName" maxlength="100" required autocomplete="name"></div>
+    <div class="field"><label>PHONE NUMBER *</label><input id="customerPhone" type="tel" maxlength="30" required autocomplete="tel"></div>
+    <div class="field"><label>DELIVERY ADDRESS *</label><textarea id="customerAddress" maxlength="500" required autocomplete="street-address"></textarea></div>
+    <div class="field"><label>QUANTITY *</label><input id="customerQuantity" type="number" min="1" step="1" value="1" required></div>
+    <div class="field"><label>NOTES (OPTIONAL)</label><textarea id="customerNotes" maxlength="500"></textarea></div>
+    <div class="row"><button class="btn outline" type="button" onclick="closeOrder()">CANCEL</button><button class="btn" type="submit">CONFIRM ORDER</button></div>
+  </form>
 </div>
-
-<div id="enterTasks"></div>
-
-</div>
-
-<!-- QUICK -->
-
-<div id="quick" class="page">
-
-<div class="page-title">
-<h2>QUICK CHECK</h2>
-<p>Urgent tasks with less than 24 hours left.</p>
-</div>
-
-<div id="quickTasks"></div>
-
-</div>
-
-<!-- PLAN -->
-
-<div id="plan" class="page">
-
-<div class="page-title">
-<h2>PLAN</h2>
-<p>Create a task with an exact deadline.</p>
-</div>
-
-<div class="form-card">
-
-<label>TASK NAME</label>
-<input id="taskName" placeholder="Example: Grocery">
-
-<label>DESCRIPTION</label>
-<textarea id="taskDescription" placeholder="Describe the task..."></textarea>
-
-<label>DATE AND TIME</label>
-<input id="taskDate" type="datetime-local">
-
-<label>PRIX (OPTIONAL - DT)</label>
-<input id="taskPrice" type="number" step="0.001" placeholder="Example: 20">
-
-<button class="primary-btn" onclick="addTask()">
-ADD TASK
-</button>
-
-</div>
-
-<div id="planTasks"></div>
-
-</div>
-
-<!-- MONEY -->
-
-<div id="money" class="page">
-
-<div class="page-title">
-<h2>POCKET MONEY</h2>
-<p>Control your money and spending.</p>
-</div>
-
-<div class="money-card" id="moneyCard">
-
-<div class="money-label">MONEY REMAINING</div>
-
-<div class="money-value" id="remainingMoney">0.000 DT</div>
-
-<div class="money-percent" id="moneyPercent">0% remaining</div>
-
-<div class="money-stats">
-
-<div class="stat">
-<span>TOTAL ADDED</span>
-<strong id="totalAdded">0.000 DT</strong>
-</div>
-
-<div class="stat">
-<span>TOTAL SPENT</span>
-<strong id="totalSpent">0.000 DT</strong>
-</div>
-
-</div>
-
-<div class="progress-bg">
-<div class="progress" id="moneyProgress"></div>
-</div>
-
-</div>
-
-<div class="money-input-card">
-
-<label>AMOUNT (DT)</label>
-<input id="moneyAmount" type="number" step="0.001" placeholder="Example: 100">
-
-<label>DESCRIPTION</label>
-<input id="moneyDescription" placeholder="Example: Pocket money">
-
-<div class="money-buttons">
-
-<button class="add-btn" onclick="addMoney()">
-+ ADD MONEY
-</button>
-
-<button class="spend-btn" onclick="spendMoney()">
-− SPEND
-</button>
-
-</div>
-
-<button class="reset-btn" onclick="resetMoney()">
-RESET MONEY
-</button>
-
-</div>
-
-<div class="history-title">MONEY HISTORY</div>
-
-<div id="moneyHistory"></div>
-
-<button class="more-btn" id="moreHistory" onclick="showMoreHistory()">
-MORE
-</button>
-
-</div>
-
-<div style="text-align:center;color:#666;font-size:11px;letter-spacing:1px;padding:25px 0 10px;">
-by Jasser Naouili
-</div>
-
-</div>
-
-<!-- NAV -->
-
-<div class="bottom-nav">
-<div class="nav-container">
-
-<button class="nav-item active" id="nav-home" onclick="showPage('home')">
-<span class="nav-icon">⌂</span>Home
-</button>
-
-<button class="nav-item" id="nav-enter" onclick="showPage('enter')">
-<span class="nav-icon">✓</span>Enter
-</button>
-
-<button class="nav-item" id="nav-quick" onclick="showPage('quick')">
-<span class="nav-icon">!</span>Quick
-</button>
-
-<button class="nav-item" id="nav-plan" onclick="showPage('plan')">
-<span class="nav-icon">⌗</span>Plan
-</button>
-
-<button class="nav-item" id="nav-money" onclick="showPage('money')">
-<span class="nav-icon">DT</span>Money
-</button>
-
-</div>
-</div>
+<div id="toast" class="hidden"></div>
 
 <script>
+/*
+For shared data and photos across multiple phones:
+Configure Firebase below, enable Realtime Database and Storage,
+and configure their security rules. Without Firebase, data is stored
+only in this browser and cannot automatically sync across devices.
 
-let tasks = JSON.parse(localStorage.getItem("homeControleTasks")) || [];
+This starter's password check is client-side and is not secure against
+someone inspecting the source code. A production store needs server-side
+authentication and authorization.
+*/
+const STAFF_PASSWORD="JIJI";
 
-let moneyData = JSON.parse(localStorage.getItem("homeControleMoney")) || {
-added:0,
-spent:0,
-history:[]
+const firebaseConfig={
+  apiKey:"PASTE_YOUR_FIREBASE_API_KEY",
+  authDomain:"PASTE_YOUR_PROJECT.firebaseapp.com",
+  databaseURL:"PASTE_YOUR_REAL_DATABASE_URL",
+  projectId:"PASTE_YOUR_PROJECT_ID",
+  storageBucket:"PASTE_YOUR_REAL_STORAGE_BUCKET",
+  messagingSenderId:"PASTE_YOUR_MESSAGING_SENDER_ID",
+  appId:"PASTE_YOUR_APP_ID"
+};
+const SDK="https://www.gstatic.com/firebasejs/10.14.1/";
+const configured=firebaseConfig.apiKey.startsWith("AIza")&&
+  !firebaseConfig.projectId.startsWith("PASTE_")&&
+  !firebaseConfig.databaseURL.startsWith("PASTE_")&&
+  !firebaseConfig.storageBucket.startsWith("PASTE_");
+
+const defaults={
+  settings:{
+    heroTag:"THE OFFICIAL COLLECTION",
+    heroTitle:"VYRO_01",
+    heroDescription:"Discover the collection. Define your style.",
+    shopTitle:"OUR PRODUCTS",
+    shopDescription:"Find your next favourite piece.",
+    footerText:"VYRO_01 · OFFICIAL STORE",
+    currency:"TND"
+  },
+  products:[],
+  orders:[]
 };
 
-let historyLimit = 5;
+let state=JSON.parse(JSON.stringify(defaults));
+let db=null,storage=null,cloudReady=false,loggedIn=false;
+let activeTab="dashboard",selectedProduct=null,editingProduct=null,toastTimer;
 
-function playSound(){
+const $=id=>document.getElementById(id);
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,10);
 
-try{
-
-const AudioContextClass =
-window.AudioContext || window.webkitAudioContext;
-
-const ctx = new AudioContextClass();
-
-const oscillator = ctx.createOscillator();
-const gain = ctx.createGain();
-
-oscillator.connect(gain);
-gain.connect(ctx.destination);
-
-oscillator.frequency.value = 650;
-oscillator.type = "sine";
-
-gain.gain.setValueAtTime(.025,ctx.currentTime);
-gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.06);
-
-oscillator.start();
-oscillator.stop(ctx.currentTime+.06);
-
-}catch(e){}
-
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
-
+function imageURL(v){
+  if(!v)return "";
+  if(String(v).startsWith("data:image/"))return String(v);
+  try{const u=new URL(v,location.href);if(["https:","http:"].includes(u.protocol))return u.href;}catch(e){}
+  return "";
+}
+function money(v){
+  return (Number(v)||0).toLocaleString(undefined,{maximumFractionDigits:3})+" "+(state.settings.currency||"TND");
+}
+function notify(message){
+  $("toast").textContent=message;
+  $("toast").classList.remove("hidden");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>$("toast").classList.add("hidden"),3000);
+}
+function saveLocal(){
+  try{localStorage.setItem("vyro01_store",JSON.stringify(state));}catch(e){}
+}
+function loadLocal(){
+  try{
+    const d=JSON.parse(localStorage.getItem("vyro01_store")||"null");
+    if(d)state={settings:{...defaults.settings,...(d.settings||{})},products:Array.isArray(d.products)?d.products:[],orders:Array.isArray(d.orders)?d.orders:[]};
+  }catch(e){}
+}
+async function saveState(){
+  saveLocal();
+  renderStore();
+  if(cloudReady){
+    try{await db.ref("vyro01").set(state);}
+    catch(e){console.error(e);notify("Cloud save failed. Check Firebase configuration and permissions.");}
+  }
+  updateNotice();
+}
+function renderSettings(){
+  const s=state.settings;
+  $("heroTag").textContent=s.heroTag;
+  $("heroTitle").textContent=s.heroTitle;
+  $("heroDescription").textContent=s.heroDescription;
+  $("shopTitle").textContent=s.shopTitle;
+  $("shopDescription").textContent=s.shopDescription;
+  $("footerText").textContent=s.footerText;
+  document.title=(s.heroTitle||"VYRO_01")+" | Official Store";
+}
 function showPage(page){
-
-playSound();
-
-document.querySelectorAll(".page").forEach(p=>{
-p.classList.remove("active");
-});
-
-document.getElementById(page).classList.add("active");
-
-document.querySelectorAll(".nav-item").forEach(n=>{
-n.classList.remove("active");
-});
-
-const nav=document.getElementById("nav-"+page);
-
-if(nav) nav.classList.add("active");
-
-renderAll();
-
-window.scrollTo(0,0);
-
+  $("homePage").classList.toggle("hidden",page!=="home");
+  $("shopPage").classList.toggle("hidden",page!=="shop");
+  $("adminPage").classList.toggle("hidden",page!=="admin");
+  if(page==="shop")renderStore();
+  if(page==="admin"&&loggedIn)renderAdmin();
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-
-function addTask(){
-
-const name=document.getElementById("taskName").value.trim();
-const description=document.getElementById("taskDescription").value.trim();
-const date=document.getElementById("taskDate").value;
-const price=Number(document.getElementById("taskPrice").value) || 0;
-
-if(!name || !date){
-
-alert("Please enter a task name and exact date and time.");
-
-return;
-
+function openParameters(){
+  if(loggedIn){showPage("admin");return;}
+  $("passwordInput").value="";
+  $("passwordOverlay").classList.remove("hidden");
 }
-
-tasks.push({
-id:Date.now(),
-name:name,
-description:description,
-date:date,
-price:price,
-done:false,
-priceCharged:false,
-completedAt:null
-});
-
-saveTasks();
-
-document.getElementById("taskName").value="";
-document.getElementById("taskDescription").value="";
-document.getElementById("taskDate").value="";
-document.getElementById("taskPrice").value="";
-
-playSound();
-
-renderAll();
-
+function closePassword(){$("passwordOverlay").classList.add("hidden");}
+function login(e){
+  e.preventDefault();
+  if($("passwordInput").value!==STAFF_PASSWORD){notify("Incorrect password.");return;}
+  loggedIn=true;closePassword();showPage("admin");notify("Welcome to the control panel.");
 }
-
-function saveTasks(){
-
-localStorage.setItem(
-"homeControleTasks",
-JSON.stringify(tasks)
-);
-
+function logout(){loggedIn=false;editingProduct=null;showPage("home");}
+function renderStore(){
+  renderSettings();
+  const list=state.products.filter(p=>p&&p.active!==false);
+  $("productsGrid").innerHTML=list.length?list.map(p=>{
+    const sold=Number(p.stock||0)<=0;
+    const img=imageURL(p.image);
+    return `<article class="product">
+      <div class="product-image">${img?`<img src="${esc(img)}" alt="${esc(p.name)}" loading="lazy">`:""}</div>
+      <div class="product-info"><h3>${esc(p.name)}</h3>
+      <div class="description">${esc(p.description||"")}</div>
+      <div class="price">${money(p.price)}</div>
+      <div class="stock">${sold?"OUT OF STOCK":"AVAILABLE"}</div>
+      <button class="btn ${sold?"outline":""}" ${sold?"disabled":""} onclick="openOrder('${esc(p.id)}')">${sold?"SOLD OUT":"ORDER NOW"}</button>
+      </div></article>`;
+  }).join(""):'<div class="empty">No products available yet.</div>';
 }
-
-function getTaskStatus(task){
-
-if(task.done){
-return{
-color:"green",
-text:"COMPLETED",
-difference:0
-};
+function openOrder(id){
+  const p=state.products.find(x=>x.id===id);
+  if(!p||p.active===false||Number(p.stock||0)<=0){notify("Product unavailable.");return;}
+  selectedProduct=id;
+  $("orderSummary").textContent=p.name+" — "+money(p.price);
+  $("customerQuantity").max=String(Math.max(1,Number(p.stock||1)));
+  $("customerQuantity").value="1";
+  ["customerName","customerPhone","customerAddress","customerNotes"].forEach(id=>$(id).value="");
+  $("orderOverlay").classList.remove("hidden");
 }
-
-const now=new Date().getTime();
-const deadline=new Date(task.date).getTime();
-
-const difference=deadline-now;
-
-if(difference <= 0){
-return{
-color:"red",
-text:"OVERDUE",
-difference:difference
-};
+function closeOrder(){$("orderOverlay").classList.add("hidden");selectedProduct=null;}
+async function submitOrder(e){
+  e.preventDefault();
+  const p=state.products.find(x=>x.id===selectedProduct);
+  if(!p){notify("Product not found.");return;}
+  const qty=Number($("customerQuantity").value);
+  if(!Number.isInteger(qty)||qty<1||qty>Number(p.stock||0)){notify("Enter a valid quantity.");return;}
+  const customer={
+    name:$("customerName").value.trim(),
+    phone:$("customerPhone").value.trim(),
+    address:$("customerAddress").value.trim(),
+    notes:$("customerNotes").value.trim()
+  };
+  if(!customer.name||!customer.phone||!customer.address){notify("Complete all required fields.");return;}
+  state.orders.unshift({
+    id:uid(),createdAt:new Date().toISOString(),status:"New",customer,
+    items:[{productId:p.id,name:p.name,price:Number(p.price)||0,quantity:qty}],
+    total:(Number(p.price)||0)*qty
+  });
+  closeOrder();
+  await saveState();
+  notify(cloudReady?"Order submitted.":"Order saved on this device only.");
+  showPage("shop");
 }
-
-const hours=difference/(1000*60*60);
-
-if(hours < 24){
-return{
-color:"red",
-text:"URGENT!",
-difference:difference
-};
+function updateNotice(){
+  const n=$("connectionNotice");if(!n)return;
+  n.textContent=cloudReady
+    ?"CLOUD CONNECTED — products and orders synchronize through Firebase."
+    :"LOCAL MODE — configure Firebase to share changes and orders across phones.";
 }
-
-if(hours <= 48){
-return{
-color:"yellow",
-text:"SOON",
-difference:difference
-};
+function openTab(tab){
+  activeTab=tab;
+  document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
+  renderAdmin();
 }
-
-return{
-color:"green",
-text:"ON TIME",
-difference:difference
-};
-
+function renderAdmin(){
+  if(!loggedIn)return;
+  updateNotice();
+  const c=$("adminContent");
+  if(activeTab==="dashboard")c.innerHTML=dashboardHTML();
+  if(activeTab==="products")c.innerHTML=productsHTML();
+  if(activeTab==="orders")c.innerHTML=ordersHTML();
+  if(activeTab==="customize")c.innerHTML=customizeHTML();
+  if(activeTab==="settings")c.innerHTML=settingsHTML();
 }
-
-function formatTimer(milliseconds){
-
-if(milliseconds<=0){
-return "TIME ENDED";
+function dashboardHTML(){
+  const total=state.orders.reduce((s,o)=>s+(Number(o.total)||0),0);
+  return `<h2>Dashboard</h2><div class="stats">
+  <div class="stat"><span>PRODUCTS</span><strong>${state.products.length}</strong></div>
+  <div class="stat"><span>ORDERS</span><strong>${state.orders.length}</strong></div>
+  <div class="stat"><span>ORDER TOTALS</span><strong style="font-size:19px">${money(total)}</strong></div>
+  </div><div class="heading"><h3>Recent orders</h3><button class="btn outline small" onclick="openTab('orders')">VIEW ALL</button></div>
+  ${state.orders.length?state.orders.slice(0,5).map(orderHTML).join(""):'<div class="empty">No orders yet.</div>'}
+  <p><button class="btn" onclick="newProduct()">+ ADD PRODUCT</button></p>`;
 }
-
-let seconds=Math.floor(milliseconds/1000);
-
-const days=Math.floor(seconds/86400);
-
-seconds=seconds%86400;
-
-const hours=Math.floor(seconds/3600);
-
-seconds=seconds%3600;
-
-const minutes=Math.floor(seconds/60);
-
-seconds=seconds%60;
-
-if(days>0){
-
-return days+"d "+
-String(hours).padStart(2,"0")+"h "+
-String(minutes).padStart(2,"0")+"m";
-
+function productsHTML(){
+  return `<div class="heading"><h2>Products</h2><button class="btn" onclick="newProduct()">+ ADD PRODUCT</button></div>
+  <div id="productEditor"></div>
+  ${state.products.length?state.products.map(p=>`<div class="admin-product">
+  ${imageURL(p.image)?`<img src="${esc(imageURL(p.image))}" alt="">`:'<div style="width:65px;height:78px;background:#222"></div>'}
+  <div class="admin-product-info"><strong>${esc(p.name)}</strong><div class="muted">${money(p.price)} · Stock: ${Number(p.stock||0)}</div><div class="muted">${p.active===false?"Hidden":"Visible"}</div></div>
+  <div class="admin-product-actions">
+  <button class="btn outline small" onclick="editProduct('${esc(p.id)}')">EDIT</button>
+  <button class="btn outline small" onclick="toggleProduct('${esc(p.id)}')">${p.active===false?"SHOW":"HIDE"}</button>
+  <button class="btn red small" onclick="deleteProduct('${esc(p.id)}')">DELETE</button>
+  </div></div>`).join(""):'<div class="empty">No products yet. Add your first product.</div>'}`;
 }
-
-return String(hours).padStart(2,"0")+"h "+
-String(minutes).padStart(2,"0")+"m "+
-String(seconds).padStart(2,"0")+"s";
-
+function newProduct(){editingProduct=null;openTab("products");setTimeout(()=>productEditor(null),0);}
+function editProduct(id){editingProduct=id;openTab("products");setTimeout(()=>{const p=state.products.find(x=>x.id===id);if(p)productEditor(p);},0);}
+function productEditor(p){
+  const root=$("productEditor");if(!root)return;
+  root.innerHTML=`<div class="modal" style="width:100%;max-height:none;margin-bottom:22px">
+  <h3>${p?"Edit product":"Add product"}</h3>
+  <form id="productForm" onsubmit="saveProduct(event)">
+  <div class="field"><label>PRODUCT NAME *</label><input name="name" required maxlength="120" value="${esc(p?.name||"")}"></div>
+  <div class="field"><label>DESCRIPTION</label><textarea name="description" maxlength="2000">${esc(p?.description||"")}</textarea></div>
+  <div class="row">
+  <div class="field"><label>PRICE *</label><input name="price" type="number" min="0" step="0.001" required value="${Number(p?.price||0)}"></div>
+  <div class="field"><label>STOCK *</label><input name="stock" type="number" min="0" step="1" required value="${Number(p?.stock??1)}"></div>
+  </div>
+  <div class="field"><label>UPLOAD IMAGE FROM PHONE</label><input id="imageFile" type="file" accept="image/*"></div>
+  <div class="field"><label>OR IMAGE URL</label><input name="imageUrl" type="url" value="${esc(p?.image||"")}" placeholder="https://..."></div>
+  <label class="check"><input id="productActive" type="checkbox" ${p?.active===false?"":"checked"}> Show product in store</label>
+  <div class="row" style="margin-top:18px"><button type="button" class="btn outline" onclick="renderAdmin()">CANCEL</button><button type="submit" class="btn">SAVE PRODUCT</button></div>
+  </form></div>`;
+  root.scrollIntoView({behavior:"smooth",block:"start"});
 }
-
-function completeTask(id){
-
-const task=tasks.find(t=>t.id===id);
-
-if(!task || task.done) return;
-
-task.done=true;
-task.completedAt=new Date().toLocaleString();
-
-if(task.price>0 && !task.priceCharged){
-
-moneyData.spent += task.price;
-
-moneyData.history.unshift({
-type:"spent",
-amount:task.price,
-description:"Task: "+task.name,
-time:new Date().toLocaleString()
-});
-
-task.priceCharged=true;
-
-saveMoneyData();
-
+async function uploadImage(file){
+  if(!file)return null;
+  if(!file.type.startsWith("image/"))throw Error("Choose an image file.");
+  if(file.size>8*1024*1024)throw Error("Image must be smaller than 8 MB.");
+  if(cloudReady&&storage){
+    const path="products/"+uid()+"_"+file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+    const ref=storage.ref(path);await ref.put(file);return await ref.getDownloadURL();
+  }
+  return await new Promise((resolve,reject)=>{
+    const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(Error("Could not read image."));r.readAsDataURL(file);
+  });
 }
-
-saveTasks();
-
-playSound();
-
-renderAll();
-
+async function saveProduct(e){
+  e.preventDefault();
+  const form=e.target,data=new FormData(form),submit=form.querySelector('[type=submit]');
+  submit.disabled=true;submit.textContent="SAVING...";
+  try{
+    const old=state.products.find(p=>p.id===editingProduct);
+    let image=String(data.get("imageUrl")||"").trim();
+    const file=$("imageFile").files[0];
+    if(file)image=await uploadImage(file);
+    else if(old&&!image)image=old.image||"";
+    const p={
+      id:editingProduct||uid(),name:String(data.get("name")||"").trim(),
+      description:String(data.get("description")||"").trim(),
+      price:Number(data.get("price")),stock:Number(data.get("stock")),image,
+      active:$("productActive").checked,createdAt:old?.createdAt||new Date().toISOString(),
+      updatedAt:new Date().toISOString()
+    };
+    if(!p.name||!Number.isFinite(p.price)||p.price<0||!Number.isInteger(p.stock)||p.stock<0)throw Error("Check product name, price and stock.");
+    if(old)state.products=state.products.map(x=>x.id===old.id?p:x);else state.products.unshift(p);
+    editingProduct=null;await saveState();renderAdmin();
+    notify(cloudReady?"Product saved and synchronized.":"Product saved locally. Configure Firebase to share it.");
+  }catch(err){notify(err.message||"Could not save product.");submit.disabled=false;submit.textContent="SAVE PRODUCT";}
 }
-
-function deleteTask(id){
-
-tasks=tasks.filter(t=>t.id!==id);
-
-saveTasks();
-
-playSound();
-
-renderAll();
-
+async function toggleProduct(id){
+  const p=state.products.find(x=>x.id===id);if(!p)return;
+  p.active=p.active===false;await saveState();renderAdmin();
 }
-
-function createTaskCard(task,mode){
-
-const status=getTaskStatus(task);
-
-let timer="";
-
-if(!task.done){
-
-timer=`
-<div class="timer live-timer" data-date="${task.date}">
-⏳ ${formatTimer(status.difference)}
-</div>
-`;
-
+async function deleteProduct(id){
+  const p=state.products.find(x=>x.id===id);
+  if(!p||!confirm("Delete "+p.name+"?"))return;
+  state.products=state.products.filter(x=>x.id!==id);await saveState();renderAdmin();notify("Product deleted.");
 }
-
-let priceInfo="";
-
-if(task.price>0){
-
-priceInfo=`
-<div class="task-info">
-💰 Prix: ${task.price.toFixed(3)} DT
-</div>
-`;
-
+function ordersHTML(){
+  return `<div class="heading"><div><h2>Orders</h2><p class="muted">${state.orders.length} orders</p></div><button class="btn outline small" onclick="exportOrders()">EXPORT CSV</button></div>
+  <div class="field"><label>FILTER</label><select id="orderFilter" onchange="filterOrders()"><option value="all">All orders</option>${["New","Confirmed","Shipped","Completed","Cancelled"].map(s=>`<option>${s}</option>`).join("")}</select></div>
+  <div id="ordersList">${state.orders.length?state.orders.map(orderHTML).join(""):'<div class="empty">No orders yet.</div>'}</div>`;
 }
-
-let actions="";
-
-if(mode==="enter" && !task.done){
-
-actions=`
-<div class="task-actions">
-<button class="small-btn complete-btn" onclick="completeTask(${task.id})">
-✓ COMPLETE
-</button>
-</div>
-`;
-
+function orderHTML(o){
+  const c=o.customer||{},items=Array.isArray(o.items)?o.items:[];
+  return `<div class="order-card" data-status="${esc(o.status||"New")}">
+  <div class="order-top"><strong>Order #${esc(o.id)}</strong><span class="badge">${esc(o.status||"New")}</span></div>
+  <p class="muted" style="font-size:11px">${esc(o.createdAt?new Date(o.createdAt).toLocaleString():"")}</p>
+  <div class="order-details">Name: ${esc(c.name)}
+Phone: ${esc(c.phone)}
+Address: ${esc(c.address)}
+Notes: ${esc(c.notes||"—")}</div>
+  <div class="order-items">${items.map(i=>`<div>${esc(i.name)} × ${Number(i.quantity)||1} — ${money((Number(i.price)||0)*(Number(i.quantity)||1))}</div>`).join("")}
+  <strong>TOTAL: ${money(o.total)}</strong></div>
+  <div class="row" style="margin-top:12px"><div class="field"><label>STATUS</label><select onchange="changeStatus('${esc(o.id)}',this.value)">${["New","Confirmed","Shipped","Completed","Cancelled"].map(s=>`<option ${((o.status||"New")===s)?"selected":""}>${s}</option>`).join("")}</select></div>
+  <div style="display:flex;align-items:end;padding-bottom:14px"><button class="btn red small" onclick="deleteOrder('${esc(o.id)}')">DELETE</button></div></div>
+  </div>`;
 }
-
-if(mode==="plan"){
-
-actions=`
-<div class="task-actions">
-
-${!task.done ? `
-<button class="small-btn complete-btn" onclick="completeTask(${task.id})">
-✓ COMPLETE
-</button>
-` : ""}
-
-<button class="small-btn delete-btn" onclick="deleteTask(${task.id})">
-DELETE
-</button>
-
-</div>
-`;
-
+function filterOrders(){
+  const f=$("orderFilter").value;
+  document.querySelectorAll("#ordersList .order-card").forEach(card=>card.classList.toggle("hidden",f!=="all"&&card.dataset.status!==f));
 }
-
-return `
-
-<div class="task-card ${status.color} ${task.done ? "completed" : ""}">
-
-<div class="task-top">
-
-<div class="task-name">
-${task.name}
-</div>
-
-<div class="status ${status.color}-status">
-${status.text}
-</div>
-
-</div>
-
-${task.description ? `
-<div class="task-description">
-${task.description}
-</div>
-` : ""}
-
-<div class="task-info">
-📅 ${new Date(task.date).toLocaleString()}
-</div>
-
-${priceInfo}
-
-${timer}
-
-${actions}
-
-</div>
-
-`;
-
+async function changeStatus(id,status){
+  const o=state.orders.find(x=>x.id===id);if(!o)return;
+  o.status=status;await saveState();renderAdmin();notify("Order updated.");
 }
-
-function renderPlan(){
-
-const container=document.getElementById("planTasks");
-
-if(!tasks.length){
-
-container.innerHTML='<div class="empty">No tasks yet.</div>';
-
-return;
-
+async function deleteOrder(id){
+  if(!confirm("Delete this order permanently?"))return;
+  state.orders=state.orders.filter(x=>x.id!==id);await saveState();renderAdmin();
 }
-
-const sorted=[...tasks].sort((a,b)=>
-new Date(a.date)-new Date(b.date)
-);
-
-container.innerHTML=sorted.map(task=>
-createTaskCard(task,"plan")
-).join("");
-
+function exportOrders(){
+  const rows=[["Order ID","Date","Status","Name","Phone","Address","Notes","Products","Total"]];
+  state.orders.forEach(o=>{const c=o.customer||{};rows.push([o.id,o.createdAt,o.status,c.name,c.phone,c.address,c.notes,(o.items||[]).map(i=>i.name+" x"+i.quantity).join("; "),o.total]);});
+  const csv=rows.map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");
+  const url=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}));
+  const a=document.createElement("a");a.href=url;a.download="VYRO_01_orders.csv";a.click();URL.revokeObjectURL(url);
 }
-
-function renderEnter(){
-
-const container=document.getElementById("enterTasks");
-
-const active=tasks.filter(t=>!t.done);
-
-if(!active.length){
-
-container.innerHTML='<div class="empty">✓ All tasks completed!</div>';
-
-return;
-
+function customizeHTML(){
+  const s=state.settings;
+  return `<h2>Customize storefront</h2><form onsubmit="saveCustomization(event)">
+  <div class="field"><label>HERO LABEL</label><input name="heroTag" maxlength="100" value="${esc(s.heroTag)}"></div>
+  <div class="field"><label>HERO TITLE</label><input name="heroTitle" maxlength="100" value="${esc(s.heroTitle)}"></div>
+  <div class="field"><label>HERO DESCRIPTION</label><textarea name="heroDescription" maxlength="1000">${esc(s.heroDescription)}</textarea></div>
+  <div class="field"><label>SHOP TITLE</label><input name="shopTitle" maxlength="100" value="${esc(s.shopTitle)}"></div>
+  <div class="field"><label>SHOP DESCRIPTION</label><textarea name="shopDescription" maxlength="1000">${esc(s.shopDescription)}</textarea></div>
+  <div class="field"><label>FOOTER TEXT</label><input name="footerText" maxlength="200" value="${esc(s.footerText)}"></div>
+  <button class="btn">SAVE CHANGES</button></form><p><button class="btn outline" onclick="showPage('shop')">PREVIEW STORE</button></p>`;
 }
-
-const sorted=[...active].sort((a,b)=>
-new Date(a.date)-new Date(b.date)
-);
-
-container.innerHTML=sorted.map(task=>
-createTaskCard(task,"enter")
-).join("");
-
+async function saveCustomization(e){
+  e.preventDefault();const d=new FormData(e.target);
+  ["heroTag","heroTitle","heroDescription","shopTitle","shopDescription","footerText"].forEach(k=>state.settings[k]=String(d.get(k)||"").trim());
+  await saveState();renderAdmin();notify("Storefront updated.");
 }
-
-function renderQuick(){
-
-const container=document.getElementById("quickTasks");
-
-const urgent=tasks.filter(task=>{
-
-const status=getTaskStatus(task);
-
-return status.color==="red" && !task.done;
-
-});
-
-if(!urgent.length){
-
-container.innerHTML=`
-<div class="empty">
-✓ NO URGENT TASKS
-<br><br>
-Everything is under control.
-</div>
-`;
-
-return;
-
+function settingsHTML(){
+  return `<h2>Settings</h2><div class="field"><label>CURRENCY</label><select id="currency">${["TND","EUR","USD","GBP","SAR","AED","DZD","MAD"].map(x=>`<option ${state.settings.currency===x?"selected":""}>${x}</option>`).join("")}</select></div>
+  <button class="btn" onclick="saveSettings()">SAVE SETTINGS</button><hr style="border:0;border-top:1px solid #333;margin:25px 0">
+  <h3>Backup</h3><div class="row"><button class="btn outline" onclick="exportBackup()">EXPORT</button><button class="btn outline" onclick="$('backupFile').click()">IMPORT</button></div>
+  <input id="backupFile" class="hidden" type="file" accept=".json,application/json" onchange="importBackup(event)">
+  <p class="muted" style="margin-top:20px">${cloudReady?"Firebase cloud synchronization is active.":"Firebase is not configured; data is limited to this browser."}</p>`;
 }
-
-container.innerHTML=urgent.map(task=>
-createTaskCard(task,"quick")
-).join("");
-
+async function saveSettings(){
+  state.settings.currency=$("currency").value;await saveState();renderAdmin();notify("Settings saved.");
 }
-
-function addMoney(){
-
-const amount=Number(
-document.getElementById("moneyAmount").value
-);
-
-const description=
-document.getElementById("moneyDescription").value.trim();
-
-if(!amount || amount<=0){
-
-alert("Enter a valid amount.");
-
-return;
-
+function exportBackup(){
+  const url=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:"application/json"}));
+  const a=document.createElement("a");a.href=url;a.download="VYRO_01_backup.json";a.click();URL.revokeObjectURL(url);
 }
-
-moneyData.added+=amount;
-
-moneyData.history.unshift({
-type:"added",
-amount:amount,
-description:description || "Money added",
-time:new Date().toLocaleString()
-});
-
-saveMoneyData();
-
-clearMoneyInputs();
-
-playSound();
-
-renderMoney();
-
+async function importBackup(e){
+  const f=e.target.files[0];if(!f)return;
+  try{
+    const d=JSON.parse(await f.text());
+    if(!Array.isArray(d.products)||!Array.isArray(d.orders))throw Error("Invalid backup.");
+    if(!confirm("Replace current store data with this backup?"))return;
+    state={settings:{...defaults.settings,...(d.settings||{})},products:d.products,orders:d.orders};
+    await saveState();renderAdmin();notify("Backup imported.");
+  }catch(err){notify(err.message||"Import failed.");}
+  finally{e.target.value="";}
 }
-
-function spendMoney(){
-
-const amount=Number(
-document.getElementById("moneyAmount").value
-);
-
-const description=
-document.getElementById("moneyDescription").value.trim();
-
-if(!amount || amount<=0){
-
-alert("Enter a valid amount.");
-
-return;
-
+function loadScript(src){
+  return new Promise((resolve,reject)=>{
+    const s=document.createElement("script");s.src=src;s.onload=resolve;s.onerror=()=>reject(Error("Firebase SDK failed to load."));document.head.appendChild(s);
+  });
 }
-
-moneyData.spent+=amount;
-
-moneyData.history.unshift({
-type:"spent",
-amount:amount,
-description:description || "Money spent",
-time:new Date().toLocaleString()
-});
-
-saveMoneyData();
-
-clearMoneyInputs();
-
-playSound();
-
-renderMoney();
-
+async function initFirebase(){
+  if(!configured){updateNotice();return;}
+  try{
+    await loadScript(SDK+"firebase-app-compat.js");
+    await loadScript(SDK+"firebase-database-compat.js");
+    await loadScript(SDK+"firebase-storage-compat.js");
+    if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
+    db=firebase.database();storage=firebase.storage();
+    const ref=db.ref("vyro01");
+    const snap=await ref.once("value");
+    const cloud=snap.val();
+    if(cloud&&typeof cloud==="object"){
+      state={settings:{...defaults.settings,...(cloud.settings||{})},products:Array.isArray(cloud.products)?cloud.products:[],orders:Array.isArray(cloud.orders)?cloud.orders:[]};
+    }else{
+      await ref.set(state);
+    }
+    cloudReady=true;saveLocal();renderStore();updateNotice();
+    ref.on("value",s=>{
+      const d=s.val();if(!d||typeof d!=="object")return;
+      state={settings:{...defaults.settings,...(d.settings||{})},products:Array.isArray(d.products)?d.products:[],orders:Array.isArray(d.orders)?d.orders:[]};
+      saveLocal();renderStore();
+      if(loggedIn&&!$("adminPage").classList.contains("hidden"))renderAdmin();
+    },err=>{console.error(err);cloudReady=false;updateNotice();});
+  }catch(err){console.error("Firebase initialization error:",err);cloudReady=false;updateNotice();}
 }
-
-function clearMoneyInputs(){
-
-document.getElementById("moneyAmount").value="";
-document.getElementById("moneyDescription").value="";
-
-}
-
-function saveMoneyData(){
-
-localStorage.setItem(
-"homeControleMoney",
-JSON.stringify(moneyData)
-);
-
-}
-
-function resetMoney(){
-
-if(!confirm("Reset all money data?")) return;
-
-moneyData={
-added:0,
-spent:0,
-history:[]
-};
-
-saveMoneyData();
-
-historyLimit=5;
-
-playSound();
-
-renderMoney();
-
-}
-
-function renderMoney(){
-
-const remaining=
-moneyData.added-moneyData.spent;
-
-const displayRemaining=Math.max(0,remaining);
-
-let percentage=0;
-
-if(moneyData.added>0){
-
-percentage=
-(displayRemaining/moneyData.added)*100;
-
-}
-
-percentage=Math.max(0,Math.min(100,percentage));
-
-document.getElementById("remainingMoney").textContent=
-displayRemaining.toFixed(3)+" DT";
-
-document.getElementById("totalAdded").textContent=
-moneyData.added.toFixed(3)+" DT";
-
-document.getElementById("totalSpent").textContent=
-moneyData.spent.toFixed(3)+" DT";
-
-document.getElementById("moneyPercent").textContent=
-percentage.toFixed(0)+"% remaining";
-
-const progress=
-document.getElementById("moneyProgress");
-
-const card=
-document.getElementById("moneyCard");
-
-progress.style.width=percentage+"%";
-
-if(percentage>75){
-
-progress.style.background="var(--green)";
-card.style.borderColor="var(--green)";
-
-}else if(percentage>50){
-
-progress.style.background="var(--orange)";
-card.style.borderColor="var(--orange)";
-
-}else if(percentage>=25){
-
-progress.style.background="var(--yellow)";
-card.style.borderColor="var(--yellow)";
-
-}else{
-
-progress.style.background="var(--red)";
-card.style.borderColor="var(--red)";
-
-}
-
-renderHistory();
-
-}
-
-function renderHistory(){
-
-const container=
-document.getElementById("moneyHistory");
-
-const moreButton=
-document.getElementById("moreHistory");
-
-if(!moneyData.history.length){
-
-container.innerHTML=
-'<div class="empty">No money activity yet.</div>';
-
-moreButton.style.display="none";
-
-return;
-
-}
-
-const visible=
-moneyData.history.slice(0,historyLimit);
-
-container.innerHTML=visible.map(item=>`
-
-<div class="history-item">
-
-<div class="history-left">
-
-<strong>${item.description}</strong>
-
-<small>${item.time}</small>
-
-</div>
-
-<strong class="${item.type==="added" ? "plus" : "minus"}">
-
-${item.type==="added" ? "+" : "-"}
-${Number(item.amount).toFixed(3)} DT
-
-</strong>
-
-</div>
-
-`).join("");
-
-moreButton.style.display=
-historyLimit>=moneyData.history.length
-? "none"
-: "block";
-
-}
-
-function showMoreHistory(){
-
-historyLimit+=10;
-
-playSound();
-
-renderHistory();
-
-}
-
-function updateTimers(){
-
-document.querySelectorAll(".live-timer").forEach(timer=>{
-
-const deadline=
-new Date(
-timer.getAttribute("data-date")
-).getTime();
-
-const difference=
-deadline-new Date().getTime();
-
-timer.innerHTML=
-"⏳ "+formatTimer(difference);
-
-});
-
-}
-
-function renderAll(){
-
-renderPlan();
-renderEnter();
-renderQuick();
-renderMoney();
-
-}
-
-renderAll();
-
-setInterval(updateTimers,1000);
-
+loadLocal();
+renderStore();
+updateNotice();
+initFirebase();
+$("passwordOverlay").addEventListener("click",e=>{if(e.target===$("passwordOverlay"))closePassword();});
+$("orderOverlay").addEventListener("click",e=>{if(e.target===$("orderOverlay"))closeOrder();});
 </script>
-
 </body>
 </html>
