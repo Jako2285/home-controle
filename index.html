@@ -1,217 +1,287 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>VYRO_01 — How to order</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VYRO_01 Order Tutorial</title>
+
 <style>
-:root{--gold:#bda36b;--ink:#111;--paper:#f7f7f5}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-background:#111;overflow:hidden}
-body{display:grid;place-items:center}
-.stage{position:relative;width:min(100vw,56.25vh);
-height:min(100vh,177.78vw);aspect-ratio:9/16;
-background:var(--paper);overflow:hidden;isolation:isolate}
-.status{height:30px;background:#fff;color:#111;
-display:flex;align-items:center;justify-content:space-between;
-padding:0 20px;font-size:11px;font-weight:700;
-position:absolute;top:0;left:0;right:0;z-index:10}
-.statusright{display:flex;align-items:center;gap:5px}
-.battery{width:17px;height:8px;border:1px solid #111;
-border-radius:2px;position:relative}
-.battery:before{content:"";position:absolute;left:1px;top:1px;
-bottom:1px;width:10px;background:#111}
-.battery:after{content:"";position:absolute;right:-3px;
-top:2px;height:3px;width:2px;background:#111}
-.siteframe{position:absolute;inset:30px 0 0;width:100%;
-height:calc(100% - 30px);border:0;background:#fff}
-.caption{position:absolute;left:13px;right:13px;bottom:28px;
-z-index:20;background:rgba(13,13,13,.94);color:#fff;
-padding:12px 14px;border-left:2px solid var(--gold);
-opacity:0;transform:translateY(8px);
-transition:opacity .22s,transform .22s;pointer-events:none}
-.caption.show{opacity:1;transform:translateY(0)}
-.step{font-size:8px;letter-spacing:2px;color:var(--gold);margin-bottom:5px}
-.caption strong{font-size:14px;line-height:1.2}
-.caption p{font-size:10px;color:#ddd;line-height:1.4;margin:4px 0 0}
-.endcard{position:absolute;inset:0;z-index:30;background:#090909;
-color:#fff;display:flex;flex-direction:column;align-items:center;
-justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
-.endcard.show{opacity:1}
-.endlogo{font-size:clamp(30px,9vw,43px);font-weight:900;letter-spacing:4px}
-.goldline{height:1px;width:36px;background:var(--gold);margin-top:15px}
-.endtag{margin-top:12px;font-size:7px;letter-spacing:3px;color:#aaa}
-.homebar{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
-width:90px;height:4px;border-radius:4px;background:#111;z-index:40}
-.endcard .homebar{background:#fff}
-.progress{position:absolute;z-index:41;bottom:0;left:0;height:2px;
-width:0;background:var(--gold)}
-.controls{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
-display:flex;gap:8px;align-items:center;white-space:nowrap;
-color:#fff;font-size:12px}
-.controls button{border:1px solid #ffffff55;border-radius:22px;
-background:#242424;color:#fff;padding:9px 13px;font:inherit}
-.controls span{font-size:10px;color:#ccc}
-@media(min-width:600px){
-.stage{box-shadow:0 10px 60px #0009;border:1px solid #333;border-radius:25px}
-.status{border-radius:24px 24px 0 0}
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video {
+  position: relative;
+  width: min(100vw, 56.25vh);
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: white;
+}
+
+iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: white;
+}
+
+/* Overlay elements */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.overlay.show { opacity: 1; }
+
+.annotation {
+  position: absolute;
+  left: 8%;
+  width: 84%;
+  padding: 8px 12px;
+  color: #111;
+  background: rgba(255,255,255,.96);
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  font-size: clamp(11px, 3.2vw, 15px);
+  font-weight: 700;
+  box-shadow: 0 2px 8px #0002;
+}
+
+/* Adjust these top values to match the real form */
+.name { top: 54%; }
+.phone { top: 61%; }
+.address { top: 68%; }
+.note { top: 75%; }
+
+.circle {
+  position: absolute;
+  left: 5%;
+  top: 84%;
+  width: 90%;
+  height: 7%;
+  border: 4px solid #ff2020;
+  border-radius: 50%;
+  transform: rotate(-2deg);
+  box-shadow: 0 0 5px #ff202066;
+}
+
+.instructions {
+  position: absolute;
+  z-index: 20;
+  top: 8%;
+  left: 5%;
+  right: 5%;
+  padding: 12px;
+  color: white;
+  background: rgba(0,0,0,.88);
+  border-left: 3px solid #c5a66c;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+}
+
+.instructions.show { opacity: 1; }
+
+.brand {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #080808;
+  color: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .5s;
+}
+
+.brand.show { opacity: 1; }
+
+.brand strong {
+  font-size: 36px;
+  letter-spacing: 4px;
+}
+
+.brand span {
+  margin-top: 12px;
+  color: #c5a66c;
+  font-size: 9px;
+  letter-spacing: 4px;
+}
+
+.controls {
+  position: fixed;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 50;
+}
+
+button {
+  padding: 10px 14px;
+  color: white;
+  background: #252525;
+  border: 1px solid #666;
+  border-radius: 22px;
 }
 </style>
 </head>
-<body>
-<div class="stage" id="stage">
-  <div class="status">
-    <span>9:41</span>
-    <div class="statusright">
-      <span>●●●</span><span>Wi-Fi</span><span class="battery"></span>
-    </div>
-  </div>
 
-  <!-- Actual live VYRO_01 website -->
-  <iframe class="siteframe" id="store"
+<body>
+
+<div class="video">
+
+  <!-- Real VYRO_01 store -->
+  <iframe
+    id="store"
     src="https://jako2285.github.io/VYRO_01/"
-    title="Live VYRO_01 store">
+    title="VYRO_01 Store">
   </iframe>
 
-  <div class="caption" id="caption">
-    <div class="step" id="step">STEP 01</div>
-    <strong id="heading">Explore the collection</strong>
-    <p id="description">Browse the real VYRO_01 store and tap the product you want.</p>
+  <!-- Visual annotations, not actual form input -->
+  <div class="overlay" id="formOverlay">
+    <div class="annotation name">
+      FOLAN BEN FOLAN
+    </div>
+
+    <div class="annotation phone">
+      56*******
+    </div>
+
+    <div class="annotation address">
+      YOUR ADRESSE
+    </div>
+
+    <div class="annotation note">
+      Code promo if u have
+    </div>
+
+    <div class="circle"></div>
   </div>
 
-  <div class="endcard" id="endcard">
-    <div class="endlogo">VYRO_01</div>
-    <div class="goldline"></div>
-    <div class="endtag">DEFINE YOUR STYLE</div>
-    <div class="homebar"></div>
+  <div class="instructions" id="instructions">
+    Select your product, complete your details<br>
+    and confirm your order.
   </div>
 
-  <div class="homebar"></div>
-  <div class="progress" id="progress"></div>
+  <div class="brand" id="brand">
+    <strong>VYRO_01</strong>
+    <span>DEFINE YOUR STYLE</span>
+  </div>
+
 </div>
 
 <div class="controls" id="controls">
-  <button id="start">▶ Start 15s guide</button>
-  <button id="pause">Ⅱ Pause</button>
-  <button id="restart">↻ Restart</button>
-  <span>Live store · 9:16</span>
+  <button onclick="startVideo()">▶ Start</button>
+  <button onclick="pauseVideo()">Ⅱ Pause</button>
+  <button onclick="startVideo()">↻ Restart</button>
 </div>
 
 <script>
-(()=>{
- const $=id=>document.getElementById(id);
+let timer = null;
+let startTime = 0;
+let elapsed = 0;
+let playing = false;
 
- const scenes=[
-  {
-   at:0,
-   step:'STEP 01 / DISCOVER',
-   title:'Explore the collection',
-   desc:'Browse the real VYRO_01 store and tap the product you want.'
-  },
-  {
-   at:3,
-   step:'STEP 02 / SELECT',
-   title:'Open your product',
-   desc:'Choose the piece you like and review its details.'
-  },
-  {
-   at:6,
-   step:'STEP 03 / YOUR DETAILS',
-   title:'Fill in the order form',
-   desc:'Enter your full name, phone number, delivery address and quantity. Notes are optional.'
-  },
-  {
-   at:10.5,
-   step:'STEP 04 / CONFIRM',
-   title:'Confirm your order',
-   desc:'Check your details, then tap CONFIRM ORDER on the real store.'
-  },
-  {
-   at:13,
-   step:'VYRO_01',
-   title:'',
-   desc:''
+const overlay = document.getElementById("formOverlay");
+const instructions = document.getElementById("instructions");
+const brand = document.getElementById("brand");
+const controls = document.getElementById("controls");
+
+function showScene(seconds) {
+  overlay.classList.remove("show");
+  instructions.classList.remove("show");
+  brand.classList.remove("show");
+
+  if (seconds < 3) {
+    instructions.innerHTML =
+      "01 — EXPLORE THE COLLECTION";
+    instructions.classList.add("show");
+  } else if (seconds < 6) {
+    instructions.innerHTML =
+      "02 — CHOOSE YOUR PRODUCT";
+    instructions.classList.add("show");
+  } else if (seconds < 13) {
+    instructions.innerHTML =
+      "03 — COMPLETE YOUR ORDER";
+    instructions.classList.add("show");
+    overlay.classList.add("show");
+  } else {
+    brand.classList.add("show");
   }
- ];
+}
 
- let raf=0,startAt=0,elapsed=0,running=false,sceneIndex=-1;
+function tick() {
+  if (!playing) return;
 
- function renderScene(index){
-  if(index===sceneIndex)return;
-  sceneIndex=index;
-  const s=scenes[index];
+  elapsed = (performance.now() - startTime) / 1000;
 
-  if(index===4){
-   $('caption').classList.remove('show');
-   $('endcard').classList.add('show');
-   return;
+  showScene(elapsed);
+
+  if (elapsed >= 15) {
+    playing = false;
+    clearInterval(timer);
+    timer = null;
+    controls.style.display = "flex";
+    return;
   }
+}
 
-  $('endcard').classList.remove('show');
-  $('step').textContent=s.step;
-  $('heading').textContent=s.title;
-  $('description').textContent=s.desc;
-  $('caption').classList.add('show');
- }
+function startVideo() {
+  clearInterval(timer);
+  elapsed = 0;
+  startTime = performance.now();
+  playing = true;
+  controls.style.display = "none";
 
- function tick(now){
-  if(!running)return;
+  showScene(0);
+  timer = setInterval(tick, 50);
+}
 
-  elapsed=(now-startAt)/1000;
-
-  let idx=0;
-  for(let i=0;i<scenes.length;i++){
-   if(elapsed>=scenes[i].at)idx=i;
+function pauseVideo() {
+  if (playing) {
+    elapsed = (performance.now() - startTime) / 1000;
+    playing = false;
+    clearInterval(timer);
+    timer = null;
+    controls.style.display = "flex";
+  } else {
+    startTime = performance.now() - elapsed * 1000;
+    playing = true;
+    controls.style.display = "none";
+    timer = setInterval(tick, 50);
   }
+}
 
-  renderScene(idx);
-  $('progress').style.width=Math.min(100,elapsed/15*100)+'%';
-
-  if(elapsed>=15){
-   running=false;
-   $('pause').textContent='Ⅱ Pause';
-   $('controls').style.display='flex';
-   return;
-  }
-
-  raf=requestAnimationFrame(tick);
- }
-
- function begin(){
-  cancelAnimationFrame(raf);
-  elapsed=0;
-  startAt=performance.now();
-  running=true;
-  sceneIndex=-1;
-  $('progress').style.width='0%';
-  $('endcard').classList.remove('show');
-  $('controls').style.display='none';
-  raf=requestAnimationFrame(tick);
- }
-
- $('start').addEventListener('click',begin);
- $('restart').addEventListener('click',begin);
-
- $('pause').addEventListener('click',()=>{
-  if(running){
-   running=false;
-   cancelAnimationFrame(raf);
-   $('pause').textContent='▶ Resume';
-   $('controls').style.display='flex';
-  }else{
-   startAt=performance.now()-elapsed*1000;
-   running=true;
-   $('pause').textContent='Ⅱ Pause';
-   $('controls').style.display='none';
-   raf=requestAnimationFrame(tick);
-  }
- });
-
- renderScene(0);
-})();
+showScene(0);
 </script>
+
 </body>
 </html>
