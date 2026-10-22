@@ -6,275 +6,77 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
 <meta name="theme-color" content="#09090f">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <title>NEXUS — Personal Control</title>
 
 <style>
 
-:root{--bg:#08080e;--panel:#11111b;--panel2:#171724;--line:#29283b;--purple:#9874ff;--purple2:#7048e8;--text:#f6f4ff;--muted:#9290a9;--green:#45dfab;--red:#ff617e;--yellow:#ffd166;--orange:#ff9e5e;--radius:22px}
+:root{--bg:#09090f;--card:#13131d;--card2:#1b1a27;--border:#2b293b;--text:#f6f4ff;--muted:#9995ae;--purple:#a78bfa;--purple2:#7c3aed;--green:#4ade80;--red:#fb7185;--yellow:#facc15;--orange:#fb923c}
 
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
-html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 80% 0%,#251440 0,transparent 35%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:14px;line-height:1.5}
 
-body{margin:0;background:radial-gradient(ellipse at 85% -10%,#2a1b50 0,transparent 38%),radial-gradient(ellipse at -20% 70%,#17152c 0,transparent 35%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;min-height:100vh;padding-bottom:105px}
+button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.4}
 
-button,input,textarea,select{font:inherit}
+.app{max-width:760px;margin:auto;padding:0 16px 105px}
 
-button{cursor:pointer;color:inherit}
+header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 0 13px;background:#09090fee;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff0d}
 
-button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--purple)}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#c4b5fd,#6d28d9);font-weight:950;font-size:22px;box-shadow:0 5px 25px #7c3aed55}.brand-name{font-size:18px;font-weight:900;letter-spacing:2px}.brand-sub{font-size:9px;color:var(--muted);letter-spacing:1px}
 
-.app{max-width:760px;margin:auto;padding:env(safe-area-inset-top,12px) 16px 20px}
+.top-actions{display:flex;gap:7px}.icon-btn{width:39px;height:39px;border-radius:13px;border:1px solid var(--border);background:var(--card);color:var(--text)}
 
-.top{display:flex;justify-content:space-between;align-items:center;padding:17px 2px 21px}
+.page{display:none;animation:fade .2s ease}.page.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
-.brand{display:flex;align-items:center;gap:11px}
+.heading{margin:25px 0 18px}.eyebrow{font-size:10px;color:var(--purple);font-weight:850;letter-spacing:2px}h1{font-size:28px;line-height:1.2;margin:7px 0;font-weight:900}h2{font-size:17px;margin:0;font-weight:850}h3{font-size:13px;margin:0;font-weight:800}p{color:var(--muted);margin:7px 0}.small{font-size:11px;color:var(--muted)}
 
-.logo{width:44px;height:44px;border-radius:16px;background:linear-gradient(145deg,#b29bff,#6741d4 60%,#34216c);box-shadow:0 7px 22px #7048e844,inset 0 1px 1px #ffffff70;display:grid;place-items:center;font-size:23px;font-weight:900}
+.card{background:linear-gradient(145deg,#191824,#111119);border:1px solid var(--border);border-radius:20px;padding:17px;margin-bottom:12px;min-width:0}
 
-.brand h1{font-size:22px;letter-spacing:3px;margin:0}
+.hero{position:relative;overflow:hidden;background:linear-gradient(130deg,#31165a,#191426 65%,#111119);border-color:#49316b;padding:23px 19px;margin-bottom:13px}.hero:after{content:"";position:absolute;width:160px;height:160px;left:-65px;top:-70px;border-radius:50%;background:#a78bfa1b}.hero-inner{position:relative;z-index:1}.hero-label{font-size:10px;color:#d9caff;font-weight:800;letter-spacing:1.4px}.hero-value{font-size:34px;font-weight:950;letter-spacing:-1px;margin:10px 0 3px;overflow-wrap:anywhere}.hero-foot{font-size:11px;color:#c7b9e7}
 
-.brand small{display:block;font-size:9px;letter-spacing:1.5px;color:var(--muted);margin-top:3px}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stat{background:var(--card);border:1px solid var(--border);border-radius:17px;padding:14px;min-width:0}.stat-icon{font-size:19px;margin-bottom:7px}.stat-label{font-size:11px;color:var(--muted)}.stat-value{font-size:21px;font-weight:900;margin-top:4px;overflow-wrap:anywhere}.stat-note{font-size:10px;color:var(--muted);margin-top:3px}
 
-.top-actions{display:flex;gap:8px}
+.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}.orange{color:var(--orange)}.purple{color:var(--purple)}
 
-.icon-btn{width:42px;height:42px;border:1px solid var(--line);background:#171622;border-radius:15px;display:grid;place-items:center;font-size:18px;box-shadow:inset 0 1px #ffffff08}
+.progress{height:6px;background:#302a3b;border-radius:10px;overflow:hidden;margin-top:12px}.progress>div{height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#c4b5fd);border-radius:10px;transition:width .25s}
 
-.made{text-align:center;color:#8b87a4;font-size:9px;letter-spacing:1.5px;line-height:1.8;margin:0 0 20px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:23px 2px 12px}
 
-.made b{color:#d5caff;font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 14px;min-height:42px;border:1px solid var(--border);border-radius:13px;background:var(--card2);color:var(--text);font-size:12px;font-weight:800;transition:transform .12s}.btn:active{transform:scale(.97)}.primary{background:linear-gradient(130deg,#9b78f5,#7138d6);border-color:transparent;color:white}.danger{color:var(--red);background:#fb718510;border-color:#fb718544}.success{color:var(--green);background:#4ade8010;border-color:#4ade8033}.block{width:100%}.btn-row{display:flex;gap:8px;flex-wrap:wrap}.btn-row .btn{flex:1}.text-btn{border:0;background:transparent;color:var(--purple);font-size:11px;font-weight:850;padding:7px}
 
-.page{display:none;animation:fade .22s ease}
+.form{display:flex;flex-direction:column;gap:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field label{font-size:11px;font-weight:750;color:#c9c5d9}.field input,.field textarea,.field select{width:100%;min-width:0;background:#0c0c13;border:1px solid var(--border);border-radius:12px;padding:12px;color:var(--text);outline:none}.field textarea{min-height:90px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--purple)}.field input::placeholder,.field textarea::placeholder{color:#6e6980}.span2{grid-column:1/-1}
 
-.page.active{display:block}
+.list{display:flex;flex-direction:column;gap:9px}.item{display:flex;align-items:center;gap:10px;padding:12px;background:#12121a;border:1px solid #292737;border-radius:15px;min-width:0}.item-icon{width:37px;height:37px;flex-shrink:0;display:grid;place-items:center;background:#282137;border-radius:12px;font-size:17px}.item-main{flex:1;min-width:0}.item-title{font-size:12px;font-weight:850;overflow-wrap:anywhere}.item-desc{font-size:10px;color:var(--muted);margin-top:3px;overflow-wrap:anywhere;white-space:pre-wrap}.item-actions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.mini{padding:7px 9px;min-height:31px;font-size:10px;border-radius:10px}.pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:30px;background:#292337;font-size:10px;font-weight:850}.empty{text-align:center;border:1px dashed #393447;border-radius:15px;padding:24px 10px;color:var(--muted);font-size:12px}.divider{height:1px;background:var(--border);margin:14px 0}
 
-@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:14px}.tab{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:11px;padding:10px 4px;font-size:11px;font-weight:800}.tab.active{color:var(--purple);border-color:#7956b9;background:#a78bfa14}
 
-.heading{margin:4px 0 20px}
+.countdown{display:flex;gap:5px;margin-top:12px}.timebox{flex:1;min-width:0;text-align:center;background:#0c0c13;border:1px solid #302a3d;border-radius:11px;padding:7px 2px}.time-num{font-size:18px;font-weight:950;font-variant-numeric:tabular-nums}.time-label{font-size:9px;color:var(--muted)}
 
-.eyebrow{color:var(--purple);font-size:10px;letter-spacing:2px;font-weight:800;text-transform:uppercase}
+.nav{position:fixed;z-index:20;bottom:0;left:0;right:0;background:#101018f5;backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:8px 7px calc(8px + env(safe-area-inset-bottom))}.nav-inner{max-width:720px;margin:auto;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px}.nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:53px;min-width:0;padding:4px 1px;background:transparent;border:0;border-radius:12px;color:#817c96;font-size:9px;font-weight:750}.nav-icon{font-size:19px;line-height:1.1}.nav-item.active{background:#a78bfa16;color:var(--purple)}
 
-.heading h2{font-size:29px;margin:7px 0 6px;letter-spacing:-.5px}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}.toggle{appearance:none;width:42px;height:25px;flex-shrink:0;border-radius:20px;background:#393646;position:relative;cursor:pointer}.toggle:before{content:"";position:absolute;left:3px;top:3px;width:19px;height:19px;background:white;border-radius:50%;transition:transform .2s}.toggle:checked{background:var(--purple2)}.toggle:checked:before{transform:translateX(17px)}
 
-.heading p{color:var(--muted);font-size:13px;line-height:1.7;margin:0}
+.profile-avatar{width:70px;height:70px;display:grid;place-items:center;background:linear-gradient(140deg,#a78bfa,#5726ad);border-radius:24px;font-size:29px;font-weight:950;margin-bottom:12px}.profile-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}.profile-row:last-child{border:0}.profile-row .value{text-align:end;font-weight:800;overflow-wrap:anywhere}
 
-.card{background:linear-gradient(145deg,#171724f5,#101019f5);border:1px solid var(--line);border-radius:var(--radius);padding:19px;margin-bottom:14px;box-shadow:0 12px 30px #0000001a,inset 0 1px #ffffff07}
+.prompt-box{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;font-size:12px;padding:14px;border-radius:13px;background:#0b0b12;border:1px solid #393047;min-height:100px;user-select:text}
 
-.card-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.toast-area{position:fixed;z-index:90;top:calc(12px + env(safe-area-inset-top));left:12px;right:12px;display:flex;align-items:center;flex-direction:column;gap:7px;pointer-events:none}.toast{max-width:450px;width:100%;padding:12px 15px;background:#282235;border:1px solid #665080;border-radius:13px;box-shadow:0 8px 30px #0007;font-size:12px;font-weight:750;animation:fade .2s}.toast.error{border-color:#9b435a}
 
-.card-title h3{font-size:15px;margin:0}
+.modal-backdrop{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center;background:#000b;backdrop-filter:blur(5px)}.modal-backdrop.show{display:flex}.modal{width:100%;max-width:580px;max-height:88vh;overflow:auto;padding:21px 17px calc(22px + env(safe-area-inset-bottom));background:#15141e;border:1px solid #383244;border-radius:24px 24px 0 0;animation:slide .2s}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}.close{width:35px;height:35px;border-radius:11px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-size:20px}@keyframes slide{from{transform:translateY(25px);opacity:.5}to{transform:translateY(0);opacity:1}}
 
-.card-title small{font-size:11px;color:var(--muted)}
+.footer{text-align:center;margin-top:27px;color:#777188;font-size:10px;line-height:1.9;letter-spacing:1px}.hidden{display:none!important}
 
-.hero{position:relative;overflow:hidden;padding:23px;border-radius:27px;background:linear-gradient(135deg,#29204b,#171426 60%,#101019);border:1px solid #524177;box-shadow:0 15px 40px #0004,inset 0 1px #ffffff12;margin-bottom:15px}
+body.light{--bg:#f4f1fa;--card:#fff;--card2:#f0ecf8;--border:#ded6ed;--text:#1c1728;--muted:#797186;background:var(--bg)}
 
-.hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid #b8a4ff18;right:-65px;top:-85px;box-shadow:0 0 0 20px #b8a4ff07,0 0 0 42px #b8a4ff05}
+body.light header{background:#f4f1faee}body.light .card{background:linear-gradient(140deg,#fff,#f8f5fc)}body.light .stat,body.light .item{background:#fff;border-color:var(--border)}body.light .field input,body.light .field textarea,body.light .field select,body.light .prompt-box{background:#fff;color:var(--text)}body.light .nav{background:#fffF}body.light .modal{background:#faf8fd}body.light .timebox{background:#fff}body.light .hero{color:white;background:linear-gradient(130deg,#3c216e,#221b34)}body.light .field label{color:#5f586e}
 
-.hero-label{font-size:11px;color:#c2b4ef}
+@media(min-width:600px){.app{padding-left:25px;padding-right:25px}.modal-backdrop{align-items:center;padding:20px}.modal{border-radius:24px;padding-bottom:22px}.hero{padding:28px}.hero-value{font-size:40px}}
 
-.hero-number{font-size:36px;font-weight:800;letter-spacing:-1px;margin:9px 0 5px;direction:ltr;text-align:right}
-
-.hero-foot{font-size:11px;color:#b6b0cb}
-
-.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-
-.stat{padding:16px;border-radius:20px;background:linear-gradient(145deg,#171724,#101019);border:1px solid var(--line);min-width:0}
-
-.stat .s-icon{width:35px;height:35px;border-radius:12px;background:#8e6bff1c;display:grid;place-items:center;font-size:17px;margin-bottom:12px}
-
-.stat .s-label{font-size:11px;color:var(--muted)}
-
-.stat .s-value{font-size:21px;font-weight:800;margin-top:6px;overflow-wrap:anywhere}
-
-.stat .s-sub{font-size:10px;color:var(--muted);margin-top:5px}
-
-.btn{border:0;border-radius:15px;padding:13px 16px;background:linear-gradient(135deg,#a78bff,#7048e8);color:white;font-size:13px;font-weight:750;box-shadow:0 6px 18px #7048e830;transition:transform .15s,filter .15s}
-
-.btn:active{transform:scale(.97);filter:brightness(.9)}
-
-.btn.secondary{background:#201d31;border:1px solid #39324e;box-shadow:none;color:#ddd4ff}
-
-.btn.ghost{background:transparent;border:1px solid var(--line);box-shadow:none;color:#c9c5dc}
-
-.btn.danger{background:#401d2a;border:1px solid #6b2a3d;box-shadow:none;color:#ff9bb0}
-
-.btn.small{padding:9px 12px;font-size:11px;border-radius:12px}
-
-.btn.full{width:100%}
-
-.btn-row{display:flex;gap:8px;flex-wrap:wrap}
-
-label{display:block;color:#b6b1cc;font-size:12px;margin:0 0 8px}
-
-.field{margin-bottom:14px}
-
-input,textarea,select{width:100%;border:1px solid #302e43;background:#0d0d15;color:var(--text);padding:13px 14px;border-radius:14px;outline:none;font-size:13px;min-width:0}
-
-input:focus,textarea:focus,select:focus{border-color:#8e70ec;box-shadow:0 0 0 3px #9874ff18}
-
-textarea{resize:vertical;min-height:90px;line-height:1.7}
-
-input[type=checkbox]{width:19px;height:19px;accent-color:var(--purple)}
-
-input[type=range]{padding:0;accent-color:var(--purple)}
-
-select option{background:#151421}
-
-.row-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
-
-.muted{color:var(--muted)}
-
-.smalltext{font-size:11px;line-height:1.7;color:var(--muted)}
-
-.divider{height:1px;background:var(--line);margin:16px 0}
-
-.pill{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:20px;font-size:10px;background:#29243a;color:#d4c9ff;border:1px solid #39304f}
-
-.dot{width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block}
-
-.progress{height:7px;background:#292637;border-radius:20px;overflow:hidden;margin-top:10px}
-
-.progress>div{height:100%;border-radius:20px;background:linear-gradient(90deg,#6845d6,#b19aff);transition:width .3s}
-
-.task{padding:15px;border:1px solid var(--line);border-radius:17px;background:#0e0e17;margin-bottom:10px}
-
-.task-top{display:flex;justify-content:space-between;gap:10px;align-items:start}
-
-.task h4{font-size:14px;margin:0 0 6px}
-
-.task p{font-size:12px;line-height:1.7;color:var(--muted);margin:0 0 10px;white-space:pre-wrap;overflow-wrap:anywhere}
-
-.task-time{font-size:11px;direction:ltr;text-align:right;font-variant-numeric:tabular-nums;color:#d9ceff;margin-top:12px}
-
-.status{font-size:10px;padding:5px 8px;border-radius:9px;background:#252136;white-space:nowrap}
-
-.status.green{color:var(--green);background:#15332d}
-
-.status.red{color:#ff8ca2;background:#381d2a}
-
-.status.yellow{color:var(--yellow);background:#39301a}
-
-.status.orange{color:var(--orange);background:#3b281d}
-
-.transaction{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid #292737}
-
-.transaction:last-child{border-bottom:0}
-
-.tx-left{display:flex;align-items:center;gap:10px;min-width:0}
-
-.tx-icon{width:37px;height:37px;border-radius:13px;background:#232035;display:grid;place-items:center;flex-shrink:0}
-
-.tx-name{font-size:12px;font-weight:700;overflow-wrap:anywhere}
-
-.tx-date{font-size:10px;color:var(--muted);margin-top:4px}
-
-.tx-amount{font-size:13px;font-weight:800;direction:ltr;white-space:nowrap}
-
-.tx-amount.income{color:var(--green)}
-
-.tx-amount.expense{color:var(--red)}
-
-.tx-actions{display:flex;gap:5px;margin-top:8px}
-
-.tx-actions button{font-size:10px;background:none;border:1px solid var(--line);border-radius:8px;padding:5px 7px;color:var(--muted)}
-
-.empty{text-align:center;padding:26px 10px;color:var(--muted);font-size:12px;line-height:1.8}
-
-.empty .empty-icon{font-size:27px;margin-bottom:8px}
-
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:20;padding:10px 9px calc(10px + env(safe-area-inset-bottom));background:#0b0b12ed;backdrop-filter:blur(24px);border-top:1px solid #302b43}
-
-.nav-inner{max-width:740px;margin:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
-
-.nav-item{background:transparent;border:0;border-radius:14px;color:#7f7b96;padding:9px 2px 7px;font-size:9px;display:flex;align-items:center;flex-direction:column;gap:5px;min-width:0}
-
-.nav-item .nav-icon{font-size:19px;line-height:1.1}
-
-.nav-item.active{color:#d8ccff;background:#211a34}
-
-.nav-item.active .nav-icon{filter:drop-shadow(0 0 8px #9874ff88)}
-
-.switch-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
-
-.switch-row:last-child{border-bottom:0}
-
-.switch{position:relative;width:46px;height:27px;flex-shrink:0}
-
-.switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
-
-.switch span{position:absolute;inset:0;border-radius:20px;background:#353244;pointer-events:none;transition:.2s}
-
-.switch span:after{content:"";position:absolute;width:21px;height:21px;border-radius:50%;background:#f5f2ff;top:3px;right:3px;transition:.2s;box-shadow:0 1px 4px #0005}
-
-.switch input:checked+span{background:#7954e7}
-
-.switch input:checked+span:after{right:22px}
-
-.question{padding:15px 0;border-bottom:1px solid var(--line)}
-
-.question:last-child{border-bottom:0}
-
-.question h4{font-size:13px;line-height:1.7;margin:0 0 11px}
-
-.question .qnum{color:var(--purple);font-size:10px;letter-spacing:1px;margin-bottom:6px}
-
-.options{display:grid;gap:8px}
-
-.option{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #302d43;border-radius:13px;background:#0c0c14;font-size:12px;cursor:pointer}
-
-.option:has(input:checked){border-color:#8064d8;background:#211b35}
-
-.option input{width:16px;height:16px;flex-shrink:0}
-
-.chart{height:150px;width:100%;display:block}
-
-.bar-row{display:grid;grid-template-columns:65px 1fr 65px;gap:8px;align-items:center;margin:12px 0;font-size:10px}
-
-.bar-track{height:8px;border-radius:9px;background:#292637;overflow:hidden}
-
-.bar-track div{height:100%;border-radius:9px;background:linear-gradient(90deg,#6c47dc,#b19aff)}
-
-.goal{padding:13px;border-radius:15px;border:1px solid var(--line);margin-bottom:10px}
-
-.toast-area{position:fixed;top:calc(10px + env(safe-area-inset-top));left:12px;right:12px;z-index:100;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
-
-.toast{max-width:480px;width:100%;background:#211b32;border:1px solid #574580;border-radius:16px;padding:13px 16px;box-shadow:0 10px 35px #0008;font-size:12px;line-height:1.7;animation:fade .2s}
-
-.modal-backdrop{position:fixed;inset:0;background:#000a;backdrop-filter:blur(9px);z-index:50;display:none;align-items:flex-end;justify-content:center;padding:15px}
-
-.modal-backdrop.show{display:flex}
-
-.modal{width:100%;max-width:600px;max-height:88dvh;overflow:auto;background:#11111b;border:1px solid #38334e;border-radius:25px;padding:22px;box-shadow:0 25px 80px #000a}
-
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-
-.modal-head h3{margin:0;font-size:18px}
-
-.close-btn{border:1px solid var(--line);background:#211f2e;border-radius:12px;width:35px;height:35px;font-size:19px}
-
-.ai-output{white-space:pre-wrap;overflow-wrap:anywhere;direction:auto;background:#0a0a12;border:1px solid #37304d;border-radius:16px;padding:16px;font-size:12px;line-height:1.9;max-height:42vh;overflow:auto}
-
-.warning{border:1px solid #5b4828;background:#2a2317;color:#e6cb8e;border-radius:14px;padding:12px;font-size:11px;line-height:1.7;margin-bottom:13px}
-
-.good{color:var(--green)}.bad{color:var(--red)}
-
-[dir=ltr] .hero-number{text-align:left}
-
-[dir=ltr] .task-time{text-align:left}
-
-[dir=ltr] .options{direction:ltr}
-
-@media(min-width:650px){.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.app{padding-left:24px;padding-right:24px}.heading h2{font-size:32px}}
-
-@media(max-width:380px){.app{padding-left:11px;padding-right:11px}.card{padding:15px}.hero{padding:18px}.heading h2{font-size:25px}.hero-number{font-size:30px}.nav-item{font-size:8px}.row-fields{gap:7px}}
+@media(max-width:380px){.app{padding-left:11px;padding-right:11px}h1{font-size:25px}.nav-item{font-size:8px}.nav-icon{font-size:17px}.stat-value{font-size:18px}.card{padding:14px}}
 
 </style>
 
@@ -282,321 +84,201 @@ select option{background:#151421}
 
 <body>
 
-<div class="toast-area" id="toastArea"></div>
-
 <div class="app">
 
-<header class="top">
+<header>
 
-  <div class="brand">
+  <div class="brand"><div class="logo">N</div><div><div class="brand-name">NEXUS</div><div class="brand-sub">PERSONAL CONTROL SYSTEM</div></div></div>
 
-    <div class="logo">N</div>
-
-    <div><h1>NEXUS</h1><small>PERSONAL CONTROL SYSTEM</small></div>
-
-  </div>
-
-  <div class="top-actions">
-
-    <button class="icon-btn" id="headerBell" aria-label="Notifications" onclick="openPage('settings')">♧</button>
-
-    <button class="icon-btn" aria-label="Profile" onclick="openPage('profile')">◉</button>
-
-  </div>
+  <div class="top-actions"><button class="icon-btn" id="langBtn" aria-label="Language">EN</button><button class="icon-btn" id="themeBtn" aria-label="Theme">☼</button></div>
 
 </header>
-
-<div class="made">MADE IN TUNISIA 🇹🇳<br><b>BY JASSER NOUAILI</b></div>
 
 <main>
 
 <section class="page active" id="page-home">
 
-  <div class="heading"><div class="eyebrow" data-i="overview">YOUR SPACE</div><h2 id="greeting">أهلًا بك في NEXUS.</h2><p data-i="homeSub">كل ما تحتاجه لإدارة يومك، في مكان واحد.</p></div>
+  <div class="heading"><div class="eyebrow" data-i="dashboard">PERSONAL DASHBOARD</div><h1 id="greeting">أهلاً بك في NEXUS.</h1><p data-i="dashboardSub">نظّم حياتك وتحكّم في أهدافك.</p></div>
 
-  <div class="hero">
+  <div class="card hero"><div class="hero-inner"><div class="hero-label" data-i="totalBalance">TOTAL AVAILABLE BALANCE</div><div class="hero-value" id="homeBalance">0.000 DT</div><div class="hero-foot" id="homeBalanceSub">0 DT</div><div class="progress"><div id="homeProgress"></div></div><div class="hero-foot" style="margin-top:8px" data-i="balanceProgress">تقدمك نحو هدفك المالي</div></div></div>
 
-    <div class="hero-label" data-i="nextMission">أقرب مهمة قادمة</div>
+  <div class="stats">
 
-    <div class="hero-number" id="homeCountdown">--:--:--</div>
+    <div class="stat"><div class="stat-icon">🎯</div><div class="stat-label" data-i="activeMissions">المهام النشطة</div><div class="stat-value purple" id="homeActive">0</div><div class="stat-note" data-i="waitingTasks">أهداف تنتظر إنجازك</div></div>
 
-    <div class="hero-foot" id="homeMissionName">لا توجد مهام قادمة</div>
+    <div class="stat"><div class="stat-icon">✓</div><div class="stat-label" data-i="completedMissions">المهام المكتملة</div><div class="stat-value green" id="homeCompleted">0</div><div class="stat-note" data-i="doneTasks">إنجازاتك المسجلة</div></div>
 
-    <div class="progress"><div id="homeProgress" style="width:0%"></div></div>
+    <div class="stat"><div class="stat-icon">↗</div><div class="stat-label" data-i="income">إجمالي الدخل</div><div class="stat-value green" id="homeIncome">0.000 DT</div></div>
 
-    <div class="btn-row" style="margin-top:17px"><button class="btn secondary small" onclick="openPage('mission')" data-i="viewMissions">عرض المهام</button><button class="btn ghost small" onclick="openModal('missionModal')" data-i="newMission">+ مهمة جديدة</button></div>
-
-  </div>
-
-  <div class="grid2">
-
-    <div class="stat"><div class="s-icon">✓</div><div class="s-label" data-i="activeTasks">المهام النشطة</div><div class="s-value" id="homeActive">0</div><div class="s-sub" data-i="activeSub">تحتاج إلى متابعتك</div></div>
-
-    <div class="stat"><div class="s-icon">◷</div><div class="s-label" data-i="completedTasks">المهام المكتملة</div><div class="s-value" id="homeDone">0</div><div class="s-sub" data-i="doneSub">إنجازاتك حتى الآن</div></div>
+    <div class="stat"><div class="stat-icon">↘</div><div class="stat-label" data-i="expenses">إجمالي المصروفات</div><div class="stat-value red" id="homeExpenses">0.000 DT</div></div>
 
   </div>
 
-  <div class="card" style="margin-top:15px">
+  <div class="section-head"><h2 data-i="quickActions">إجراءات سريعة</h2></div>
 
-    <div class="card-title"><h3 data-i="dailyFocus">تركيزك اليوم</h3><span class="pill"><span class="dot"></span><span data-i="localData">بيانات محلية</span></span></div>
+  <div class="card"><div class="btn-row"><button class="btn primary" id="quickMoney">＋ <span data-i="addMoney">إضافة مال</span></button><button class="btn" id="quickMission">＋ <span data-i="newMission">مهمة جديدة</span></button></div><div class="btn-row" style="margin-top:8px"><button class="btn" id="quickPrompt">✧ <span data-i="createPrompt">إنشاء Prompt</span></button><button class="btn" id="quickProfile">◎ <span data-i="myProfile">ملفي الشخصي</span></button></div></div>
 
-    <p class="smalltext" id="homeFocus">أضف مهمة واضحة لتبدأ بتنظيم يومك.</p>
+  <div class="section-head"><h2 data-i="upcoming">المهام القادمة</h2><button class="text-btn" data-go="missions" data-i="viewAll">عرض الكل ←</button></div><div class="list" id="homeMissionList"></div>
 
-    <div class="btn-row"><button class="btn full" onclick="openModal('aiModal')" data-i="askAI">جهّز سؤالًا لـ ChatGPT ↗</button></div>
-
-  </div>
-
-  <div class="smalltext" style="text-align:center;margin-top:18px" data-i="privacyNote">بياناتك محفوظة على هذا الجهاز فقط.</div>
+  <div class="section-head"><h2 data-i="recentTransactions">آخر العمليات المالية</h2><button class="text-btn" data-go="pocket" data-i="viewAll">عرض الكل ←</button></div><div class="list" id="homeTransactions"></div>
 
 </section>
 
 <section class="page" id="page-pocket">
 
-  <div class="heading"><div class="eyebrow">FINANCIAL CONTROL</div><h2 data-i="pocketTitle">Pocket Money</h2><p data-i="pocketSub">كل عملية محسوبة، وكل قرار أوضح.</p></div>
+  <div class="heading"><div class="eyebrow">FINANCIAL CONTROL</div><h1>Pocket Money</h1><p data-i="pocketSub">تابع رصيدك ودخلك ومصروفاتك بدقة.</p></div>
 
-  <div class="hero">
+  <div class="card hero"><div class="hero-inner"><div class="hero-label" data-i="currentBalance">CURRENT BALANCE</div><div class="hero-value" id="pocketBalance">0.000 DT</div><div class="hero-foot" id="pocketStatus"></div><div class="progress"><div id="pocketProgress"></div></div></div></div>
 
-    <div class="hero-label" data-i="currentBalance">الرصيد الحالي</div><div class="hero-number" id="pBalance">0.000 DT</div>
+  <div class="stats"><div class="stat"><div class="stat-icon">↗</div><div class="stat-label" data-i="income">إجمالي الدخل</div><div class="stat-value green" id="pocketIncome">0.000 DT</div></div><div class="stat"><div class="stat-icon">↘</div><div class="stat-label" data-i="expenses">إجمالي المصروفات</div><div class="stat-value red" id="pocketExpenses">0.000 DT</div></div></div>
 
-    <div class="hero-foot" data-i="balanceFormula">الرصيد الافتتاحي + الدخل − المصروفات</div>
-
-    <div class="btn-row" style="margin-top:17px"><button class="btn small" onclick="openModal('transactionModal');setTxType('expense')" data-i="addExpense">− مصروف</button><button class="btn secondary small" onclick="openModal('transactionModal');setTxType('income')" data-i="addIncome">+ دخل</button><button class="btn ghost small" onclick="openModal('balanceModal')" data-i="openingBalance">الرصيد الافتتاحي</button></div>
-
-  </div>
-
-  <div class="grid2">
-
-    <div class="stat"><div class="s-icon">↗</div><div class="s-label" data-i="totalIncome">إجمالي الدخل</div><div class="s-value good" id="pIncome">0 DT</div><div class="s-sub" data-i="allRecorded">كل العمليات المسجلة</div></div>
-
-    <div class="stat"><div class="s-icon">↘</div><div class="s-label" data-i="totalExpenses">إجمالي المصروفات</div><div class="s-value bad" id="pExpenses">0 DT</div><div class="s-sub" data-i="allRecorded">كل العمليات المسجلة</div></div>
-
-  </div>
-
-  <div class="card" style="margin-top:14px">
-
-    <div class="card-title"><h3 data-i="analysis">تحليل المصروفات</h3><select id="chartPeriod" style="width:auto;padding:8px;font-size:10px" onchange="renderPocket()"><option value="all">الكل</option><option value="month">هذا الشهر</option><option value="week">آخر 7 أيام</option></select></div>
-
-    <div id="pChart"></div>
-
-    <div class="divider"></div>
-
-    <div class="grid2">
-
-      <div><div class="smalltext" data-i="netThisPeriod">صافي الفترة</div><div id="pNet" style="font-size:18px;font-weight:800;margin-top:5px">0 DT</div></div>
-
-      <div><div class="smalltext" data-i="transactionCount">عدد العمليات</div><div id="pCount" style="font-size:18px;font-weight:800;margin-top:5px">0</div></div>
-
-    </div>
-
-  </div>
+  <div class="section-head"><h2 data-i="manageMoney">إدارة الأموال</h2></div>
 
   <div class="card">
 
-    <div class="card-title"><h3 data-i="goals">الأهداف المالية</h3><button class="btn secondary small" onclick="openModal('goalModal')" data-i="addGoal">+ هدف</button></div>
+    <div class="tabs"><button class="tab active" data-money="income" data-i="deposit">إضافة</button><button class="tab" data-money="expense" data-i="withdraw">سحب</button><button class="tab" data-money="goal" data-i="goal">الهدف</button></div>
 
-    <div id="goalList"></div>
+    <form class="form" id="moneyForm"><div class="field"><label for="moneyAmount" data-i="amount">المبلغ (DT)</label><input id="moneyAmount" type="number" min=".001" step=".001" placeholder="0.000" required></div><div class="field"><label for="moneyDesc" data-i="description">الوصف</label><input id="moneyDesc" maxlength="120" required placeholder="..."></div><button class="btn primary block" type="submit" data-i="confirmTransaction">تأكيد العملية</button></form>
 
-  </div>
-
-  <div class="card">
-
-    <div class="card-title"><h3 data-i="purchaseSimulator">محاكي قرار الشراء</h3><span class="pill">AI READY</span></div>
-
-    <p class="smalltext" data-i="purchaseHelp">أدخل ثمن الشيء لتجهّز رسالة تحليل تراعي رصيدك وأهدافك.</p>
-
-    <div class="row-fields">
-
-      <div class="field"><label data-i="itemName">اسم الشيء</label><input id="buyName" placeholder="مثال: حذاء"></div>
-
-      <div class="field"><label data-i="itemPrice">الثمن (DT)</label><input id="buyPrice" type="number" min="0" step="0.001" placeholder="0.000"></div>
-
-    </div>
-
-    <div class="field"><label data-i="priority">مدى الحاجة</label><select id="buyNeed"><option value="need">ضروري</option><option value="useful">مفيد لكن يمكن الانتظار</option><option value="want">رغبة فقط</option></select></div>
-
-    <button class="btn full" onclick="preparePurchaseQuestion()" data-i="analyzePurchase">تحليل القرار مع ChatGPT</button>
+    <form class="form hidden" id="goalForm"><div class="field"><label for="goalName" data-i="goalName">اسم الهدف</label><input id="goalName" maxlength="80" required placeholder="..."></div><div class="field"><label for="goalAmount" data-i="goalAmount">المبلغ المستهدف</label><input id="goalAmount" type="number" min="0" step=".001" required placeholder="500"></div><button class="btn primary block" type="submit" data-i="saveGoal">حفظ الهدف</button></form>
 
   </div>
 
-  <div class="card">
+  <div class="section-head"><h2 data-i="goalProgress">التقدم نحو هدفك</h2></div>
 
-    <div class="card-title"><h3 data-i="transactions">سجل العمليات</h3><span class="smalltext" id="txCountLabel">0</span></div>
+  <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><h3 id="goalNameDisplay">لم تحدد هدفًا بعد</h3><p class="small" id="goalDetails"></p></div><span class="pill purple" id="goalPercent">0%</span></div><div class="progress"><div id="goalProgressBar"></div></div><button class="text-btn" id="editGoalBtn" data-i="editGoal">تعديل الهدف</button></div>
 
-    <div class="field"><input id="txSearch" placeholder="ابحث في العمليات..." oninput="renderTransactions()"></div>
+  <div class="section-head"><h2 data-i="transactions">سجل العمليات</h2><button class="text-btn" id="exportCSV">تصدير CSV</button></div>
 
-    <div class="row-fields">
+  <div class="card"><div class="grid"><div class="field"><label for="transactionFilter" data-i="filter">تصفية</label><select id="transactionFilter"><option value="all" data-i="all">كل العمليات</option><option value="income" data-i="incomeOnly">الدخل فقط</option><option value="expense" data-i="expenseOnly">المصروفات فقط</option></select></div><div class="field"><label for="transactionSearch" data-i="search">بحث</label><input id="transactionSearch" placeholder="..."></div></div></div>
 
-      <select id="txFilter" onchange="renderTransactions()"><option value="all">كل العمليات</option><option value="income">الدخل</option><option value="expense">المصروفات</option></select>
-
-      <select id="txSort" onchange="renderTransactions()"><option value="new">الأحدث أولًا</option><option value="old">الأقدم أولًا</option><option value="high">الأعلى مبلغًا</option></select>
-
-    </div>
-
-    <div id="transactionList" style="margin-top:10px"></div>
-
-    <div class="divider"></div>
-
-    <div class="btn-row"><button class="btn secondary small" onclick="exportCSV()" data-i="exportCSV">تصدير CSV</button><button class="btn ghost small" onclick="exportBackup()" data-i="backup">نسخة JSON</button><button class="btn ghost small" onclick="document.getElementById('importFile').click()" data-i="importBackup">استيراد نسخة</button><input type="file" id="importFile" accept=".json,application/json" hidden onchange="importBackup(this)"></div>
-
-  </div>
+  <div class="list" id="transactionList"></div><button class="btn danger block" id="resetMoney" style="margin-top:16px" data-i="resetMoney">إعادة تعيين البيانات المالية</button>
 
 </section>
 
-<section class="page" id="page-mission">
+<section class="page" id="page-missions">
 
-  <div class="heading"><div class="eyebrow">TIME MANAGEMENT</div><h2 data-i="missionTitle">Missions</h2><p data-i="missionSub">وقتك واضح، وتقدمك محسوب.</p></div>
+  <div class="heading"><div class="eyebrow">MISSION CONTROL</div><h1>Missions</h1><p data-i="missionsSub">حوّل أهدافك إلى مهام واضحة مع عد تنازلي مباشر.</p></div>
 
-  <div class="grid2">
+  <div class="stats"><div class="stat"><div class="stat-label" data-i="activeMissions">المهام النشطة</div><div class="stat-value purple" id="missionActiveCount">0</div></div><div class="stat"><div class="stat-label" data-i="completedMissions">المهام المكتملة</div><div class="stat-value green" id="missionCompletedCount">0</div></div></div>
 
-    <div class="stat"><div class="s-icon">◷</div><div class="s-label" data-i="activeTasks">المهام النشطة</div><div class="s-value" id="mActive">0</div></div>
+  <div class="section-head"><h2 id="missionFormTitle" data-i="createMission">إنشاء مهمة</h2></div>
 
-    <div class="stat"><div class="s-icon">✓</div><div class="s-label" data-i="completedTasks">المهام المكتملة</div><div class="s-value" id="mDone">0</div></div>
+  <div class="card"><form id="missionForm" class="form">
 
-  </div>
+    <div class="field"><label for="missionTitle" data-i="missionName">اسم المهمة</label><input id="missionTitle" maxlength="100" required placeholder="..."></div>
 
-  <div class="card" style="margin-top:14px">
+    <div class="field"><label for="missionDescription" data-i="missionDescription">الوصف / الملاحظات</label><textarea id="missionDescription" maxlength="1200" placeholder="..."></textarea></div>
 
-    <div class="card-title"><h3 data-i="allMissions">كل المهام</h3><button class="btn small" onclick="openModal('missionModal')" data-i="newMission">+ مهمة جديدة</button></div>
+    <div class="grid"><div class="field"><label for="missionDate" data-i="dueDate">تاريخ الانتهاء</label><input id="missionDate" type="date" required></div><div class="field"><label for="missionTime" data-i="dueTime">الوقت</label><input id="missionTime" type="time" value="23:59" required></div></div>
 
-    <div class="smalltext" style="margin-bottom:14px" data-i="missionLegend">الأخضر: 75% أو أكثر من الوقت متبقٍ · البرتقالي: 50% · الأصفر: 20% · الأحمر: أقل من 20%.</div>
+    <div class="grid"><div class="field"><label for="missionPrice" data-i="missionPrice">التكلفة (DT) — اختياري</label><input id="missionPrice" type="number" min="0" step=".001" placeholder="0"></div><div class="field"><label for="missionPriority" data-i="priority">الأولوية</label><select id="missionPriority"><option value="normal" data-i="normal">عادية</option><option value="high" data-i="high">مرتفعة</option><option value="urgent" data-i="urgent">عاجلة</option></select></div></div>
 
-    <div id="missionList"></div>
+    <button class="btn primary block" type="submit" id="missionSubmit" data-i="addMission">＋ إضافة المهمة</button><button class="btn block hidden" type="button" id="cancelMissionEdit" data-i="cancel">إلغاء</button>
 
-  </div>
+  </form></div>
+
+  <div class="section-head"><h2 data-i="yourMissions">مهامك</h2></div>
+
+  <div class="tabs"><button class="tab active" data-mission-filter="active" data-i="activeTab">النشطة</button><button class="tab" data-mission-filter="completed" data-i="completedTab">المكتملة</button><button class="tab" data-mission-filter="all" data-i="allTab">الكل</button></div>
+
+  <div class="list" id="missionList"></div>
 
 </section>
 
 <section class="page" id="page-ai">
 
-  <div class="heading"><div class="eyebrow">PERSONAL DECISION ENGINE</div><h2>AI HELP</h2><p data-i="aiSub">جهّز معطياتك وسؤالك في رسالة واحدة إلى ChatGPT.</p></div>
+  <div class="heading"><div class="eyebrow">AI WORKSPACE</div><h1>AI HELP</h1><p data-i="aiSub">أنشئ Prompt مخصصًا وانسخه إلى ChatGPT أو مساعد الذكاء الاصطناعي الذي تفضله.</p></div>
 
-  <div class="hero">
+  <div class="card hero"><div class="hero-inner"><div class="hero-label">NEXUS · PROMPT BUILDER</div><h2 style="font-size:22px;margin-top:12px" data-i="aiHero">فكرتك، بصياغة أفضل.</h2><p style="color:#d0c3eb" data-i="aiHeroSub">منشئ نصوص يعمل محليًا دون API.</p></div></div>
 
-    <div class="hero-label">NEXUS × CHATGPT</div><div style="font-size:23px;font-weight:850;margin:10px 0" data-i="aiHero">معطياتك. سؤالك. اقتراح واضح.</div>
+  <div class="card"><form id="promptForm" class="form">
 
-    <div class="hero-foot" data-i="aiHeroSub">NEXUS يجهّز الرسالة؛ ChatGPT يحلّل ويجيب.</div>
+    <div class="field"><label for="promptGoal" data-i="promptGoal">ماذا تريد أن تحقق؟</label><textarea id="promptGoal" maxlength="4000" required placeholder="..."></textarea></div>
 
-  </div>
+    <div class="grid">
 
-  <div class="card">
+      <div class="field"><label for="promptType" data-i="promptType">نوع المساعدة</label><select id="promptType"><option value="general" data-i="typeGeneral">عام</option><option value="study" data-i="typeStudy">الدراسة</option><option value="business" data-i="typeBusiness">مشروع / تجارة</option><option value="coding" data-i="typeCoding">برمجة</option><option value="planning" data-i="typePlanning">التخطيط</option><option value="writing" data-i="typeWriting">الكتابة</option><option value="analysis" data-i="typeAnalysis">التحليل</option></select></div>
 
-    <div class="card-title"><h3 data-i="yourQuestion">ما سؤالك؟</h3><span class="pill">01 / INPUT</span></div>
+      <div class="field"><label for="promptLanguage" data-i="responseLanguage">لغة الإجابة</label><select id="promptLanguage"><option value="Arabic">العربية</option><option value="English">English</option><option value="French">Français</option><option value="Tunisian Arabic">اللهجة التونسية</option></select></div>
 
-    <div class="field"><label data-i="questionLabel">السؤال أو القرار الذي تريد مناقشته</label><textarea id="aiQuestion" placeholder="مثال: هل أغيّر خطتي أم أستمر؟"></textarea></div>
+      <div class="field"><label for="promptTone" data-i="responseStyle">أسلوب الإجابة</label><select id="promptTone"><option value="practical and clear">عملي وواضح</option><option value="detailed">مفصل</option><option value="short and direct">مختصر ومباشر</option><option value="professional">احترافي</option><option value="creative">إبداعي</option></select></div>
 
-    <div class="field"><label data-i="extraContext">معلومات إضافية (اختياري)</label><textarea id="aiContext" placeholder="أي تفاصيل أخرى تريد أن يعرفها ChatGPT..."></textarea></div>
+      <div class="field"><label for="promptLevel" data-i="experienceLevel">المستوى</label><select id="promptLevel"><option value="beginner">مبتدئ</option><option value="intermediate">متوسط</option><option value="advanced">متقدم</option></select></div>
 
-    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="includeMoney">إرفاق المعطيات المالية</div><div class="smalltext" data-i="includeMoneySub">الرصيد والدخل والمصروفات والأهداف</div></div><label class="switch"><input type="checkbox" id="includeMoney" checked><span></span></label></div>
+    </div>
 
-    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="includeTasks">إرفاق المهام</div><div class="smalltext" data-i="includeTasksSub">المواعيد وحالة المهام</div></div><label class="switch"><input type="checkbox" id="includeTasks" checked><span></span></label></div>
+    <div class="field"><label for="promptConstraints" data-i="constraints">شروطك وقيودك</label><textarea id="promptConstraints" maxlength="2000" placeholder="مثال: أدوات مجانية فقط، خطوات عملية..."></textarea></div>
 
-    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="includeProfile">إرفاق ملف الشخصية</div><div class="smalltext" data-i="includeProfileSub">بياناتك وإجابات أسئلة الشخصية</div></div><label class="switch"><input type="checkbox" id="includeProfile" checked><span></span></label></div>
+    <button type="submit" class="btn primary block" data-i="generatePrompt">✧ إنشاء Prompt</button>
 
-    <button class="btn full" style="margin-top:18px" onclick="prepareAI()" data-i="prepareMessage">إنشاء رسالة ChatGPT ↗</button>
+  </form></div>
 
-  </div>
+  <div class="section-head"><h2 data-i="generatedPrompt">الـ Prompt الناتج</h2></div>
 
-  <div class="card">
+  <div class="card"><div id="promptOutput" class="prompt-box" dir="auto"></div><div class="btn-row" style="margin-top:12px"><button class="btn primary" id="copyPrompt" data-i="copyPrompt">نسخ النص</button><button class="btn" id="savePrompt" data-i="savePrompt">حفظ</button></div><div class="btn-row" style="margin-top:8px"><button class="btn" id="openChatGPT">↗ ChatGPT</button><button class="btn" id="clearPrompt" data-i="clear">مسح</button></div></div>
 
-    <div class="card-title"><h3 data-i="howWorks">كيف تعمل هذه الميزة؟</h3></div>
-
-    <div class="smalltext" style="font-size:12px;line-height:2.1" data-i="howWorksText">1. اكتب سؤالك.<br>2. يضيف NEXUS المعطيات التي اخترتها وتعليمات الإجابة المختصرة.<br>3. انسخ الرسالة والصقها في ChatGPT.<br>4. يجيب ChatGPT بناءً على الرسالة التي أرسلتها.</div>
-
-    <div class="warning" style="margin-top:14px" data-i="aiWarning">هذه الميزة لا ترسل البيانات تلقائيًا ولا تقرأ رد ChatGPT. لا ترفق معلومات حساسة لا تريد مشاركتها.</div>
-
-  </div>
+  <div class="section-head"><h2 data-i="savedPrompts">النصوص المحفوظة</h2></div><div class="list" id="savedPromptsList"></div>
 
 </section>
 
 <section class="page" id="page-profile">
 
-  <div class="heading"><div class="eyebrow">PERSONAL IDENTITY</div><h2 data-i="profileTitle">ملفك الشخصي</h2><p data-i="profileSub">أجب بصراحة؛ يمكنك تعديل معلوماتك متى شئت.</p></div>
+  <div class="heading"><div class="eyebrow">PERSONAL IDENTITY</div><h1 data-i="profileTitle">ملفي الشخصي</h1><p data-i="profileSub">مساحة شخصية لأهدافك وتفضيلاتك.</p></div>
 
-  <div class="card">
+  <div class="card"><div class="profile-avatar" id="profileAvatar">J</div><h2 id="profileDisplayName">Jasser</h2><p id="profileDisplayTagline">NEXUS — مساحتك الشخصية.</p><div class="divider"></div><div class="profile-row"><span class="small" data-i="startedAt">تاريخ بدء الاستخدام</span><span id="profileCreatedDate" class="value">—</span></div><div class="profile-row"><span class="small" data-i="totalMissions">إجمالي المهام</span><span id="profileTotalMissions" class="value">0</span></div><div class="profile-row"><span class="small" data-i="totalTransactions">إجمالي العمليات</span><span id="profileTotalTransactions" class="value">0</span></div></div>
 
-    <div class="card-title"><h3 data-i="basicInfo">المعلومات الأساسية</h3><span class="pill">PROFILE</span></div>
+  <div class="section-head"><h2 data-i="personalInfo">معلوماتي</h2></div>
 
-    <div class="row-fields">
+  <div class="card"><form id="profileForm" class="form">
 
-      <div class="field"><label data-i="firstName">الاسم</label><input id="firstName" autocomplete="given-name"></div>
+    <div class="field"><label for="profileName" data-i="yourName">اسمك</label><input id="profileName" maxlength="70" placeholder="Jasser"></div>
 
-      <div class="field"><label data-i="lastName">اللقب</label><input id="lastName" autocomplete="family-name"></div>
+    <div class="field"><label for="profileTagline" data-i="yourTagline">عبارة تعبر عنك</label><input id="profileTagline" maxlength="150" placeholder="..."></div>
 
-      <div class="field"><label data-i="age">العمر (اختياري)</label><input id="profileAge" type="number" min="1" max="120"></div>
+    <div class="field"><label for="profileGoal" data-i="personalGoal">هدفك الأساسي</label><textarea id="profileGoal" maxlength="1500"></textarea></div>
 
-      <div class="field"><label data-i="gender">الجنس (اختياري)</label><select id="profileGender"><option value="">غير محدد</option><option value="male">ذكر</option><option value="female">أنثى</option><option value="other">أفضل عدم التحديد</option></select></div>
+    <div class="field"><label for="profileInterests" data-i="interests">اهتماماتك</label><textarea id="profileInterests" maxlength="1500"></textarea></div>
 
-    </div>
+    <div class="field"><label for="profileStrengths" data-i="strengths">نقاط قوتك</label><textarea id="profileStrengths" maxlength="1500"></textarea></div>
 
-    <div class="field"><label data-i="aboutYou">ما الذي تريد تحقيقه؟</label><textarea id="profileAbout" placeholder="أهدافك، أولوياتك، ما تريد تحسينه..."></textarea></div>
+    <div class="field"><label for="profileChallenges" data-i="challenges">التحديات التي تريد تحسينها</label><textarea id="profileChallenges" maxlength="1500"></textarea></div>
 
-    <div class="field"><label data-i="decisionStyle">كيف تفضّل اتخاذ القرارات؟</label><select id="decisionStyle"><option value="">لم أحدد بعد</option><option value="logic">المنطق والأرقام</option><option value="balanced">موازنة المنطق والمشاعر</option><option value="intuition">الحدس والتجربة</option><option value="advice">أستشير الآخرين</option></select></div>
+    <div class="field"><label for="profilePreferences" data-i="personalPreferences">تفضيلاتك عند الحصول على المساعدة</label><textarea id="profilePreferences" maxlength="1500"></textarea></div>
 
-    <button class="btn full" onclick="saveProfile()" data-i="saveProfile">حفظ الملف الشخصي</button>
+    <button class="btn primary block" type="submit" data-i="saveProfile">حفظ الملف الشخصي</button>
 
-  </div>
+  </form></div>
 
-  <div class="card">
+  <div class="section-head"><h2 data-i="extraQuestions">أسئلة إضافية</h2></div>
 
-    <div class="card-title"><h3 data-i="personality">أسئلة فهم الشخصية</h3><span class="pill" id="qProgress">0 / 20</span></div>
+  <div class="card"><form id="questionForm" class="form"><div class="field"><label for="questionText" data-i="question">السؤال</label><input id="questionText" maxlength="200" required placeholder="..."></div><div class="field"><label for="questionAnswer" data-i="answer">الإجابة</label><textarea id="questionAnswer" maxlength="1500"></textarea></div><button class="btn primary block" type="submit" data-i="addQuestion">＋ إضافة سؤال</button></form><div class="divider"></div><div id="questionsList"></div></div>
 
-    <p class="smalltext" data-i="personalitySub">20 سؤالًا أساسيًا. عند حفظ إجاباتك تختفي الأسئلة، وتبقى إجاباتك متاحة لتعديلها أو إعادة فتحها.</p>
-
-    <div id="questionnaire"></div>
-
-    <div id="questionActions" class="btn-row" style="margin-top:15px"></div>
-
-    <div id="questionSaved" class="smalltext" style="margin-top:12px"></div>
-
-  </div>
+  <div class="section-head"><h2 data-i="dataManagement">إدارة البيانات</h2></div><div class="card"><p data-i="localDataNotice">بياناتك محفوظة محليًا على هذا الجهاز. صدّر نسخة احتياطية للاحتفاظ بها.</p><div class="btn-row"><button class="btn primary" id="exportData" data-i="exportBackup">تصدير نسخة</button><button class="btn" id="importData" data-i="importBackup">استيراد نسخة</button></div><input type="file" id="importFile" accept=".json,application/json" class="hidden"></div>
 
 </section>
 
 <section class="page" id="page-settings">
 
-  <div class="heading"><div class="eyebrow">SYSTEM PREFERENCES</div><h2 data-i="settingsTitle">الإعدادات</h2><p data-i="settingsSub">تحكم في طريقة عمل NEXUS وبياناتك.</p></div>
+  <div class="heading"><div class="eyebrow">SYSTEM CONFIGURATION</div><h1 data-i="settingsTitle">الإعدادات</h1><p data-i="settingsSub">خصص تجربة NEXUS بالطريقة التي تناسبك.</p></div>
 
-  <div class="card">
+  <div class="section-head"><h2 data-i="appearance">المظهر</h2></div>
 
-    <div class="card-title"><h3 data-i="appearance">المظهر والتجربة</h3></div>
+  <div class="card"><div class="toggle-row"><div><h3 data-i="lightMode">الوضع الفاتح</h3><p class="small" data-i="lightModeDesc">تغيير ألوان الواجهة.</p></div><input class="toggle" type="checkbox" id="lightToggle"></div><div class="divider"></div><div class="field"><label for="languageSelect" data-i="appLanguage">لغة التطبيق</label><select id="languageSelect"><option value="ar">العربية</option><option value="en">English</option></select></div></div>
 
-    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="language">لغة التطبيق</div><div class="smalltext" data-i="languageSub">العربية أو الإنجليزية</div></div><select id="languageSelect" style="width:125px" onchange="changeLanguage(this.value)"><option value="ar">العربية</option><option value="en">English</option></select></div>
+  <div class="section-head"><h2 data-i="preferences">التفضيلات</h2></div>
 
-    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="sound">أصوات الأزرار</div><div class="smalltext" data-i="soundSub">صوت خفيف عند التفاعل</div></div><label class="switch"><input type="checkbox" id="soundToggle"><span></span></label></div>
+  <div class="card"><div class="toggle-row"><div><h3 data-i="confirmDeletes">تأكيد الحذف</h3><p class="small" data-i="confirmDeletesSub">طلب التأكيد قبل حذف البيانات.</p></div><input class="toggle" type="checkbox" id="confirmDeletes" checked></div><div class="divider"></div><div class="toggle-row"><div><h3 data-i="soundEffects">الأصوات</h3><p class="small" data-i="soundEffectsSub">صوت بسيط عند نجاح بعض الإجراءات.</p></div><input class="toggle" type="checkbox" id="soundToggle"></div></div>
 
-    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="notifications">الإشعارات</div><div class="smalltext" data-i="notificationsSub">تنبيهات عند فتح التطبيق وعند المواعيد القريبة</div></div><label class="switch"><input type="checkbox" id="notifyToggle"><span></span></label></div>
+  <div class="section-head"><h2 data-i="backup">النسخ الاحتياطي</h2></div>
 
-    <div class="smalltext" id="notificationStatus" style="margin-top:10px"></div>
+  <div class="card"><div class="profile-row"><span data-i="storageStatus">حالة التخزين</span><span class="pill green" id="storageStatus">LOCAL</span></div><p class="small" data-i="backupSub">صدّر نسخة JSON لاستعادة بياناتك عند الحاجة.</p><div class="btn-row"><button class="btn primary" id="settingsExport" data-i="exportBackup">تصدير نسخة</button><button class="btn" id="settingsImport" data-i="importBackup">استيراد نسخة</button></div></div>
 
-  </div>
+  <div class="section-head"><h2 data-i="dangerZone">منطقة الخطر</h2></div>
 
-  <div class="card">
+  <div class="card"><h3 class="red" data-i="resetAppTitle">إعادة تعيين التطبيق</h3><p class="small" data-i="resetAppSub">سيؤدي ذلك إلى حذف جميع بيانات NEXUS المحلية.</p><button class="btn danger block" id="resetApp" style="margin-top:12px" data-i="resetEverything">حذف كل البيانات</button></div>
 
-    <div class="card-title"><h3 data-i="extraQuestions">أسئلة إضافية اختيارية</h3><span class="pill" id="extraCount">0 / 5</span></div>
-
-    <p class="smalltext" data-i="extraQuestionsSub">أضف حتى خمسة أسئلة لفهمك بشكل أفضل. يمكنك تعديلها أو حذفها في أي وقت. تظهر الإجابات عند تجهيز رسالة ChatGPT.</p>
-
-    <div id="extraQuestionList"></div>
-
-    <button class="btn secondary full" style="margin-top:12px" onclick="addExtraQuestion()" id="addExtraBtn" data-i="addExtra">+ إضافة سؤال</button>
-
-    <div class="divider"></div>
-
-    <div class="card-title"><h3 data-i="dataManagement">إدارة البيانات</h3></div>
-
-    <div class="smalltext" style="margin-bottom:14px" data-i="dataManagementSub">بياناتك محفوظة على هذا المتصفح. احفظ نسخة احتياطية قبل حذفها أو تغيير الجهاز.</div>
-
-    <div class="btn-row"><button class="btn secondary small" onclick="exportBackup()" data-i="exportData">تصدير البيانات</button><button class="btn ghost small" onclick="document.getElementById('importFile').click()" data-i="importData">استيراد البيانات</button><button class="btn danger small" onclick="resetAllData()" data-i="resetData">حذف جميع البيانات</button></div>
-
-  </div>
-
-  <div class="card">
-
-    <div class="card-title"><h3 data-i="aboutNexus">حول NEXUS</h3></div>
-
-    <div class="smalltext">NEXUS · Personal Control System<br>Version 2.0<br><br>MADE IN TUNISIA 🇹🇳<br>BY JASSER NOUAILI</div>
-
-  </div>
+  <div class="footer">NEXUS<br>MADE IN TUNISIA 🇹🇳<br>BY JASSER NOUAILI</div>
 
 </section>
 
@@ -604,240 +286,740 @@ select option{background:#151421}
 
 </div>
 
-<nav class="bottom-nav">
+<nav class="nav"><div class="nav-inner">
 
-  <div class="nav-inner">
+<button class="nav-item active" data-page="home"><span class="nav-icon">⌂</span><span data-i="navHome">الرئيسية</span></button>
 
-    <button class="nav-item active" data-page="home" onclick="openPage('home')"><span class="nav-icon">⌂</span><span data-i="navHome">الرئيسية</span></button>
+<button class="nav-item" data-page="pocket"><span class="nav-icon">◈</span><span data-i="navPocket">الأموال</span></button>
 
-    <button class="nav-item" data-page="pocket" onclick="openPage('pocket')"><span class="nav-icon">◈</span><span data-i="navPocket">المال</span></button>
+<button class="nav-item" data-page="missions"><span class="nav-icon">◷</span><span data-i="navMissions">المهام</span></button>
 
-    <button class="nav-item" data-page="mission" onclick="openPage('mission')"><span class="nav-icon">◷</span><span data-i="navMission">المهام</span></button>
+<button class="nav-item" data-page="ai"><span class="nav-icon">✧</span><span data-i="navAI">AI HELP</span></button>
 
-    <button class="nav-item" data-page="ai" onclick="openPage('ai')"><span class="nav-icon">✳</span><span>AI HELP</span></button>
+<button class="nav-item" data-page="profile"><span class="nav-icon">◎</span><span data-i="navProfile">الملف</span></button>
 
-    <button class="nav-item" data-page="settings" onclick="openPage('settings')"><span class="nav-icon">⚙</span><span data-i="navSettings">الإعدادات</span></button>
+<button class="nav-item" data-page="settings"><span class="nav-icon">⚙</span><span data-i="navSettings">الإعدادات</span></button>
 
-  </div>
+</div></nav>
 
-</nav>
+<div class="toast-area" id="toastArea" aria-live="polite"></div>
 
-<div class="modal-backdrop" id="missionModal" onclick="backdropClose(event,'missionModal')">
-
-<div class="modal"><div class="modal-head"><h3 id="missionModalTitle">مهمة جديدة</h3><button class="close-btn" onclick="closeModal('missionModal')">×</button></div>
-
-<form id="missionForm" onsubmit="saveMission(event)">
-
-<input type="hidden" id="missionId">
-
-<div class="field"><label data-i="missionName">اسم المهمة</label><input id="missionName" required maxlength="120" placeholder="مراجعة الدرس"></div>
-
-<div class="field"><label data-i="description">الوصف</label><textarea id="missionDesc" maxlength="1000" placeholder="تفاصيل المهمة..."></textarea></div>
-
-<div class="field"><label data-i="startTime">وقت البداية</label><input id="missionStart" type="datetime-local" required></div>
-
-<div class="field"><label data-i="deadline">الموعد النهائي</label><input id="missionDeadline" type="datetime-local" required></div>
-
-<div class="field"><label data-i="missionPriority">الأولوية</label><select id="missionPriority"><option value="normal">عادية</option><option value="high">عالية</option><option value="urgent">عاجلة</option></select></div>
-
-<div class="btn-row"><button class="btn" type="submit" data-i="save">حفظ</button><button class="btn ghost" type="button" onclick="closeModal('missionModal')" data-i="cancel">إلغاء</button></div>
-
-</form></div></div>
-
-<div class="modal-backdrop" id="transactionModal" onclick="backdropClose(event,'transactionModal')">
-
-<div class="modal"><div class="modal-head"><h3 id="txModalTitle">عملية مالية</h3><button class="close-btn" onclick="closeModal('transactionModal')">×</button></div>
-
-<form id="transactionForm" onsubmit="saveTransaction(event)">
-
-<input type="hidden" id="txId"><input type="hidden" id="txType" value="expense">
-
-<div class="field"><label data-i="operationName">اسم العملية</label><input id="txName" maxlength="140" required placeholder="مثال: طعام"></div>
-
-<div class="row-fields"><div class="field"><label data-i="amount">المبلغ (DT)</label><input id="txAmount" type="number" min="0.001" step="0.001" required></div><div class="field"><label data-i="operationDate">التاريخ</label><input id="txDate" type="date" required></div></div>
-
-<div class="field"><label data-i="category">التصنيف</label><select id="txCategory"><option value="food">طعام</option><option value="transport">نقل</option><option value="clothes">ملابس</option><option value="study">دراسة</option><option value="entertainment">ترفيه</option><option value="work">عمل</option><option value="gift">هدية</option><option value="other">أخرى</option></select></div>
-
-<div class="field"><label data-i="notes">ملاحظات (اختياري)</label><textarea id="txNotes" style="min-height:60px"></textarea></div>
-
-<div class="btn-row"><button class="btn" type="submit" data-i="save">حفظ</button><button class="btn ghost" type="button" onclick="closeModal('transactionModal')" data-i="cancel">إلغاء</button></div>
-
-</form></div></div>
-
-<div class="modal-backdrop" id="balanceModal" onclick="backdropClose(event,'balanceModal')">
-
-<div class="modal"><div class="modal-head"><h3 data-i="openingBalance">الرصيد الافتتاحي</h3><button class="close-btn" onclick="closeModal('balanceModal')">×</button></div>
-
-<p class="smalltext" data-i="openingBalanceHelp">أدخل رصيدك قبل تسجيل العمليات. سيُحسب الرصيد الحالي تلقائيًا.</p>
-
-<form onsubmit="saveOpeningBalance(event)"><div class="field"><label data-i="amount">المبلغ (DT)</label><input type="number" id="openingAmount" step="0.001" required></div><button class="btn full" type="submit" data-i="save">حفظ</button></form></div></div>
-
-<div class="modal-backdrop" id="goalModal" onclick="backdropClose(event,'goalModal')">
-
-<div class="modal"><div class="modal-head"><h3 id="goalModalTitle">هدف مالي جديد</h3><button class="close-btn" onclick="closeModal('goalModal')">×</button></div>
-
-<form onsubmit="saveGoal(event)"><input type="hidden" id="goalId">
-
-<div class="field"><label data-i="goalName">اسم الهدف</label><input id="goalName" required maxlength="100" placeholder="شراء حاسوب"></div>
-
-<div class="field"><label data-i="targetAmount">المبلغ المستهدف (DT)</label><input id="goalTarget" type="number" min="0.001" step="0.001" required></div>
-
-<div class="field"><label data-i="savedAmount">المبلغ الذي ادخرته (DT)</label><input id="goalSaved" type="number" min="0" step="0.001" value="0" required></div>
-
-<div class="field"><label data-i="goalDeadline">الموعد المستهدف (اختياري)</label><input id="goalDate" type="date"></div>
-
-<div class="btn-row"><button class="btn" type="submit" data-i="save">حفظ</button><button class="btn ghost" type="button" onclick="closeModal('goalModal')" data-i="cancel">إلغاء</button></div>
-
-</form></div></div>
-
-<div class="modal-backdrop" id="aiModal" onclick="backdropClose(event,'aiModal')">
-
-<div class="modal"><div class="modal-head"><h3 data-i="askAI">جهّز سؤالًا لـ ChatGPT</h3><button class="close-btn" onclick="closeModal('aiModal')">×</button></div>
-
-<p class="smalltext" data-i="aiModalHelp">اكتب سؤالك وسيجمع NEXUS المعطيات التي اخترتها في رسالة واحدة.</p>
-
-<div class="field"><textarea id="aiQuestionModal" placeholder="اكتب سؤالك هنا..."></textarea></div>
-
-<button class="btn full" onclick="prepareAIFromModal()" data-i="prepareMessage">إنشاء رسالة ChatGPT ↗</button>
-
-</div></div>
-
-<div class="modal-backdrop" id="messageModal" onclick="backdropClose(event,'messageModal')">
-
-<div class="modal"><div class="modal-head"><h3 data-i="readyMessage">رسالتك جاهزة</h3><button class="close-btn" onclick="closeModal('messageModal')">×</button></div>
-
-<p class="smalltext" data-i="readyMessageSub">راجع الرسالة، ثم انسخها والصقها في ChatGPT.</p>
-
-<div class="ai-output" id="generatedMessage"></div>
-
-<div class="btn-row" style="margin-top:14px"><button class="btn" onclick="copyGenerated()" data-i="copyMessage">نسخ الرسالة</button><button class="btn secondary" onclick="openChatGPT()" data-i="openChatGPT">فتح ChatGPT ↗</button><button class="btn ghost" onclick="closeModal('messageModal')" data-i="close">إغلاق</button></div>
-
-</div></div>
-
-<div class="modal-backdrop" id="extraModal" onclick="backdropClose(event,'extraModal')">
-
-<div class="modal"><div class="modal-head"><h3 id="extraModalTitle">سؤال إضافي</h3><button class="close-btn" onclick="closeModal('extraModal')">×</button></div>
-
-<form onsubmit="saveExtraQuestion(event)"><input type="hidden" id="extraId">
-
-<div class="field"><label data-i="questionText">نص السؤال</label><input id="extraText" maxlength="180" required></div>
-
-<div class="field"><label data-i="answerText">إجابتك (اختياري)</label><textarea id="extraAnswer"></textarea></div>
-
-<div class="btn-row"><button class="btn" type="submit" data-i="save">حفظ</button><button class="btn ghost" type="button" onclick="closeModal('extraModal')" data-i="cancel">إلغاء</button></div>
-
-</form></div></div>
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true"><div class="modal"><div class="modal-head"><h2 id="modalTitle">NEXUS</h2><button class="close" id="modalClose" aria-label="Close">×</button></div><div id="modalContent"></div><div id="modalActions" class="btn-row" style="margin-top:16px"></div></div></div>
 
 <script>
 
 "use strict";
 
-const STORAGE_KEY="nexus_v2_jasser";
+(()=>{
 
 const $=id=>document.getElementById(id);
 
-const nowISO=()=>new Date().toISOString();
+const $$=sel=>Array.from(document.querySelectorAll(sel));
 
-const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+const KEY="nexus_personal_control_v1";
 
-const localDT=(date=new Date())=>{const d=new Date(date.getTime()-date.getTimezoneOffset()*60000);return d.toISOString().slice(0,16)};
+const uid=()=>Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,9);
 
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const now=()=>new Date().toISOString();
 
-const defaultState=()=>({version:2,language:"ar",sound:false,notifications:false,openingBalance:0,transactions:[],missions:[],goals:[],profile:{firstName:"",lastName:"",age:"",gender:"",about:"",decisionStyle:""},personality:{answered:false,answers:{}},extraQuestions:[],lastNotified:{},createdAt:nowISO()});
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-let state=loadState(),generatedText="",audioCtx=null;
+const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
 
-function loadState(){try{const x=JSON.parse(localStorage.getItem(STORAGE_KEY));if(!x||typeof x!=="object")return defaultState();const d=defaultState();return {...d,...x,profile:{...d.profile,...(x.profile||{})},personality:{...d.personality,...(x.personality||{})},transactions:Array.isArray(x.transactions)?x.transactions:[],missions:Array.isArray(x.missions)?x.missions:[],goals:Array.isArray(x.goals)?x.goals:[],extraQuestions:Array.isArray(x.extraQuestions)?x.extraQuestions.slice(0,5):[]}}catch(e){return defaultState()}}
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 
-function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}catch(e){toast("تعذّر حفظ البيانات. قد تكون مساحة التخزين ممتلئة.");return false}}
+const localDate=(d=new Date())=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 
-function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-
-function fmt(n){return (Number(n)||0).toLocaleString(state.language==="ar"?"en-US":"en-US",{minimumFractionDigits:3,maximumFractionDigits:3})+" DT"}
-
-function money(n){return (Number(n)||0).toFixed(3)+" DT"}
-
-function toast(msg){const el=document.createElement("div");el.className="toast";el.textContent=msg;$("toastArea").appendChild(el);setTimeout(()=>el.remove(),3600)}
-
-function playSound(){if(!state.sound)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.value=500;g.gain.value=.025;o.connect(g);g.connect(audioCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+.05);o.stop(audioCtx.currentTime+.05)}catch(e){}}
-
-document.addEventListener("click",e=>{if(e.target.closest("button"))playSound()},{passive:true});
-
-const translations={
+const dict={
 
 ar:{
 
-overview:"مساحتك الشخصية",homeSub:"كل ما تحتاجه لإدارة يومك، في مكان واحد.",nextMission:"أقرب مهمة قادمة",viewMissions:"عرض المهام",newMission:"+ مهمة جديدة",activeTasks:"المهام النشطة",completedTasks:"المهام المكتملة",activeSub:"تحتاج إلى متابعتك",doneSub:"إنجازاتك حتى الآن",dailyFocus:"تركيزك اليوم",localData:"بيانات محلية",privacyNote:"بياناتك محفوظة على هذا الجهاز فقط.",askAI:"جهّز سؤالًا لـ ChatGPT",pocketTitle:"Pocket Money",pocketSub:"كل عملية محسوبة، وكل قرار أوضح.",currentBalance:"الرصيد الحالي",balanceFormula:"الرصيد الافتتاحي + الدخل − المصروفات",addExpense:"− مصروف",addIncome:"+ دخل",openingBalance:"الرصيد الافتتاحي",totalIncome:"إجمالي الدخل",totalExpenses:"إجمالي المصروفات",allRecorded:"كل العمليات المسجلة",analysis:"تحليل المصروفات",netThisPeriod:"صافي الفترة",transactionCount:"عدد العمليات",goals:"الأهداف المالية",addGoal:"+ هدف",purchaseSimulator:"محاكي قرار الشراء",purchaseHelp:"أدخل ثمن الشيء لتجهّز رسالة تحليل تراعي رصيدك وأهدافك.",itemName:"اسم الشيء",itemPrice:"الثمن (DT)",priority:"مدى الحاجة",analyzePurchase:"تحليل القرار مع ChatGPT",transactions:"سجل العمليات",exportCSV:"تصدير CSV",backup:"نسخة JSON",importBackup:"استيراد نسخة",missionTitle:"المهام",missionSub:"وقتك واضح، وتقدمك محسوب.",allMissions:"كل المهام",missionLegend:"الأخضر: 75% أو أكثر من الوقت متبقٍ · البرتقالي: 50% · الأصفر: 20% · الأحمر: أقل من 20%.",aiSub:"جهّز معطياتك وسؤالك في رسالة واحدة إلى ChatGPT.",aiHero:"معطياتك. سؤالك. اقتراح واضح.",aiHeroSub:"NEXUS يجهّز الرسالة؛ ChatGPT يحلّل ويجيب.",yourQuestion:"ما سؤالك؟",questionLabel:"السؤال أو القرار الذي تريد مناقشته",extraContext:"معلومات إضافية (اختياري)",includeMoney:"إرفاق المعطيات المالية",includeMoneySub:"الرصيد والدخل والمصروفات والأهداف",includeTasks:"إرفاق المهام",includeTasksSub:"المواعيد وحالة المهام",includeProfile:"إرفاق ملف الشخصية",includeProfileSub:"بياناتك وإجابات أسئلة الشخصية",prepareMessage:"إنشاء رسالة ChatGPT ↗",howWorks:"كيف تعمل هذه الميزة؟",howWorksText:"1. اكتب سؤالك.<br>2. يضيف NEXUS المعطيات التي اخترتها وتعليمات الإجابة المختصرة.<br>3. انسخ الرسالة والصقها في ChatGPT.<br>4. يجيب ChatGPT بناءً على الرسالة التي أرسلتها.",aiWarning:"هذه الميزة لا ترسل البيانات تلقائيًا ولا تقرأ رد ChatGPT. لا ترفق معلومات حساسة لا تريد مشاركتها.",profileTitle:"ملفك الشخصي",profileSub:"أجب بصراحة؛ يمكنك تعديل معلوماتك متى شئت.",basicInfo:"المعلومات الأساسية",firstName:"الاسم",lastName:"اللقب",age:"العمر (اختياري)",gender:"الجنس (اختياري)",aboutYou:"ما الذي تريد تحقيقه؟",decisionStyle:"كيف تفضّل اتخاذ القرارات؟",saveProfile:"حفظ الملف الشخصي",personality:"أسئلة فهم الشخصية",personalitySub:"20 سؤالًا أساسيًا. عند حفظ إجاباتك تختفي الأسئلة، وتبقى إجاباتك متاحة لتعديلها أو إعادة فتحها.",settingsTitle:"الإعدادات",settingsSub:"تحكم في طريقة عمل NEXUS وبياناتك.",appearance:"المظهر والتجربة",language:"لغة التطبيق",languageSub:"العربية أو الإنجليزية",sound:"أصوات الأزرار",soundSub:"صوت خفيف عند التفاعل",notifications:"الإشعارات",notificationsSub:"تنبيهات عند فتح التطبيق وعند المواعيد القريبة",extraQuestions:"أسئلة إضافية اختيارية",extraQuestionsSub:"أضف حتى خمسة أسئلة لفهمك بشكل أفضل. يمكنك تعديلها أو حذفها في أي وقت. تظهر الإجابات عند تجهيز رسالة ChatGPT.",addExtra:"+ إضافة سؤال",dataManagement:"إدارة البيانات",dataManagementSub:"بياناتك محفوظة على هذا المتصفح. احفظ نسخة احتياطية قبل حذفها أو تغيير الجهاز.",exportData:"تصدير البيانات",importData:"استيراد البيانات",resetData:"حذف جميع البيانات",aboutNexus:"حول NEXUS",navHome:"الرئيسية",navPocket:"المال",navMission:"المهام",navSettings:"الإعدادات",missionName:"اسم المهمة",description:"الوصف",startTime:"وقت البداية",deadline:"الموعد النهائي",missionPriority:"الأولوية",save:"حفظ",cancel:"إلغاء",operationName:"اسم العملية",amount:"المبلغ (DT)",operationDate:"التاريخ",category:"التصنيف",notes:"ملاحظات (اختياري)",goalName:"اسم الهدف",targetAmount:"المبلغ المستهدف (DT)",savedAmount:"المبلغ الذي ادخرته (DT)",goalDeadline:"الموعد المستهدف (اختياري)",openingBalanceHelp:"أدخل رصيدك قبل تسجيل العمليات. سيُحسب الرصيد الحالي تلقائيًا.",readyMessage:"رسالتك جاهزة",readyMessageSub:"راجع الرسالة، ثم انسخها والصقها في ChatGPT.",copyMessage:"نسخ الرسالة",openChatGPT:"فتح ChatGPT ↗",close:"إغلاق",aiModalHelp:"اكتب سؤالك وسيجمع NEXUS المعطيات التي اخترتها في رسالة واحدة.",questionText:"نص السؤال",answerText:"إجابتك (اختياري)",extraQuestionsCount:"سؤال إضافي",allTransactions:"كل العمليات",emptyTransactions:"لا توجد عمليات مسجلة بعد.",emptyMissions:"لا توجد مهام بعد. أضف مهمتك الأولى.",emptyGoals:"لا توجد أهداف مالية. أنشئ هدفًا واضحًا لادخارك.",noUpcoming:"لا توجد مهام قادمة",noTasks:"أضف مهمة واضحة لتبدأ بتنظيم يومك.",due:"الوقت المتبقي",overdue:"متأخرة",completed:"مكتملة",upcoming:"قادمة",started:"جارية",edit:"تعديل",delete:"حذف",markDone:"إكمال",undoDone:"إعادة فتح",remaining:"متبقٍ",saved:"تم الحفظ",deleted:"تم الحذف",invalid:"تحقق من البيانات المدخلة.",confirmDelete:"هل تريد حذف هذا العنصر؟",confirmReset:"سيؤدي هذا إلى حذف جميع بيانات NEXUS من هذا المتصفح. هل أنت متأكد؟",copied:"تم نسخ الرسالة. افتح ChatGPT والصقها.",copyFailed:"تعذّر النسخ التلقائي. حدّد الرسالة وانسخها يدويًا.",noQuestion:"اكتب سؤالك أولًا.",noName:"غير محدد",exportDone:"تم تجهيز ملف التصدير.",importSuccess:"تم استيراد البيانات.",importFailed:"ملف غير صالح أو غير متوافق.",extraLimit:"يمكنك إضافة خمسة أسئلة فقط.",extraQuestionPlaceholder:"اكتب سؤالك",notificationsEnabled:"الإشعارات مفعّلة على مستوى التطبيق.",notificationsDisabled:"الإشعارات متوقفة.",notificationsUnsupported:"إشعارات النظام غير مدعومة في هذا المتصفح.",permissionDenied:"لم يُسمح بالإشعارات. يمكنك تغيير الإذن من إعدادات المتصفح.",missionTimeError:"يجب أن يكون الموعد النهائي بعد وقت البداية.",alreadySaved:"الإجابات محفوظة.",reopenQuestions:"تعديل الإجابات",saveAnswers:"حفظ الإجابات",resetAnswers:"إعادة فتح الأسئلة",noAnswers:"أجب عن الأسئلة ثم احفظها.",purchasePrompt:"أدخل اسم المنتج وثمنه الصحيحين.",purchaseTitle:"قرار شراء",purchaseBalance:"الرصيد بعد الشراء",purchaseNeed:"مدى الحاجة",need:"ضروري",useful:"مفيد لكن يمكن الانتظار",want:"رغبة فقط",income:"دخل",expense:"مصروف",opening:"رصيد افتتاحي",food:"طعام",transport:"نقل",clothes:"ملابس",study:"دراسة",entertainment:"ترفيه",work:"عمل",gift:"هدية",other:"أخرى",noCategory:"بدون تصنيف",startPrompt:"أضف مهمة واضحة لتبدأ بتنظيم يومك.",ageQuestion:"العمر غير محدد",extraAnswerPlaceholder:"اكتب إجابتك هنا",unknown:"غير محدد",deleteExtra:"حذف السؤال",editExtra:"تعديل السؤال",goalReached:"تم تحقيق الهدف",goalRemaining:"المتبقي للهدف",goalProgress:"نسبة التقدم",transactionSearch:"ابحث في العمليات...",all:"الكل",thisMonth:"هذا الشهر",lastWeek:"آخر 7 أيام",incomeFilter:"الدخل",expenseFilter:"المصروفات",newest:"الأحدث أولًا",oldest:"الأقدم أولًا",largest:"الأعلى مبلغًا",urgent:"عاجلة",high:"عالية",normal:"عادية",noProfileAnswers:"لم تُحفظ إجابات الشخصية بعد.",notSpecified:"غير محدد"
+dashboard:"لوحة التحكم الشخصية",dashboardSub:"نظّم حياتك وتحكّم في أهدافك.",totalBalance:"إجمالي الرصيد المتاح",balanceProgress:"تقدمك نحو هدفك المالي",activeMissions:"المهام النشطة",waitingTasks:"أهداف تنتظر إنجازك",completedMissions:"المهام المكتملة",doneTasks:"إنجازاتك المسجلة",income:"إجمالي الدخل",expenses:"إجمالي المصروفات",quickActions:"إجراءات سريعة",addMoney:"إضافة مال",newMission:"مهمة جديدة",createPrompt:"إنشاء Prompt",myProfile:"ملفي الشخصي",upcoming:"المهام القادمة",viewAll:"عرض الكل ←",recentTransactions:"آخر العمليات المالية",pocketSub:"تابع رصيدك ودخلك ومصروفاتك بدقة.",currentBalance:"الرصيد الحالي",manageMoney:"إدارة الأموال",deposit:"إضافة",withdraw:"سحب",goal:"الهدف",amount:"المبلغ (DT)",description:"الوصف",confirmTransaction:"تأكيد العملية",goalName:"اسم الهدف",goalAmount:"المبلغ المستهدف (DT)",saveGoal:"حفظ الهدف",goalProgress:"التقدم نحو هدفك",editGoal:"تعديل الهدف",transactions:"سجل العمليات",filter:"تصفية",all:"كل العمليات",incomeOnly:"الدخل فقط",expenseOnly:"المصروفات فقط",search:"بحث",resetMoney:"إعادة تعيين البيانات المالية",missionsSub:"حوّل أهدافك إلى مهام واضحة مع عد تنازلي مباشر.",createMission:"إنشاء مهمة",missionName:"اسم المهمة",missionDescription:"الوصف / الملاحظات",dueDate:"تاريخ الانتهاء",dueTime:"الوقت",missionPrice:"التكلفة (DT) — اختياري",priority:"الأولوية",normal:"عادية",high:"مرتفعة",urgent:"عاجلة",addMission:"＋ إضافة المهمة",cancel:"إلغاء",yourMissions:"مهامك",activeTab:"النشطة",completedTab:"المكتملة",allTab:"الكل",aiSub:"أنشئ Prompt مخصصًا وانسخه إلى ChatGPT أو مساعد الذكاء الاصطناعي الذي تفضله.",aiHero:"فكرتك، بصياغة أفضل.",aiHeroSub:"منشئ نصوص يعمل محليًا دون API.",promptGoal:"ماذا تريد أن تحقق؟",promptType:"نوع المساعدة",typeGeneral:"عام",typeStudy:"الدراسة",typeBusiness:"مشروع / تجارة",typeCoding:"برمجة",typePlanning:"التخطيط",typeWriting:"الكتابة",typeAnalysis:"التحليل",responseLanguage:"لغة الإجابة",responseStyle:"أسلوب الإجابة",experienceLevel:"المستوى",constraints:"شروطك وقيودك",generatePrompt:"✧ إنشاء Prompt",generatedPrompt:"الـ Prompt الناتج",copyPrompt:"نسخ النص",savePrompt:"حفظ",clear:"مسح",savedPrompts:"النصوص المحفوظة",profileTitle:"ملفي الشخصي",profileSub:"مساحة شخصية لأهدافك وتفضيلاتك.",startedAt:"تاريخ بدء الاستخدام",totalMissions:"إجمالي المهام",totalTransactions:"إجمالي العمليات",personalInfo:"معلوماتي",yourName:"اسمك",yourTagline:"عبارة تعبر عنك",personalGoal:"هدفك الأساسي",interests:"اهتماماتك",strengths:"نقاط قوتك",challenges:"التحديات التي تريد تحسينها",personalPreferences:"تفضيلاتك عند الحصول على المساعدة",saveProfile:"حفظ الملف الشخصي",extraQuestions:"أسئلة إضافية",question:"السؤال",answer:"الإجابة",addQuestion:"＋ إضافة سؤال",settingsTitle:"الإعدادات",settingsSub:"خصص تجربة NEXUS بالطريقة التي تناسبك.",appearance:"المظهر",lightMode:"الوضع الفاتح",lightModeDesc:"تغيير ألوان الواجهة.",appLanguage:"لغة التطبيق",preferences:"التفضيلات",confirmDeletes:"تأكيد الحذف",confirmDeletesSub:"طلب التأكيد قبل حذف البيانات.",soundEffects:"الأصوات",soundEffectsSub:"صوت بسيط عند نجاح بعض الإجراءات.",dataManagement:"إدارة البيانات",localDataNotice:"بياناتك محفوظة محليًا على هذا الجهاز. صدّر نسخة احتياطية للاحتفاظ بها.",exportBackup:"تصدير نسخة",importBackup:"استيراد نسخة",backup:"النسخ الاحتياطي",storageStatus:"حالة التخزين",backupSub:"صدّر نسخة JSON لاستعادة بياناتك عند الحاجة.",dangerZone:"منطقة الخطر",resetAppTitle:"إعادة تعيين التطبيق",resetAppSub:"سيؤدي ذلك إلى حذف جميع بيانات NEXUS المحلية.",resetEverything:"حذف كل البيانات",navHome:"الرئيسية",navPocket:"الأموال",navMissions:"المهام",navAI:"AI HELP",navProfile:"الملف",navSettings:"الإعدادات",emptyMissions:"لا توجد مهام هنا بعد.",emptyTransactions:"لا توجد عمليات مالية مسجلة.",emptyPrompts:"لم تحفظ أي نصوص بعد.",emptyQuestions:"لم تضف أسئلة بعد.",remaining:"متبقي",overdue:"متأخرة",finished:"مكتملة",started:"جارية",days:"يوم",hours:"ساعة",minutes:"دقيقة",seconds:"ثانية",markComplete:"إنهاء",undoComplete:"إعادة فتح",edit:"تعديل",delete:"حذف",completedSuccess:"تم إنهاء المهمة.",reopenedSuccess:"تمت إعادة فتح المهمة.",missionAdded:"تمت إضافة المهمة.",missionUpdated:"تم تحديث المهمة.",missionDeleted:"تم حذف المهمة.",moneyAdded:"تم تسجيل العملية المالية.",insufficientBalance:"الرصيد غير كافٍ لإتمام عملية السحب.",invalidAmount:"أدخل مبلغًا صحيحًا أكبر من صفر.",requiredFields:"يرجى ملء الحقول المطلوبة.",goalSaved:"تم حفظ الهدف المالي.",profileSaved:"تم حفظ ملفك الشخصي.",questionAdded:"تمت إضافة السؤال.",questionDeleted:"تم حذف السؤال.",promptGenerated:"تم إنشاء النص بنجاح.",promptSaved:"تم حفظ النص.",promptCopied:"تم نسخ النص.",deleted:"تم الحذف.",confirmDelete:"هل أنت متأكد أنك تريد حذف هذا العنصر؟",confirmResetMoney:"هل تريد حذف جميع العمليات المالية وإعادة الرصيد إلى صفر؟",confirmResetApp:"سيتم حذف جميع بيانات NEXUS المحلية. هل تريد المتابعة؟",resetDone:"تمت إعادة التعيين.",backupExported:"تم تصدير النسخة الاحتياطية.",backupImported:"تم استيراد البيانات بنجاح.",invalidBackup:"الملف غير صالح أو لا يحتوي على بيانات NEXUS صحيحة.",noDataToExport:"لا توجد بيانات لتصديرها.",csvExported:"تم إنشاء ملف CSV.",deadline:"الموعد النهائي",cost:"التكلفة",noCost:"دون تكلفة",transactionIncome:"إضافة رصيد",transactionExpense:"سحب / مصروف",goalReached:"تم الوصول إلى الهدف!",target:"الهدف",current:"الحالي",enterGoal:"أدخل هدفك المالي أولًا.",noPrompt:"أنشئ نصًا أولًا.",storageAvailable:"التخزين المحلي متاح",storageUnavailable:"التخزين المحلي غير متاح",questionPlaceholder:"اكتب السؤال",answerPlaceholder:"اكتب الإجابة",confirmDeleteQuestion:"حذف هذا السؤال وإجابته؟",confirmDeleteTransaction:"حذف هذه العملية المالية؟",transactionDeleted:"تم حذف العملية.",promptTitle:"عنوان النص",promptTitlePlaceholder:"مثال: خطة الدراسة",openAI:"فتح ChatGPT",copyError:"تعذر النسخ التلقائي. حدد النص وانسخه يدويًا.",profileDefault:"مساحة خاصة بك داخل NEXUS.",currencyNotice:"القيم محفوظة بالدينار التونسي.",missionCostNotice:"سيُخصم سعر المهمة من الرصيد عند إكمالها إذا كان أكبر من صفر.",resetPrompt:"إعادة تعيين",balanceNegative:"تنبيه: رصيدك سالب.",completedCost:"تم إكمال المهمة وخصم تكلفتها.",costDeducted:"تم خصم تكلفة المهمة.",noGoal:"لم تحدد هدفًا بعد",goalRemaining:"المتبقي للوصول للهدف",taskDescription:"الوصف",priorityNormal:"عادية",priorityHigh:"مرتفعة",priorityUrgent:"عاجلة",date:"التاريخ",type:"النوع",incomeDesc:"إضافة رصيد",expenseDesc:"مصروف",backupWarning:"استيراد النسخة سيستبدل بياناتك الحالية.",selectFile:"اختر ملف النسخة الاحتياطية",yes:"نعم",no:"لا"
 
 },
 
 en:{
 
-overview:"YOUR SPACE",homeSub:"Everything you need to manage your day, in one place.",nextMission:"NEXT MISSION",viewMissions:"View missions",newMission:"+ New mission",activeTasks:"Active missions",completedTasks:"Completed missions",activeSub:"Need your attention",doneSub:"Your achievements",dailyFocus:"TODAY'S FOCUS",localData:"LOCAL DATA",privacyNote:"Your data stays on this device.",askAI:"Prepare a ChatGPT question",pocketTitle:"Pocket Money",pocketSub:"Every transaction counted. Every decision clearer.",currentBalance:"CURRENT BALANCE",balanceFormula:"Opening balance + income − expenses",addExpense:"− Expense",addIncome:"+ Income",openingBalance:"Opening balance",totalIncome:"TOTAL INCOME",totalExpenses:"TOTAL EXPENSES",allRecorded:"All recorded transactions",analysis:"Spending analysis",netThisPeriod:"Period net",transactionCount:"Transactions",goals:"Financial goals",addGoal:"+ Goal",purchaseSimulator:"Purchase decision simulator",purchaseHelp:"Enter the price to prepare an analysis using your balance and goals.",itemName:"Item name",itemPrice:"Price (DT)",priority:"Need level",analyzePurchase:"Analyze with ChatGPT",transactions:"Transactions",exportCSV:"Export CSV",backup:"JSON backup",importBackup:"Import backup",missionTitle:"Missions",missionSub:"Your time is clear. Your progress is measured.",allMissions:"All missions",missionLegend:"Green: 75%+ time remaining · Orange: 50% · Yellow: 20% · Red: under 20%.",aiSub:"Prepare your context and question in one message for ChatGPT.",aiHero:"Your context. Your question. A clear recommendation.",aiHeroSub:"NEXUS prepares the message; ChatGPT analyzes and answers.",yourQuestion:"What's your question?",questionLabel:"Question or decision you want to discuss",extraContext:"Additional context (optional)",includeMoney:"Include financial data",includeMoneySub:"Balance, income, expenses and goals",includeTasks:"Include missions",includeTasksSub:"Deadlines and mission status",includeProfile:"Include personal profile",includeProfileSub:"Profile and personality answers",prepareMessage:"Generate ChatGPT message ↗",howWorks:"How does it work?",howWorksText:"1. Enter your question.<br>2. NEXUS adds selected context and concise-answer instructions.<br>3. Copy the message and paste it into ChatGPT.<br>4. ChatGPT responds based on the message you sent.",aiWarning:"This feature does not send data automatically or read ChatGPT's reply. Do not include sensitive information you do not want to share.",profileTitle:"Your profile",profileSub:"Answer honestly. You can edit your information anytime.",basicInfo:"Basic information",firstName:"First name",lastName:"Last name",age:"Age (optional)",gender:"Gender (optional)",aboutYou:"What do you want to achieve?",decisionStyle:"How do you prefer to make decisions?",saveProfile:"Save profile",personality:"Personality questionnaire",personalitySub:"20 core questions. Save your answers to hide the questions. You can edit or reopen them later.",settingsTitle:"Settings",settingsSub:"Control your NEXUS experience and data.",appearance:"Appearance & experience",language:"App language",languageSub:"Arabic or English",sound:"Button sounds",soundSub:"Subtle interaction sound",notifications:"Notifications",notificationsSub:"Alerts when opening the app and for upcoming deadlines",extraQuestions:"Optional extra questions",extraQuestionsSub:"Add up to five questions. Edit or delete them anytime. Answers are included in your ChatGPT message.",addExtra:"+ Add question",dataManagement:"Data management",dataManagementSub:"Your data is stored in this browser. Back it up before deleting or changing devices.",exportData:"Export data",importData:"Import data",resetData:"Delete all data",aboutNexus:"About NEXUS",navHome:"Home",navPocket:"Pocket",navMission:"Missions",navSettings:"Settings",missionName:"Mission name",description:"Description",startTime:"Start time",deadline:"Deadline",missionPriority:"Priority",save:"Save",cancel:"Cancel",operationName:"Transaction name",amount:"Amount (DT)",operationDate:"Date",category:"Category",notes:"Notes (optional)",goalName:"Goal name",targetAmount:"Target amount (DT)",savedAmount:"Amount saved (DT)",goalDeadline:"Target date (optional)",openingBalanceHelp:"Enter your balance before recording transactions. Your current balance is calculated automatically.",readyMessage:"Your message is ready",readyMessageSub:"Review it, then copy and paste it into ChatGPT.",copyMessage:"Copy message",openChatGPT:"Open ChatGPT ↗",close:"Close",aiModalHelp:"Enter your question and NEXUS will combine it with your selected context.",questionText:"Question text",answerText:"Your answer (optional)",extraQuestionsCount:"Extra question",allTransactions:"All transactions",emptyTransactions:"No transactions yet.",emptyMissions:"No missions yet. Add your first mission.",emptyGoals:"No financial goals yet. Create a savings goal.",noUpcoming:"No upcoming missions",noTasks:"Add a clear mission to organize your day.",due:"Time remaining",overdue:"Overdue",completed:"Completed",upcoming:"Upcoming",started:"In progress",remaining:"remaining",edit:"Edit",delete:"Delete",markDone:"Complete",undoDone:"Reopen",saved:"Saved",deleted:"Deleted",invalid:"Please check your entries.",confirmDelete:"Delete this item?",confirmReset:"This deletes all NEXUS data in this browser. Are you sure?",copied:"Message copied. Open ChatGPT and paste it.",copyFailed:"Automatic copy failed. Select and copy the message manually.",noQuestion:"Enter your question first.",noName:"Not specified",exportDone:"Export file prepared.",importSuccess:"Data imported.",importFailed:"Invalid or incompatible file.",extraLimit:"You can add up to five questions.",extraQuestionPlaceholder:"Enter your question",notificationsEnabled:"App notifications are enabled.",notificationsDisabled:"Notifications are disabled.",notificationsUnsupported:"System notifications are not supported in this browser.",permissionDenied:"Notifications permission denied. Change it in browser settings.",missionTimeError:"The deadline must be after the start time.",alreadySaved:"Answers saved.",reopenQuestions:"Edit answers",saveAnswers:"Save answers",resetAnswers:"Reopen questions",noAnswers:"Answer the questions and save them.",purchasePrompt:"Enter a valid item name and price.",purchaseTitle:"Purchase decision",purchaseBalance:"Balance after purchase",purchaseNeed:"Need level",need:"Essential",useful:"Useful but can wait",want:"Just a want",income:"Income",expense:"Expense",opening:"Opening balance",food:"Food",transport:"Transport",clothes:"Clothes",study:"Study",entertainment:"Entertainment",work:"Work",gift:"Gift",other:"Other",noCategory:"Uncategorized",transactionSearch:"Search transactions...",all:"All",thisMonth:"This month",lastWeek:"Last 7 days",incomeFilter:"Income",expenseFilter:"Expenses",newest:"Newest first",oldest:"Oldest first",largest:"Largest amount",urgent:"Urgent",high:"High",normal:"Normal",noProfileAnswers:"No personality answers saved yet.",ageQuestion:"Age not specified",extraAnswerPlaceholder:"Enter your answer here",unknown:"Not specified",deleteExtra:"Delete question",editExtra:"Edit question",goalReached:"Goal reached",goalRemaining:"Remaining to goal",goalProgress:"Progress",transactionCount:"Transactions",allTransactions:"All transactions",startPrompt:"Add a clear mission to organize your day.",notSpecified:"Not specified"}
+dashboard:"PERSONAL DASHBOARD",dashboardSub:"Organize your life and take control of your goals.",totalBalance:"TOTAL AVAILABLE BALANCE",balanceProgress:"Progress toward your financial goal",activeMissions:"Active missions",waitingTasks:"Goals waiting for you",completedMissions:"Completed missions",doneTasks:"Recorded achievements",income:"Total income",expenses:"Total expenses",quickActions:"Quick actions",addMoney:"Add money",newMission:"New mission",createPrompt:"Create prompt",myProfile:"My profile",upcoming:"Upcoming missions",viewAll:"View all →",recentTransactions:"Recent transactions",pocketSub:"Track your balance, income and expenses.",currentBalance:"CURRENT BALANCE",manageMoney:"Manage money",deposit:"Deposit",withdraw:"Withdraw",goal:"Goal",amount:"Amount (DT)",description:"Description",confirmTransaction:"Confirm transaction",goalName:"Goal name",goalAmount:"Target amount (DT)",saveGoal:"Save goal",goalProgress:"Goal progress",editGoal:"Edit goal",transactions:"Transactions",filter:"Filter",all:"All transactions",incomeOnly:"Income only",expenseOnly:"Expenses only",search:"Search",resetMoney:"Reset financial data",missionsSub:"Turn goals into tasks with live countdowns.",createMission:"Create mission",missionName:"Mission name",missionDescription:"Description / notes",dueDate:"Due date",dueTime:"Time",missionPrice:"Cost (DT) — optional",priority:"Priority",normal:"Normal",high:"High",urgent:"Urgent",addMission:"＋ Add mission",cancel:"Cancel",yourMissions:"Your missions",activeTab:"Active",completedTab:"Completed",allTab:"All",aiSub:"Create a tailored prompt and copy it to your preferred AI assistant.",aiHero:"Your idea, better expressed.",aiHeroSub:"A local prompt builder with no API.",promptGoal:"What do you want to achieve?",promptType:"Assistance type",typeGeneral:"General",typeStudy:"Study",typeBusiness:"Business",typeCoding:"Coding",typePlanning:"Planning",typeWriting:"Writing",typeAnalysis:"Analysis",responseLanguage:"Response language",responseStyle:"Response style",experienceLevel:"Level",constraints:"Your constraints",generatePrompt:"✧ Generate prompt",generatedPrompt:"Generated prompt",copyPrompt:"Copy text",savePrompt:"Save",clear:"Clear",savedPrompts:"Saved prompts",profileTitle:"My profile",profileSub:"A personal space for your goals and preferences.",startedAt:"Started using",totalMissions:"Total missions",totalTransactions:"Total transactions",personalInfo:"Personal information",yourName:"Your name",yourTagline:"Your tagline",personalGoal:"Main goal",interests:"Interests",strengths:"Strengths",challenges:"Areas to improve",personalPreferences:"Preferred help style",saveProfile:"Save profile",extraQuestions:"Extra questions",question:"Question",answer:"Answer",addQuestion:"＋ Add question",settingsTitle:"Settings",settingsSub:"Customize your NEXUS experience.",appearance:"Appearance",lightMode:"Light mode",lightModeDesc:"Change interface colors.",appLanguage:"App language",preferences:"Preferences",confirmDeletes:"Confirm deletions",confirmDeletesSub:"Ask before deleting data.",soundEffects:"Sound effects",soundEffectsSub:"Play a subtle sound for some actions.",dataManagement:"Data management",localDataNotice:"Your data is stored locally on this device. Export a backup to keep it safe.",exportBackup:"Export backup",importBackup:"Import backup",backup:"Backup",storageStatus:"Storage status",backupSub:"Export a JSON backup for recovery.",dangerZone:"Danger zone",resetAppTitle:"Reset application",resetAppSub:"This deletes all local NEXUS data.",resetEverything:"Delete all data",navHome:"Home",navPocket:"Pocket",navMissions:"Missions",navAI:"AI HELP",navProfile:"Profile",navSettings:"Settings",emptyMissions:"No missions here yet.",emptyTransactions:"No financial transactions yet.",emptyPrompts:"No saved prompts yet.",emptyQuestions:"No questions added yet.",remaining:"Remaining",overdue:"Overdue",finished:"Completed",started:"In progress",days:"Days",hours:"Hours",minutes:"Minutes",seconds:"Seconds",markComplete:"Complete",undoComplete:"Reopen",edit:"Edit",delete:"Delete",completedSuccess:"Mission completed.",reopenedSuccess:"Mission reopened.",missionAdded:"Mission added.",missionUpdated:"Mission updated.",missionDeleted:"Mission deleted.",moneyAdded:"Transaction recorded.",insufficientBalance:"Insufficient balance for this withdrawal.",invalidAmount:"Enter an amount greater than zero.",requiredFields:"Please complete the required fields.",goalSaved:"Financial goal saved.",profileSaved:"Profile saved.",questionAdded:"Question added.",questionDeleted:"Question deleted.",promptGenerated:"Prompt generated.",promptSaved:"Prompt saved.",promptCopied:"Prompt copied.",deleted:"Deleted.",confirmDelete:"Are you sure you want to delete this item?",confirmResetMoney:"Delete all financial transactions and reset the balance to zero?",confirmResetApp:"All local NEXUS data will be deleted. Continue?",resetDone:"Reset complete.",backupExported:"Backup exported.",backupImported:"Data imported successfully.",invalidBackup:"Invalid backup file.",noDataToExport:"No data to export.",csvExported:"CSV file created.",deadline:"Deadline",cost:"Cost",noCost:"No cost",transactionIncome:"Deposit",transactionExpense:"Withdrawal / expense",goalReached:"Goal reached!",target:"Target",current:"Current",enterGoal:"Set a financial goal first.",noPrompt:"Generate a prompt first.",storageAvailable:"Local storage available",storageUnavailable:"Local storage unavailable",questionPlaceholder:"Write your question",answerPlaceholder:"Write your answer",confirmDeleteQuestion:"Delete this question and its answer?",confirmDeleteTransaction:"Delete this transaction?",transactionDeleted:"Transaction deleted.",promptTitle:"Prompt title",promptTitlePlaceholder:"Example: Study plan",openAI:"Open ChatGPT",copyError:"Automatic copy failed. Select and copy the text manually.",profileDefault:"Your personal space inside NEXUS.",currencyNotice:"Values are stored in Tunisian dinars.",missionCostNotice:"Mission cost is deducted from your balance when completed, if greater than zero.",resetPrompt:"Reset",balanceNegative:"Warning: your balance is negative.",completedCost:"Mission completed and cost deducted.",costDeducted:"Mission cost deducted.",noGoal:"No goal set yet",goalRemaining:"Remaining to reach goal",taskDescription:"Description",priorityNormal:"Normal",priorityHigh:"High",priorityUrgent:"Urgent",date:"Date",type:"Type",incomeDesc:"Deposit",expenseDesc:"Expense",backupWarning:"Importing replaces your current data.",selectFile:"Select backup file",yes:"Yes",no:"No"
+
+}
 
 };
 
-function t(k){return (translations[state.language]||translations.ar)[k]??translations.ar[k]??k}
+function defaults(){
 
-function changeLanguage(lang){state.language=lang==="en"?"en":"ar";saveState();applyLanguage();renderAll()}
+return {version:1,createdAt:now(),language:"ar",theme:"dark",confirmDeletes:true,sounds:false,balance:0,goal:{name:"",amount:0},transactions:[],missions:[],profile:{name:"Jasser",tagline:"",goal:"",interests:"",strengths:"",challenges:"",preferences:""},questions:[],prompts:[],lastPrompt:""};
 
-function applyLanguage(){const en=state.language==="en";document.documentElement.lang=state.language;document.documentElement.dir=en?"ltr":"rtl";$("languageSelect").value=state.language;document.querySelectorAll("[data-i]").forEach(el=>{const k=el.dataset.i;if(translations[state.language][k]!==undefined)el.innerHTML=translations[state.language][k]});$("txSearch").placeholder=t("transactionSearch");$("aiQuestion").placeholder=en?"e.g. Should I change my plan or continue?":"مثال: هل أغيّر خطتي أم أستمر؟";$("aiContext").placeholder=en?"Any details you want ChatGPT to know...":"أي تفاصيل أخرى تريد أن يعرفها ChatGPT...";$("buyName").placeholder=en?"e.g. Shoes":"مثال: حذاء";$("missionName").placeholder=en?"Review lesson":"مراجعة الدرس";$("missionDesc").placeholder=en?"Mission details...":"تفاصيل المهمة...";$("notificationStatus").textContent=notificationStatusText()}
+}
 
-function openPage(page){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$("page-"+page).classList.add("active");document.querySelectorAll(".nav-item").forEach(x=>x.classList.toggle("active",x.dataset.page===page));if(page==="profile")renderProfile();if(page==="pocket")renderPocket();if(page==="mission")renderMissions();if(page==="settings")renderSettings();window.scrollTo({top:0,behavior:"smooth"})}
+function normalize(raw){
 
-function openModal(id){$(id).classList.add("show");document.body.style.overflow="hidden"}
+const d=defaults();if(!raw||typeof raw!=="object"||Array.isArray(raw))return d;
 
-function closeModal(id){$(id).classList.remove("show");if(!document.querySelector(".modal-backdrop.show"))document.body.style.overflow=""}
+const s={...d,...raw};
 
-function backdropClose(e,id){if(e.target.id===id)closeModal(id)}
+s.language=raw.language==="en"?"en":"ar";s.theme=raw.theme==="light"?"light":"dark";s.confirmDeletes=raw.confirmDeletes!==false;s.sounds=raw.sounds===true;s.balance=num(raw.balance);
 
-function moneyTotals(){const income=state.transactions.filter(x=>x.type==="income").reduce((s,x)=>s+x.amount,0);const expenses=state.transactions.filter(x=>x.type==="expense").reduce((s,x)=>s+x.amount,0);return {income,expenses,balance:Number(state.openingBalance)+income-expenses}}
+s.goal=raw.goal&&typeof raw.goal==="object"?{name:String(raw.goal.name||"").slice(0,80),amount:Math.max(0,num(raw.goal.amount))}:d.goal;
 
-function activeMissions(){return state.missions.filter(m=>!m.completed)}
+s.transactions=Array.isArray(raw.transactions)?raw.transactions.filter(x=>x&&typeof x==="object").map(x=>({id:String(x.id||uid()),type:x.type==="income"?"income":"expense",amount:Math.max(0,num(x.amount)),description:String(x.description||"").slice(0,120),date:typeof x.date==="string"?x.date:now()})).filter(x=>x.amount>0):[];
 
-function sortedMissions(){return [...state.missions].sort((a,b)=>{if(a.completed!==b.completed)return a.completed?1:-1;return new Date(a.deadline)-new Date(b.deadline)})}
+s.missions=Array.isArray(raw.missions)?raw.missions.filter(x=>x&&typeof x==="object"&&x.title).map(x=>({id:String(x.id||uid()),title:String(x.title).slice(0,100),description:String(x.description||"").slice(0,1200),dueAt:typeof x.dueAt==="string"?x.dueAt:now(),price:Math.max(0,num(x.price)),priority:["normal","high","urgent"].includes(x.priority)?x.priority:"normal",completed:x.completed===true,completedAt:x.completedAt||null,createdAt:x.createdAt||now()})): [];
 
-function nextMission(){return activeMissions().filter(m=>new Date(m.deadline)>new Date()).sort((a,b)=>new Date(a.deadline)-new Date(b.deadline))[0]||null}
+s.profile={...d.profile,...(raw.profile&&typeof raw.profile==="object"?raw.profile:{})};
 
-function renderAll(){applyLanguage();renderHome();renderPocket();renderMissions();renderProfile();renderSettings()}
+Object.keys(d.profile).forEach(k=>s.profile[k]=String(s.profile[k]||"").slice(0,2500));
 
-function renderHome(){const p=state.profile;const name=(p.firstName||"").trim();$("greeting").textContent=state.language==="en"?(name?`Welcome back, ${name}.`:"Welcome to NEXUS."):(name?`أهلًا ${name}، مرحبًا بك.`:"أهلًا بك في NEXUS.");const active=activeMissions();$("homeActive").textContent=active.length;$("homeDone").textContent=state.missions.filter(m=>m.completed).length;const m=nextMission();if(m){$("homeMissionName").textContent=m.name;const start=new Date(m.start).getTime(),end=new Date(m.deadline).getTime(),now=Date.now();$("homeProgress").style.width=(end>start?Math.max(0,Math.min(100,(end-now)/(end-start)*100)):0)+"%";}else{$("homeMissionName").textContent=t("noUpcoming");$("homeCountdown").textContent="--:--:--";$("homeProgress").style.width="0%"}$("homeFocus").textContent=active.length?(state.language==="en"?`${active.length} active mission(s). Focus on the closest deadline first.`:`لديك ${active.length} مهمة نشطة. ابدأ بالأقرب موعدًا.`):t("startPrompt");tickCountdown();$("headerBell").textContent=state.notifications?"♧":"♧"}
+s.questions=Array.isArray(raw.questions)?raw.questions.filter(x=>x&&x.question).map(x=>({id:String(x.id||uid()),question:String(x.question).slice(0,200),answer:String(x.answer||"").slice(0,1500)})):[];
 
-function tickCountdown(){const m=nextMission();if(!m){$("homeCountdown").textContent="--:--:--";return}const diff=new Date(m.deadline).getTime()-Date.now();if(diff<=0){$("homeCountdown").textContent=state.language==="en"?"OVERDUE":"انتهى الوقت";return}const days=Math.floor(diff/86400000),hours=Math.floor(diff%86400000/3600000),mins=Math.floor(diff%3600000/60000),secs=Math.floor(diff%60000/1000);$("homeCountdown").textContent=(days?days+(state.language==="en"?"d ":"ي "):"")+String(hours).padStart(2,"0")+":"+String(mins).padStart(2,"0")+":"+String(secs).padStart(2,"0")}
+s.prompts=Array.isArray(raw.prompts)?raw.prompts.filter(x=>x&&x.text).map(x=>({id:String(x.id||uid()),title:String(x.title||"Prompt").slice(0,100),text:String(x.text).slice(0,10000),createdAt:x.createdAt||now()})):[];
 
-function periodTransactions(){const p=$("chartPeriod")?.value||"all";const now=new Date();return state.transactions.filter(x=>{const d=new Date((x.date||today())+"T12:00:00");if(p==="week")return now-d<=7*86400000&&now>=d;if(p==="month")return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();return true})}
+s.lastPrompt=String(raw.lastPrompt||"").slice(0,10000);return s;
 
-function renderPocket(){const totals=moneyTotals();$("pBalance").textContent=fmt(totals.balance);$("pBalance").style.color=totals.balance<0?"var(--red)":"var(--text)";$("pIncome").textContent=fmt(totals.income);$("pExpenses").textContent=fmt(totals.expenses);const tx=periodTransactions(),net=tx.reduce((s,x)=>s+(x.type==="income"?x.amount:-x.amount),0);$("pNet").textContent=fmt(net);$("pNet").style.color=net<0?"var(--red)":"var(--green)";$("pCount").textContent=tx.length;renderChart(tx);renderTransactions();renderGoals()}
+}
 
-function renderChart(tx){const cats={};tx.filter(x=>x.type==="expense").forEach(x=>cats[x.category||"other"]=(cats[x.category||"other"]||0)+x.amount);const entries=Object.entries(cats).sort((a,b)=>b[1]-a[1]);const total=entries.reduce((s,x)=>s+x[1],0);if(!entries.length){$("pChart").innerHTML=`<div class="empty"><div class="empty-icon">◈</div>${state.language==="en"?"No spending recorded for this period.":"لا توجد مصروفات مسجلة في هذه الفترة."}</div>`;return}$("pChart").innerHTML=entries.slice(0,6).map(([cat,val])=>`<div class="bar-row"><span>${escapeHTML(t(cat)||cat)}</span><div class="bar-track"><div style="width:${total?val/total*100:0}%"></div></div><span style="text-align:end;direction:ltr">${val.toFixed(2)}</span></div>`).join("")}
+let state=defaults(),currentPage="home",moneyTab="income",missionFilter="active",editingMission=null,currentPrompt="",audio=null;
 
-function renderTransactions(){if(!$("transactionList"))return;let list=[...state.transactions];const filter=$("txFilter").value,search=$("txSearch").value.trim().toLowerCase();if(filter!=="all")list=list.filter(x=>x.type===filter);if(search)list=list.filter(x=>(x.name+" "+(x.notes||"")+" "+t(x.category||"other")).toLowerCase().includes(search));const sort=$("txSort").value;list.sort((a,b)=>sort==="old"?new Date(a.date)-new Date(b.date):sort==="high"?b.amount-a.amount:new Date(b.date)-new Date(a.date));$("txCountLabel").textContent=list.length;if(!list.length){$("transactionList").innerHTML=`<div class="empty"><div class="empty-icon">◈</div>${t("emptyTransactions")}</div>`;return}$("transactionList").innerHTML=list.map(x=>`<div class="transaction"><div style="min-width:0;flex:1"><div class="tx-left"><div class="tx-icon">${x.type==="income"?"↗":"↘"}</div><div style="min-width:0"><div class="tx-name">${escapeHTML(x.name)}</div><div class="tx-date">${escapeHTML(x.date||"")} · ${escapeHTML(t(x.category||"other"))}</div>${x.notes?`<div class="smalltext">${escapeHTML(x.notes)}</div>`:""}</div></div><div class="tx-actions"><button onclick="editTransaction('${x.id}')">${t("edit")}</button><button onclick="deleteTransaction('${x.id}')">${t("delete")}</button></div></div><div class="tx-amount ${x.type}">${x.type==="income"?"+":"−"}${fmt(x.amount)}</div></div>`).join("")}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw)state=normalize(JSON.parse(raw));}catch(e){state=defaults();}}
 
-function setTxType(type){$("txType").value=type;$("txModalTitle").textContent=type==="income"?t("addIncome"):t("addExpense");if(!$("txId").value){$("txName").value="";$("txAmount").value="";$("txDate").value=today();$("txNotes").value=""}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));$("storageStatus").textContent="LOCAL";return true;}catch(e){$("storageStatus").textContent="ERROR";toast(t("storageUnavailable"),true);return false;}}
 
-function saveTransaction(e){e.preventDefault();const name=$("txName").value.trim(),amount=Number($("txAmount").value),date=$("txDate").value;if(!name||!Number.isFinite(amount)||amount<=0||!date){toast(t("invalid"));return}const id=$("txId").value;const item={id:id||uid(),name,amount,type:$("txType").value,date,category:$("txCategory").value,notes:$("txNotes").value.trim(),updatedAt:nowISO()};if(id){const i=state.transactions.findIndex(x=>x.id===id);if(i>=0)state.transactions[i]=item;else state.transactions.push(item)}else state.transactions.push(item);saveState();closeModal("transactionModal");$("transactionForm").reset();$("txId").value="";$("txDate").value=today();renderAll();toast(t("saved"))}
+function t(k){return (dict[state.language]&&dict[state.language][k])||dict.en[k]||k;}
 
-function editTransaction(id){const x=state.transactions.find(a=>a.id===id);if(!x)return;$("txId").value=x.id;$("txName").value=x.name;$("txAmount").value=x.amount;$("txType").value=x.type;$("txDate").value=x.date||today();$("txCategory").value=x.category||"other";$("txNotes").value=x.notes||"";$("txModalTitle").textContent=t("edit");openModal("transactionModal")}
+function money(v){return num(v).toLocaleString("en-US",{minimumFractionDigits:3,maximumFractionDigits:3})+" DT";}
 
-function deleteTransaction(id){if(!confirm(t("confirmDelete")))return;state.transactions=state.transactions.filter(x=>x.id!==id);saveState();renderAll();toast(t("deleted"))}
+function fmtDate(s,time=true){const d=new Date(s);if(Number.isNaN(d.getTime()))return "—";return d.toLocaleString(state.language==="ar"?"ar-TN":"en-GB",{year:"numeric",month:"short",day:"numeric",...(time?{hour:"2-digit",minute:"2-digit"}:{})});}
 
-function saveOpeningBalance(e){e.preventDefault();const v=Number($("openingAmount").value);if(!Number.isFinite(v)){toast(t("invalid"));return}state.openingBalance=v;saveState();closeModal("balanceModal");renderAll();toast(t("saved"))}
+function incomeTotal(){return state.transactions.reduce((a,x)=>a+(x.type==="income"?x.amount:0),0);}
 
-function renderGoals(){const el=$("goalList");if(!state.goals.length){el.innerHTML=`<div class="empty">${t("emptyGoals")}</div>`;return}el.innerHTML=state.goals.map(g=>{const pct=Math.min(100,Math.max(0,g.saved/g.target*100));return `<div class="goal"><div class="task-top"><div style="min-width:0"><div style="font-size:13px;font-weight:750">${escapeHTML(g.name)}</div><div class="smalltext" style="margin-top:5px">${fmt(g.saved)} / ${fmt(g.target)}</div></div><span class="pill">${pct.toFixed(0)}%</span></div><div class="progress"><div style="width:${pct}%"></div></div>${g.date?`<div class="smalltext" style="margin-top:7px">${escapeHTML(g.date)}</div>`:""}<div class="tx-actions"><button onclick="editGoal('${g.id}')">${t("edit")}</button><button onclick="deleteGoal('${g.id}')">${t("delete")}</button></div></div>`}).join("")}
+function expenseTotal(){return state.transactions.reduce((a,x)=>a+(x.type==="expense"?x.amount:0),0);}
 
-function saveGoal(e){e.preventDefault();const name=$("goalName").value.trim(),target=Number($("goalTarget").value),saved=Number($("goalSaved").value);if(!name||target<=0||saved<0||!Number.isFinite(target)||!Number.isFinite(saved)){toast(t("invalid"));return}const id=$("goalId").value,item={id:id||uid(),name,target,saved,date:$("goalDate").value};if(id)state.goals=state.goals.map(g=>g.id===id?item:g);else state.goals.push(item);saveState();closeModal("goalModal");renderPocket();toast(t("saved"))}
+function activeMissions(){return state.missions.filter(x=>!x.completed);}
 
-function editGoal(id){const g=state.goals.find(x=>x.id===id);if(!g)return;$("goalId").value=g.id;$("goalName").value=g.name;$("goalTarget").value=g.target;$("goalSaved").value=g.saved;$("goalDate").value=g.date||"";$("goalModalTitle").textContent=t("edit");openModal("goalModal")}
+function doneMissions(){return state.missions.filter(x=>x.completed);}
 
-function deleteGoal(id){if(!confirm(t("confirmDelete")))return;state.goals=state.goals.filter(g=>g.id!==id);saveState();renderPocket()}
+function toast(message,error=false){const el=document.createElement("div");el.className="toast"+(error?" error":"");el.textContent=message;$("toastArea").appendChild(el);setTimeout(()=>el.remove(),3200);}
 
-function saveMission(e){e.preventDefault();const name=$("missionName").value.trim(),start=$("missionStart").value,deadline=$("missionDeadline").value;if(!name||!start||!deadline||new Date(deadline)<=new Date(start)){toast(t("missionTimeError"));return}const id=$("missionId").value,old=state.missions.find(m=>m.id===id),item={id:id||uid(),name,description:$("missionDesc").value.trim(),start,deadline,priority:$("missionPriority").value,completed:old?old.completed:false,createdAt:old?old.createdAt:nowISO()};if(id)state.missions=state.missions.map(m=>m.id===id?item:m);else state.missions.push(item);saveState();closeModal("missionModal");$("missionForm").reset();$("missionId").value="";renderAll();toast(t("saved"))}
+function play(){if(!state.sounds)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;if(!audio)audio=new C();const o=audio.createOscillator(),g=audio.createGain();o.frequency.value=500;g.gain.value=.03;o.connect(g);g.connect(audio.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.055);o.stop(audio.currentTime+.06);}catch(e){}}
 
-function editMission(id){const m=state.missions.find(x=>x.id===id);if(!m)return;$("missionId").value=m.id;$("missionName").value=m.name;$("missionDesc").value=m.description||"";$("missionStart").value=m.start;$("missionDeadline").value=m.deadline;$("missionPriority").value=m.priority||"normal";$("missionModalTitle").textContent=t("edit");openModal("missionModal")}
+function ask(message){return !state.confirmDeletes||window.confirm(message);}
 
-function toggleMission(id){state.missions=state.missions.map(m=>m.id===id?{...m,completed:!m.completed,completedAt:!m.completed?nowISO():null}:m);saveState();renderAll()}
+function setPage(page){if(!$("page-"+page))return;currentPage=page;$$(".page").forEach(x=>x.classList.toggle("active",x.id==="page-"+page));$$(".nav-item").forEach(x=>x.classList.toggle("active",x.dataset.page===page));window.scrollTo({top:0,behavior:"smooth"});renderPage(page);}
 
-function deleteMission(id){if(!confirm(t("confirmDelete")))return;state.missions=state.missions.filter(m=>m.id!==id);saveState();renderAll();toast(t("deleted"))}
+function showModal(title,html,actions=[]){$("modalTitle").textContent=title;$("modalContent").innerHTML=html;$("modalActions").innerHTML="";actions.forEach(a=>{const b=document.createElement("button");b.className="btn "+(a.primary?"primary":"");b.textContent=a.label;b.onclick=()=>a.action();$("modalActions").appendChild(b);});$("modalBackdrop").classList.add("show");document.body.style.overflow="hidden";}
 
-function missionInfo(m){const now=Date.now(),start=new Date(m.start).getTime(),end=new Date(m.deadline).getTime(),duration=Math.max(1,end-start);if(m.completed)return{status:t("completed"),color:"green",pct:100,remaining:0};if(now>end)return{status:t("overdue"),color:"red",pct:0,remaining:now-end};if(now<start)return{status:t("upcoming"),color:"green",pct:Math.min(100,Math.max(0,(end-now)/duration*100)),remaining:end-now};const pct=Math.max(0,Math.min(100,(end-now)/duration*100));return{status:t("started"),color:pct<20?"red":pct<50?"yellow":pct<75?"orange":"
+function closeModal(){$("modalBackdrop").classList.remove("show");document.body.style.overflow="";}
+
+function renderI18n(){
+
+document.documentElement.lang=state.language;document.documentElement.dir=state.language==="ar"?"rtl":"ltr";
+
+$$("[data-i]").forEach(el=>{const value=t(el.dataset.i);if(value)el.textContent=value;});
+
+$("langBtn").textContent=state.language==="ar"?"EN":"ع";$("themeBtn").textContent=state.theme==="light"?"☾":"☼";
+
+document.body.classList.toggle("light",state.theme==="light");
+
+$("lightToggle").checked=state.theme==="light";$("languageSelect").value=state.language;
+
+$("confirmDeletes").checked=state.confirmDeletes;$("soundToggle").checked=state.sounds;
+
+}
+
+function renderHome(){
+
+const active=activeMissions(),done=doneMissions(),balance=state.balance;
+
+$("homeBalance").textContent=money(balance);$("homeBalanceSub").textContent=t("income")+": "+money(incomeTotal())+" · "+t("expenses")+": "+money(expenseTotal());
+
+$("homeActive").textContent=active.length;$("homeCompleted").textContent=done.length;$("homeIncome").textContent=money(incomeTotal());$("homeExpenses").textContent=money(expenseTotal());
+
+const pct=state.goal.amount>0?clamp(balance/state.goal.amount*100,0,100):0;$("homeProgress").style.width=pct+"%";
+
+const hour=new Date().getHours();$("greeting").textContent=state.language==="en"?(hour<12?"Good morning":hour<18?"Good afternoon":"Good evening")+", "+(state.profile.name||"Jasser")+".":(hour<12?"صباح الخير":hour<18?"نهارك طيب":"مساء الخير")+(state.profile.name?"، "+state.profile.name:"")+"!";
+
+const upcoming=active.slice().sort((a,b)=>new Date(a.dueAt)-new Date(b.dueAt)).slice(0,3);
+
+$("homeMissionList").innerHTML=upcoming.length?upcoming.map(m=>missionHTML(m,true)).join(""):empty(t("emptyMissions"));
+
+const tx=state.transactions.slice().sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,4);
+
+$("homeTransactions").innerHTML=tx.length?tx.map(transactionHTML).join(""):empty(t("emptyTransactions"));
+
+}
+
+function empty(text){return `<div class="empty">${esc(text)}</div>`;}
+
+function priorityLabel(p){return p==="urgent"?t("priorityUrgent"):p==="high"?t("priorityHigh"):t("priorityNormal");}
+
+function timeInfo(m){
+
+const ms=new Date(m.dueAt).getTime()-Date.now();
+
+if(m.completed)return {status:t("finished"),color:"green",ms};
+
+if(ms<0)return {status:t("overdue"),color:"red",ms};
+
+if(ms<=86400000)return {status:t("urgent"),color:"red",ms};
+
+if(ms<=172800000)return {status:t("high"),color:"yellow",ms};
+
+if(ms<=604800000)return {status:t("started"),color:"orange",ms};
+
+return {status:t("started"),color:"green",ms};
+
+}
+
+function countdown(m){
+
+const ms=new Date(m.dueAt).getTime()-Date.now();
+
+if(ms<=0)return `<div class="pill red">${esc(t("overdue"))}</div>`;
+
+const days=Math.floor(ms/86400000),hours=Math.floor(ms%86400000/3600000),minutes=Math.floor(ms%3600000/60000),seconds=Math.floor(ms%60000/1000);
+
+return `<div class="countdown"><div class="timebox"><div class="time-num">${days}</div><div class="time-label">${esc(t("days"))}</div></div><div class="timebox"><div class="time-num">${String(hours).padStart(2,"0")}</div><div class="time-label">${esc(t("hours"))}</div></div><div class="timebox"><div class="time-num">${String(minutes).padStart(2,"0")}</div><div class="time-label">${esc(t("minutes"))}</div></div><div class="timebox"><div class="time-num">${String(seconds).padStart(2,"0")}</div><div class="time-label">${esc(t("seconds"))}</div></div></div>`;
+
+}
+
+function missionHTML(m,compact=false){
+
+const info=timeInfo(m);
+
+return `<div class="item" style="align-items:flex-start"><div class="item-icon">${m.completed?"✓":"◷"}</div><div class="item-main"><div class="item-title">${esc(m.title)}</div>${m.description?`<div class="item-desc">${esc(m.description)}</div>`:""}<div class="item-desc">${esc(fmtDate(m.dueAt))}</div><div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:7px"><span class="pill ${info.color}">${esc(info.status)}</span><span class="pill">${esc(priorityLabel(m.priority))}</span>${m.price>0?`<span class="pill">${esc(t("cost"))}: ${esc(money(m.price))}</span>`:""}</div>${!compact&&!m.completed?countdown(m):""}<div class="item-actions" style="margin-top:8px">${!m.completed?`<button class="btn mini success" data-action="completeMission" data-id="${esc(m.id)}">${esc(t("markComplete"))}</button>`:`<button class="btn mini" data-action="reopenMission" data-id="${esc(m.id)}">${esc(t("undoComplete"))}</button>`}<button class="btn mini" data-action="editMission" data-id="${esc(m.id)}">${esc(t("edit"))}</button><button class="btn mini danger" data-action="deleteMission" data-id="${esc(m.id)}">${esc(t("delete"))}</button></div></div></div>`;
+
+}
+
+function transactionHTML(x){
+
+return `<div class="item"><div class="item-icon">${x.type==="income"?"↗":"↘"}</div><div class="item-main"><div class="item-title">${esc(x.description)}</div><div class="item-desc">${esc(fmtDate(x.date))}</div></div><div class="item-actions" style="align-items:center"><span class="transaction-amount ${x.type==="income"?"green":"red"}">${x.type==="income"?"+":"−"}${esc(money(x.amount))}</span><button class="btn mini danger" data-action="deleteTransaction" data-id="${esc(x.id)}">×</button></div></div>`;
+
+}
+
+function renderPocket(){
+
+$("pocketBalance").textContent=money(state.balance);$("pocketIncome").textContent=money(incomeTotal());$("pocketExpenses").textContent=money(expenseTotal());
+
+$("pocketStatus").textContent=state.balance<0?t("balanceNegative"):state.goal.amount>0&&state.balance>=state.goal.amount?t("goalReached"):"";
+
+const pct=state.goal.amount>0?clamp(state.balance/state.goal.amount*100,0,100):0;$("pocketProgress").style.width=pct+"%";
+
+$("goalNameDisplay").textContent=state.goal.name||t("noGoal");
+
+$("goalDetails").textContent=state.goal.amount>0?t("current")+": "+money(state.balance)+" / "+money(state.goal.amount):"";
+
+$("goalPercent").textContent=Math.round(pct)+"%";$("goalProgressBar").style.width=pct+"%";
+
+const filter=$("transactionFilter").value,search=$("transactionSearch").value.trim().toLowerCase();
+
+const arr=state.transactions.slice().sort((a,b)=>new Date(b.date)-new Date(a.date)).filter(x=>(filter==="all"||x.type===filter)&&(!search||x.description.toLowerCase().includes(search)));
+
+$("transactionList").innerHTML=arr.length?arr.map(transactionHTML).join(""):empty(t("emptyTransactions"));
+
+}
+
+function renderMissions(){
+
+$("missionActiveCount").textContent=activeMissions().length;$("missionCompletedCount").textContent=doneMissions().length;
+
+let arr=state.missions.slice().sort((a,b)=>new Date(a.dueAt)-new Date(b.dueAt));
+
+if(missionFilter==="active")arr=arr.filter(x=>!x.completed);
+
+if(missionFilter==="completed")arr=arr.filter(x=>x.completed);
+
+$("missionList").innerHTML=arr.length?arr.map(m=>missionHTML(m)).join(""):empty(t("emptyMissions"));
+
+$$("[data-mission-filter]").forEach(b=>b.classList.toggle("active",b.dataset.missionFilter===missionFilter));
+
+}
+
+function renderPrompts(){
+
+$("promptOutput").textContent=state.lastPrompt||"";
+
+$("savedPromptsList").innerHTML=state.prompts.length?state.prompts.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).map(p=>`<div class="item"><div class="item-icon">✧</div><div class="item-main"><div class="item-title">${esc(p.title)}</div><div class="item-desc">${esc(fmtDate(p.createdAt))}</div></div><div class="item-actions"><button class="btn mini" data-action="viewPrompt" data-id="${esc(p.id)}">${esc(t("edit"))}</button><button class="btn mini danger" data-action="deletePrompt" data-id="${esc(p.id)}">×</button></div></div>`).join(""):empty(t("emptyPrompts"));
+
+}
+
+function renderProfile(){
+
+const p=state.profile;$("profileDisplayName").textContent=p.name||"NEXUS";$("profileDisplayTagline").textContent=p.tagline||t("profileDefault");$("profileAvatar").textContent=(p.name||"N").trim().charAt(0).toUpperCase()||"N";
+
+$("profileCreatedDate").textContent=fmtDate(state.createdAt,false);$("profileTotalMissions").textContent=state.missions.length;$("profileTotalTransactions").textContent=state.transactions.length;
+
+["Name","Tagline","Goal","Interests","Strengths","Challenges","Preferences"].forEach(k=>{$("profile"+k).value=p[k.toLowerCase()]||"";});
+
+$("questionsList").innerHTML=state.questions.length?state.questions.map(q=>`<div class="item"><div class="item-icon">?</div><div class="item-main"><div class="item-title">${esc(q.question)}</div><div class="item-desc">${esc(q.answer||"—")}</div><button class="text-btn" data-action="editQuestion" data-id="${esc(q.id)}">${esc(t("edit"))}</button><button class="text-btn red" data-action="deleteQuestion" data-id="${esc(q.id)}">${esc(t("delete"))}</button></div></div>`).join(""):empty(t("emptyQuestions"));
+
+}
+
+function renderPage(page){
+
+if(page==="home")renderHome();if(page==="pocket")renderPocket();if(page==="missions")renderMissions();if(page==="ai")renderPrompts();if(page==="profile")renderProfile();
+
+}
+
+function renderAll(){renderI18n();["home","pocket","missions","ai","profile"].forEach(renderPage);}
+
+function changeMoneyTab(tab){
+
+moneyTab=tab;$$("[data-money]").forEach(b=>b.classList.toggle("active",b.dataset.money===tab));
+
+$("moneyForm").classList.toggle("hidden",tab==="goal");$("goalForm").classList.toggle("hidden",tab!=="goal");
+
+}
+
+function addTransaction(type,amount,description){
+
+amount=num(amount);if(!Number.isFinite(amount)||amount<=0){toast(t("invalidAmount"),true);return false;}
+
+if(type==="expense"&&amount>state.balance){toast(t("insufficientBalance"),true);return false;}
+
+state.balance+=type==="income"?amount:-amount;
+
+state.transactions.push({id:uid(),type,amount,description:description.trim(),date:now()});
+
+save();play();renderAll();return true;
+
+}
+
+function deleteTransaction(id){
+
+const x=state.transactions.find(t=>t.id===id);if(!x)return;
+
+if(!ask(t("confirmDeleteTransaction")))return;
+
+state.balance+=x.type==="income"?-x.amount:x.amount;
+
+state.transactions=state.transactions.filter(t=>t.id!==id);
+
+save();renderAll();toast(t("transactionDeleted"));
+
+}
+
+function resetMoney(){
+
+if(!ask(t("confirmResetMoney")))return;
+
+state.balance=0;state.goal={name:"",amount:0};state.transactions=[];save();renderAll();toast(t("resetDone"));
+
+}
+
+function resetMissionForm(){
+
+editingMission=null;$("missionForm").reset();$("missionDate").value=localDate();$("missionTime").value="23:59";$("missionPriority").value="normal";
+
+$("missionSubmit").textContent=t("addMission");$("cancelMissionEdit").classList.add("hidden");
+
+$("missionFormTitle").textContent=t("createMission");
+
+}
+
+function editMission(id){
+
+const m=state.missions.find(x=>x.id===id);if(!m)return;
+
+editingMission=id;$("missionTitle").value=m.title;$("missionDescription").value=m.description;
+
+const d=new Date(m.dueAt);$("missionDate").value=localDate(d);$("missionTime").value=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+
+$("missionPrice").value=m.price||"";$("missionPriority").value=m.priority;$("missionSubmit").textContent=t("saveGoal");$("cancelMissionEdit").classList.remove("hidden");$("missionFormTitle").textContent=t("edit");
+
+setPage("missions");$("missionTitle").focus();window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
+function submitMission(e){
+
+e.preventDefault();
+
+const title=$("missionTitle").value.trim(),date=$("missionDate").value,time=$("missionTime").value;
+
+if(!title||!date||!time){toast(t("requiredFields"),true);return;}
+
+const due=new Date(date+"T"+time+":00");
+
+if(Number.isNaN(due.getTime())){toast(t("requiredFields"),true);return;}
+
+const price=Math.max(0,num($("missionPrice").value));
+
+if(editingMission){
+
+const m=state.missions.find(x=>x.id===editingMission);if(!m)return;
+
+Object.assign(m,{title,description:$("missionDescription").value.trim(),dueAt:due.toISOString(),price,priority:$("missionPriority").value});
+
+toast(t("missionUpdated"));
+
+}else{
+
+state.missions.push({id:uid(),title,description:$("missionDescription").value.trim(),dueAt:due.toISOString(),price,priority:$("missionPriority").value,completed:false,completedAt:null,createdAt:now()});
+
+toast(t("missionAdded"));
+
+}
+
+save();play();resetMissionForm();renderAll();
+
+}
+
+function completeMission(id){
+
+const m=state.missions.find(x=>x.id===id);if(!m||m.completed)return;
+
+if(m.price>0&&m.price>state.balance){if(!confirm(t("insufficientBalance")+" "+t("missionCostNotice")))return;}
+
+m.completed=true;m.completedAt=now();
+
+if(m.price>0){
+
+state.balance-=m.price;
+
+state.transactions.push({id:uid(),type:"expense",amount:m.price,description:(state.language==="ar"?"تكلفة المهمة: ":"Mission cost: ")+m.title,date:now()});
+
+}
+
+save();play();renderAll();toast(m.price>0?t("completedCost"):t("completedSuccess"));
+
+}
+
+function reopenMission(id){
+
+const m=state.missions.find(x=>x.id===id);if(!m||!m.completed)return;
+
+if(m.price>0){
+
+const tx=state.transactions.find(x=>x.type==="expense"&&x.description.endsWith(m.title)&&Math.abs(new Date(x.date)-new Date(m.completedAt||0))<10000);
+
+if(tx){state.balance+=tx.amount;state.transactions=state.transactions.filter(x=>x.id!==tx.id);}
+
+}
+
+m.completed=false;m.completedAt=null;save();renderAll();toast(t("reopenedSuccess"));
+
+}
+
+function deleteMission(id){
+
+if(!ask(t("confirmDelete")))return;state.missions=state.missions.filter(x=>x.id!==id);if(editingMission===id)resetMissionForm();save();renderAll();toast(t("missionDeleted"));
+
+}
+
+function makePrompt(){
+
+const goal=$("promptGoal").value.trim();if(!goal){toast(t("requiredFields"),true);return;}
+
+const lang=$("promptLanguage").value,type=$("promptType").selectedOptions[0].text,tone=$("promptTone").value,level=$("promptLevel").value,constraints=$("promptConstraints").value.trim();
+
+const profile=state.profile;
+
+const profileInfo=[profile.goal&&"Main personal goal: "+profile.goal,profile.interests&&"Interests: "+profile.interests,profile.strengths&&"Strengths: "+profile.strengths,profile.challenges&&"Challenges: "+profile.challenges,profile.preferences&&"Preferred help style: "+profile.preferences].filter(Boolean).join("\n");
+
+currentPrompt=`Act as a capable, careful, and practical assistant.\n\nTASK\n${goal}\n\nCATEGORY\n${type}\n\nRESPONSE LANGUAGE\n${lang}\n\nSTYLE\n${tone}\n\nUSER LEVEL\n${level}\n\nINSTRUCTIONS\n- Understand the request before proposing a solution.\n- Give concrete, actionable steps in a logical order.\n- Do not invent facts, results, links, or capabilities.\n- Clearly state important limitations and assumptions.\n- Preserve all explicitly requested requirements.\n- If code is requested, provide a complete, coherent solution and check for likely errors.\n${constraints?"\nADDITIONAL CONSTRAINTS\n"+constraints:""}${profileInfo?"\nPERSONAL CONTEXT\n"+profileInfo:""}\n\nBefore answering, check that the response directly addresses the task and respects all constraints.`;
+
+state.lastPrompt=currentPrompt;$("promptOutput").textContent=currentPrompt;save();play();toast(t("promptGenerated"));
+
+}
+
+async function copyText(text){
+
+if(!text){toast(t("noPrompt"),true);return;}
+
+try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);toast(t("promptCopied"));return;}}catch(e){}
+
+const area=document.createElement("textarea");area.value=text;area.style.position="fixed";area.style.opacity="0";document.body.appendChild(area);area.select();
+
+let ok=false;try{ok=document.execCommand("copy");}catch(e){}area.remove();
+
+if(ok)toast(t("promptCopied"));else showModal(t("copyPrompt"),`<textarea id="manualCopy" style="width:100%;min-height:170px;background:#0c0c13;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px" readonly></textarea>`,[{label:t("close"),primary:true,action:closeModal}]),$("manualCopy").value=text;
+
+}
+
+function savePrompt(){
+
+if(!state.lastPrompt){toast(t("noPrompt"),true);return;}
+
+showModal(t("promptTitle"),`<div class="form"><div class="field"><label>${esc(t("promptTitle"))}</label><input id="savedPromptTitle" maxlength="100" placeholder="${esc(t("promptTitlePlaceholder"))}" value="${esc($("promptGoal").value.trim().slice(0,70))}"></div></div>`,[{label:t("cancel"),action:closeModal},{label:t("savePrompt"),primary:true,action:()=>{
+
+const title=$("savedPromptTitle").value.trim()||"Prompt";
+
+state.prompts.push({id:uid(),title,text:state.lastPrompt,createdAt:now()});save();closeModal();renderPrompts();toast(t("promptSaved"));
+
+}}]);
+
+}
+
+function viewPrompt(id){const p=state.prompts.find(x=>x.id===id);if(!p)return;state.lastPrompt=p.text;$("promptOutput").textContent=p.text;setPage("ai");}
+
+function deletePrompt(id){if(!ask(t("confirmDelete")))return;state.prompts=state.prompts.filter(x=>x.id!==id);save();renderPrompts();}
+
+function saveProfile(e){
+
+e.preventDefault();state.profile={name:$("profileName").value.trim(),tagline:$("profileTagline").value.trim(),goal:$("profileGoal").value.trim(),interests:$("profileInterests").value.trim(),strengths:$("profileStrengths").value.trim(),challenges:$("profileChallenges").value.trim(),preferences:$("profilePreferences").value.trim()};
+
+save();renderProfile();toast(t("profileSaved"));
+
+}
+
+function addQuestion(e){
+
+e.preventDefault();const question=$("questionText").value.trim();if(!question){toast(t("requiredFields"),true);return;}
+
+state.questions.push({id:uid(),question,answer:$("questionAnswer").value.trim()});$("questionForm").reset();save();renderProfile();toast(t("questionAdded"));
+
+}
+
+function editQuestion(id){
+
+const q=state.questions.find(x=>x.id===id);if(!q)return;
+
+showModal(t("edit"),`<div class="form"><div class="field"><label>${esc(t("question"))}</label><input id="editQuestionText" maxlength="200" value="${esc(q.question)}"></div><div class="field"><label>${esc(t("answer"))}</label><textarea id="editQuestionAnswer" maxlength="1500">${esc(q.answer)}</textarea></div></div>`,[{label:t("cancel"),action:closeModal},{label:t("saveProfile"),primary:true,action:()=>{
+
+const question=$("editQuestionText").value.trim();if(!question){toast(t("requiredFields"),true);return;}
+
+q.question=question;q.answer=$("editQuestionAnswer").value.trim();save();closeModal();renderProfile();toast(t("profileSaved"));
+
+}}]);
+
+}
+
+function deleteQuestion(id){if(!ask(t("confirmDeleteQuestion")))return;state.questions=state.questions.filter(x=>x.id!==id);save();renderProfile();toast(t("questionDeleted"));}
+
+function download(filename,content,type){
+
+try{const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);return true;}catch(e){toast(t("noPermission"),true);return false;}
+
+}
+
+function exportBackup(){
+
+const data=JSON.stringify(state,null,2);if(download("NEXUS-backup-"+localDate()+".json",data,"application/json;charset=utf-8"))toast(t("backupExported"));
+
+}
+
+function importBackupFile(file){
+
+if(!file)return;const reader=new FileReader();
+
+reader.onload=()=>{
+
+try{
+
+const raw=JSON.parse(String(reader.result||""));
+
+if(!raw||typeof raw!=="object"||Array.isArray(raw)||(!Array.isArray(raw.missions)&&!Array.isArray(raw.transactions)&&!raw.profile&&!raw.goal))throw new Error("Invalid backup");
+
+if(!confirm(t("backupWarning")))return;
+
+state=normalize(raw);save();renderAll();setPage("home");toast(t("backupImported"));
+
+}catch(e){toast(t("invalidBackup"),true);}
+
+};
+
+reader.onerror=()=>toast(t("invalidBackup"),true);reader.readAsText(file);
+
+}
+
+function exportCSV(){
+
+if(!state.transactions.length){toast(t("noDataToExport"),true);return;}
+
+const rows=[["Date","Type","Description","Amount","Currency"],...state.transactions.map(x=>[x.date,x.type,x.description,x.amount,"TND"])];
+
+const csv="\ufeff"+rows.map(row=>row.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\r\n");
+
+if(download("NEXUS-transactions-"+localDate()+".csv",csv,"text/csv;charset=utf-8"))toast(t("csvExported"));
+
+}
+
+function resetApp(){
+
+if(!confirm(t("confirmResetApp")))return;
+
+try{localStorage.removeItem(KEY);}catch(e){}
+
+state=defaults();save();resetMissionForm();renderAll();setPage("home");toast(t("resetDone"));
+
+}
+
+function handleAction(action,id){
+
+switch(action){
+
+case "completeMission":completeMission(id);break;
+
+case "reopenMission":reopenMission(id);break;
+
+case "editMission":editMission(id);break;
+
+case "deleteMission":deleteMission(id);break;
+
+case "deleteTransaction":deleteTransaction(id);break;
+
+case "viewPrompt":viewPrompt(id);break;
+
+case "deletePrompt":deletePrompt(id);break;
+
+case "editQuestion":editQuestion(id);break;
+
+case "deleteQuestion":deleteQuestion(id);break;
+
+}
+
+}
+
+$$(".nav-item").forEach(b=>b.addEventListener("click",()=>setPage(b.dataset.page)));
+
+$$("[data-go]").forEach(b=>b.addEventListener("click",()=>setPage(b.dataset.go)));
+
+$("quickMoney").addEventListener("click",()=>{setPage("pocket");changeMoneyTab("income");$("moneyAmount").focus();});
+
+$("quickMission").addEventListener("click",()=>{setPage("missions");resetMissionForm();$("missionTitle").focus();});
+
+$("quickPrompt").addEventListener("click",()=>{setPage("ai");$("promptGoal").focus();});
+
+$("quickProfile").addEventListener("click",()=>setPage("profile"));
+
+$("modalClose").addEventListener("click",closeModal);
+
+$("modalBackdrop").addEventListener("click",e=>{if(e.target===$("modalBackdrop"))closeModal();});
+
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+
+document.addEventListener("click",e=>{const b=e.target.closest("[data-action]");if(b)handleAction(b.dataset.action,b.dataset.id);});
+
+$$("[data-money]").forEach(b=>b.addEventListener("click",()=>changeMoneyTab(b.dataset.money)));
+
+$("moneyForm").addEventListener("submit",e=>{
+
+e.preventDefault();const amount=num($("moneyAmount").value),desc=$("moneyDesc").value.trim();
+
+if(!desc){toast(t("requiredFields"),true);return;}
+
+if(addTransaction(moneyTab,amount,desc)){$("moneyForm").reset();changeMoneyTab("income");}
+
+});
+
+$("goalForm").addEventListener("submit",e=>{
+
+e.preventDefault();const name=$("goalName").value.trim(),amount=num($("goalAmount").value);
+
+if(!name||amount<0||!Number.isFinite(amount)){toast(t("requiredFields"),true);return;}
+
+state.goal={name,amount};save();renderAll();toast(t("goalSaved"));
+
+});
+
+$("editGoalBtn").addEventListener("click",()=>{changeMoneyTab("goal");$("goalName").value=state.goal.name;$("goalAmount").value=state.goal.amount||"";$("goalForm").scrollIntoView({behavior:"smooth",block:"center"});});
+
+$("transactionFilter").addEventListener("change",renderPocket);
+
+$("transactionSearch").addEventListener("input",renderPocket);
+
+$("resetMoney").addEventListener("click",resetMoney);
+
+$("exportCSV").addEventListener("click",exportCSV);
+
+$("missionForm").addEventListener("submit",e=>{e.preventDefault();submitMission(e);});
+
+function submitMission(e){
+
+const title=$("missionTitle").value.trim(),date=$("missionDate").value,time=$("missionTime").value;
+
+if(!title||!date||!time){toast(t("requiredFields"),true);return;}
+
+const due=new Date(date+"T"+time+":00");if(Number.isNaN(due.getTime())){toast(t("requiredFields"),true);return;}
+
+const price=Math.max(0,num($("missionPrice").value));
+
+if(editingMission){
+
+const m=state.missions.find(x=>x.id===editingMission);if(!m)return;
+
+Object.assign(m,{title,description:$("missionDescription").value.trim(),dueAt:due.toISOString(),price,priority:$("missionPriority").value});toast(t("missionUpdated"));
+
+}else{
+
+state.missions.push({id:uid(),title,description:$("missionDescription").value.trim(),dueAt:due.toISOString(),price,priority:$("missionPriority").value,completed:false,completedAt:null,createdAt:now()});toast(t("missionAdded"));
+
+}
+
+save();play();resetMissionForm();renderAll();
+
+}
+
+$("cancelMissionEdit").addEventListener("click",resetMissionForm);
+
+$$("[data-mission-filter]").forEach(b=>b.addEventListener("click",()=>{missionFilter=b.dataset.missionFilter;renderMissions();}));
+
+$("promptForm").addEventListener("submit",e=>{e.preventDefault();makePrompt();});
+
+$("copyPrompt").addEventListener("click",()=>copyText(state.lastPrompt));
+
+$("savePrompt").addEventListener("click",savePrompt);
+
+$("clearPrompt").addEventListener("click",()=>{state.lastPrompt="";$("promptGoal").value="";$("promptConstraints").value="";$("promptOutput").textContent="";save();});
+
+$("openChatGPT").addEventListener("click",()=>{window.open("https://chatgpt.com/","_blank","noopener,noreferrer");});
+
+$("profileForm").addEventListener("submit",saveProfile);
+
+$("questionForm").addEventListener("submit",addQuestion);
+
+$("exportData").addEventListener("click",exportBackup);
+
+$("settingsExport").addEventListener("click",exportBackup);
+
+$("exportBackupButton")?.addEventListener("click",exportBackup);
+
+$("importData").addEventListener("click",()=>$("importFile").click());
+
+$("settingsImport").addEventListener("click",()=>$("importFile").click());
+
+$("importFile").addEventListener("change",e=>{importBackupFile(e.target.files[0]);e.target.value="";});
+
+$("importBackupButton")?.addEventListener("click",()=>$("backupFileInput").click());
+
+$("backupFileInput")?.addEventListener("change",e=>{importBackupFile(e.target.files[0]);e.target.value="";});
+
+$("resetApp").addEventListener("click",resetApp);
+
+$("resetAppButton")?.addEventListener("click",resetApp);
+
+$("langBtn").addEventListener("click",()=>{state.language=state.language==="ar"?"en":"ar";save();renderAll();});
+
+$("languageSelect").addEventListener("change",e=>{state.language=e.target.value==="en"?"en":"ar";save();renderAll();});
+
+$("themeBtn").addEventListener("click",()=>{state.theme=state.theme==="dark"?"light":"dark";save();renderI18n();});
+
+$("lightToggle").addEventListener("change",e=>{state.theme=e.target.checked?"light":"dark";save();renderI18n();});
+
+$("confirmDeletes").addEventListener("change",e=>{state.confirmDeletes=e.target.checked;save();});
+
+$("soundToggle").addEventListener("change",e=>{state.sounds=e.target.checked;save();if(state.sounds)play();});
+
+function start(){
+
+load();
+
+if(!$("missionDate").value)$("missionDate").value=localDate();
+
+$("missionTime").value="23:59";
+
+renderAll();
+
+setInterval(()=>{if(currentPage==="missions")renderMissions();if(currentPage==="home")renderHome();},1000);
+
+}
+
+start();
+
+})();
+
+</script>
+
+</body>
+
+</html>
