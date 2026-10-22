@@ -1,56 +1,1809 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0912">
+
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+
+<meta name="theme-color" content="#09090d">
+
 <title>NEXUS — Personal Decision System</title>
+
 <style>
-:root{color-scheme:dark;--bg:#09080e;--surface:#12101a;--surface2:#191522;--surface3:#211b2e;--line:#30283e;--purple:#9b75ff;--purple2:#7650e8;--text:#f7f4ff;--muted:#a9a1b9;--green:#4ade80;--red:#fb7185;--yellow:#facc15;--orange:#fb923c;--radius:21px;--nav-height:73px}
+
+:root{--bg:#09090d;--panel:#12121a;--panel2:#191923;--line:#292938;--purple:#895cff;--purple2:#b39aff;--text:#f7f6ff;--muted:#9291a7;--green:#45d6a0;--red:#ff627c;--yellow:#ffca67;--orange:#ff985c;--radius:22px}
+
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
 html{background:var(--bg);scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(ellipse at 50% -20%,#28173d 0,transparent 48%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;min-height:100dvh;font-size:15px;line-height:1.55}
+
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:14px;min-height:100vh;padding-bottom:calc(92px + env(safe-area-inset-bottom));}
+
 button,input,textarea,select{font:inherit}
-button{cursor:pointer;color:inherit}
-button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
-button:disabled{opacity:.45;cursor:not-allowed}
-button:active:not(:disabled){transform:scale(.97)}
-input,textarea,select{width:100%;min-width:0;background:#0d0b13;border:1px solid var(--line);border-radius:14px;color:var(--text);padding:13px 14px;outline:none}
-input::placeholder,textarea::placeholder{color:#777084}
-textarea{resize:vertical;min-height:95px}
-input[type=checkbox],input[type=radio]{width:auto;accent-color:var(--purple)}
-input[type=range]{padding:0;accent-color:var(--purple)}
-input[type=date],input[type=time],input[type=datetime-local]{color-scheme:dark}
-button,select{touch-action:manipulation}
-svg{width:21px;height:21px;display:block;flex-shrink:0}
-#app{max-width:740px;margin:auto;min-height:100dvh;padding-bottom:calc(var(--nav-height) + env(safe-area-inset-bottom) + 24px)}
-.topbar{position:sticky;top:0;z-index:20;padding:calc(env(safe-area-inset-top) + 12px) 18px 12px;display:flex;align-items:center;gap:12px;background:#0b0912eF;backdrop-filter:blur(20px);border-bottom:1px solid #ffffff0a}
-.brand-mark{width:43px;height:43px;border-radius:15px;background:linear-gradient(145deg,#a888ff,#7040d4);display:grid;place-items:center;box-shadow:0 6px 24px #8757ff35}
-.brand-mark svg{color:white;width:25px;height:25px}
-.brand{font-size:19px;font-weight:850;letter-spacing:1.7px;line-height:1.15}
-.brand-sub{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:4px}
-.top-spacer{flex:1}
-.icon-btn{width:43px;height:43px;border:1px solid var(--line);background:var(--surface);border-radius:15px;display:grid;place-items:center}
-.icon-btn svg{color:#c6b5ff}
-main{padding:19px 16px 24px}
-.page{animation:enter .22s ease}
-@keyframes enter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-h1,h2,h3,p{margin-top:0}
-h1{font-size:27px;letter-spacing:-.5px;margin-bottom:6px;line-height:1.25}
-h2{font-size:18px;margin-bottom:13px}
-h3{font-size:15px;margin-bottom:8px}
+
+button{cursor:pointer}
+
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--purple2);outline-offset:2px}
+
+.app{width:100%;max-width:760px;margin:auto;min-height:100vh}
+
+header{padding:calc(18px + env(safe-area-inset-top)) 20px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+
+.brand{display:flex;align-items:center;gap:11px}
+
+.logo{width:43px;height:43px;border-radius:15px;background:linear-gradient(140deg,#a587ff,#6638d8);display:grid;place-items:center;font-weight:900;font-size:19px;box-shadow:0 7px 24px #895cff30}
+
+.brandname{font-size:18px;font-weight:850;letter-spacing:2px}
+
+.brandtag{font-size:9px;letter-spacing:1.3px;color:var(--muted);margin-top:3px}
+
+.iconbtn{width:42px;height:42px;border-radius:15px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:18px}
+
+main{padding:0 16px}
+
+.page{display:none;animation:appear .2s ease}
+
+.page.active{display:block}
+
+@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+.eyebrow{font-size:10px;color:var(--purple2);letter-spacing:1.8px;font-weight:800;text-transform:uppercase}
+
+h1{font-size:27px;line-height:1.25;letter-spacing:-.5px;margin:8px 0}
+
+h2{font-size:17px;margin:0 0 14px}
+
+h3{font-size:14px;margin:0 0 8px}
+
+p{line-height:1.65}
+
 .muted{color:var(--muted)}
-.small{font-size:12px}
-.tiny{font-size:11px}
+
+.small{font-size:11px}
+
 .section{margin-top:24px}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-.section-head h2{margin:0}
-.card{background:linear-gradient(145deg,#171320,#100e17);border:1px solid var(--line);border-radius:var(--radius);padding:17px;min-width:0}
-.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#25173b,#171123 62%,#111019);border:1px solid #49336b;border-radius:25px;padding:22px}
-.hero:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:#8d5bff10;filter:blur(3px);top:-75px;inset-inline-end:-55px;pointer-events:none}
-.hero-label{font-size:11px;letter-spacing:1.1px;color:#c9b7f7}
-.hero-value{font-size:34px;font-weight:850;letter-spacing:-1px;margin:7px 0}
-.hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.pill{display:inline-flex;align-items:center;gap:5px;border-radius:100px;padding:5px 10px;background:#ffffff0b;color:var(--muted);font-size:11px;border:1px solid #ffffff0c}
-.pill.good{background:#163322;color:var(--green);border-color:#28563a}
-.pill.bad{background:#351a24;color:var(--red);border-color:#5d
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:17px;margin-top:12px;min-width:0}
+
+.hero{background:radial-gradient(ellipse at 90% 0%,#7545dc30,transparent 55%),linear-gradient(145deg,#191624,#111119);border:1px solid #39304f;border-radius:27px;padding:23px 20px;position:relative;overflow:hidden;margin-top:12px}
+
+.hero:after{content:"";position:absolute;width:135px;height:135px;border-radius:50%;border:1px solid #a98aff1b;right:-35px;bottom:-65px;box-shadow:0 0 0 17px #a98aff08,0 0 0 36px #a98aff05;pointer-events:none}
+
+.hero-label{color:#c4b5fd;font-size:11px;letter-spacing:1.3px}
+
+.balance{font-size:35px;font-weight:850;letter-spacing:-1.5px;margin:10px 0 5px;overflow-wrap:anywhere}
+
+.currency{font-size:13px;color:var(--muted);font-weight:500;letter-spacing:0}
+
+.row{display:flex;align-items:center;gap:10px}
+
+.between{justify-content:space-between}
+
+.wrap{flex-wrap:wrap}
+
+.grow{flex:1;min-width:0}
+
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+
+.stat{background:var(--panel);border:1px solid var(--line);padding:15px;border-radius:19px;min-width:0}
+
+.stat-label{font-size:11px;color:var(--muted);margin-bottom:8px}
+
+.stat-value{font-size:20px;font-weight:800;overflow-wrap:anywhere}
+
+.green{color:var(--green)!important}.red{color:var(--red)!important}.yellow{color:var(--yellow)!important}.orange{color:var(--orange)!important}.purple{color:var(--purple2)!important}
+
+.btn{border:0;border-radius:15px;padding:12px 16px;font-weight:750;transition:transform .12s,opacity .12s;min-height:44px}
+
+.btn:active{transform:scale(.98)}
+
+.btn-primary{background:var(--purple);color:white}
+
+.btn-secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+
+.btn-danger{background:#ff627c19;border:1px solid #ff627c48;color:var(--red)}
+
+.btn-small{padding:8px 11px;min-height:35px;border-radius:12px;font-size:12px}
+
+.btn-block{width:100%}
+
+.quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+
+.quick button{padding:13px 5px;border:1px solid var(--line);background:var(--panel);border-radius:17px;color:var(--text);font-size:11px;font-weight:700}
+
+.quick .qicon{display:block;font-size:20px;margin-bottom:8px}
+
+.progress{height:6px;background:#292938;border-radius:99px;overflow:hidden;margin:13px 0 8px}
+
+.progress>div{height:100%;border-radius:99px;background:var(--purple);transition:width .3s}
+
+.list{display:flex;flex-direction:column;gap:9px}
+
+.item{padding:13px;border:1px solid var(--line);border-radius:17px;background:#15151f;min-width:0}
+
+.item-title{font-weight:750;overflow-wrap:anywhere}
+
+.item-meta{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.6}
+
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:5px 9px;font-size:10px;background:#895cff18;color:var(--purple2);border:1px solid #895cff35;white-space:nowrap}
+
+.pill.red{background:#ff627c13;border-color:#ff627c40}
+
+.pill.green{background:#45d6a013;border-color:#45d6a040}
+
+.pill.yellow{background:#ffca6713;border-color:#ffca6740}
+
+.empty{text-align:center;padding:26px 12px;color:var(--muted);border:1px dashed #353547;border-radius:18px;margin-top:10px}
+
+.empty-icon{font-size:27px;margin-bottom:8px}
+
+.field{display:flex;flex-direction:column;gap:7px;margin:13px 0}
+
+.field label{font-size:12px;color:#c4c2d5;font-weight:650}
+
+input,textarea,select{width:100%;min-width:0;border:1px solid #333344;border-radius:14px;background:#0e0e15;color:var(--text);padding:12px 13px;outline:none}
+
+input,select{min-height:45px}
+
+textarea{min-height:92px;resize:vertical}
+
+input:focus,textarea:focus,select:focus{border-color:var(--purple)}
+
+input::placeholder,textarea::placeholder{color:#656579}
+
+select option{background:#12121a}
+
+label.check{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px}
+
+label.check input{width:18px;min-height:18px;accent-color:var(--purple)}
+
+.tabs{display:flex;gap:7px;overflow-x:auto;padding:3px 0 8px;scrollbar-width:none}
+
+.tabs::-webkit-scrollbar{display:none}
+
+.tab{border:1px solid var(--line);border-radius:13px;padding:9px 12px;background:var(--panel);color:var(--muted);white-space:nowrap;font-size:12px}
+
+.tab.active{background:#895cff23;border-color:#895cff70;color:#d5c7ff}
+
+nav.bottom{position:fixed;z-index:20;bottom:0;left:0;right:0;padding:8px 7px calc(8px + env(safe-area-inset-bottom));background:#0d0d13ed;backdrop-filter:blur(20px);border-top:1px solid #292938;display:flex;justify-content:space-around;max-width:760px;margin:auto}
+
+nav button{flex:1;min-width:0;border:0;background:none;color:#77778e;font-size:10px;padding:7px 0;border-radius:14px}
+
+nav button .navicon{font-size:19px;display:block;margin-bottom:4px}
+
+nav button.active{background:#895cff19;color:#c7b5ff}
+
+nav button.active .navicon{filter:drop-shadow(0 0 5px #895cff55)}
+
+.notice{padding:12px 13px;border-radius:15px;background:#895cff13;border:1px solid #895cff35;color:#cfc1ff;font-size:12px;line-height:1.65;margin-top:12px}
+
+.notice.warning{background:#ffca6710;border-color:#ffca6740;color:var(--yellow)}
+
+.notice.danger{background:#ff627c10;border-color:#ff627c40;color:var(--red)}
+
+.notice.success{background:#45d6a010;border-color:#45d6a040;color:var(--green)}
+
+.separator{height:1px;background:var(--line);margin:15px 0}
+
+.modal-backdrop{position:fixed;inset:0;background:#000b;z-index:50;display:none;align-items:flex-end;justify-content:center;padding-top:30px}
+
+.modal-backdrop.open{display:flex}
+
+.modal{width:100%;max-width:600px;max-height:90dvh;overflow-y:auto;background:#111119;border:1px solid #343445;border-radius:26px 26px 0 0;padding:21px 18px calc(25px + env(safe-area-inset-bottom));animation:slideup .2s ease}
+
+@keyframes slideup{from{transform:translateY(20px);opacity:.6}to{transform:translateY(0);opacity:1}}
+
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+
+.close{width:36px;height:36px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);color:white;font-size:19px}
+
+.toast{position:fixed;z-index:80;bottom:calc(92px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#292536;border:1px solid #51446e;color:white;border-radius:14px;padding:12px 17px;font-size:12px;max-width:90vw;text-align:center;transition:.2s}
+
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.chat{display:flex;flex-direction:column;gap:10px;margin:15px 0}
+
+.bubble{padding:13px 14px;border-radius:17px;max-width:92%;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+
+.bubble.user{align-self:flex-start;background:#895cff28;border:1px solid #895cff45}
+
+.bubble.assistant{align-self:flex-end;background:var(--panel2);border:1px solid var(--line)}
+
+.bubble .small{display:block;color:var(--muted);margin-top:8px}
+
+.chatbox{position:sticky;bottom:80px;background:var(--bg);padding:9px 0;display:flex;gap:8px;align-items:flex-end}
+
+.chatbox textarea{min-height:46px;max-height:125px}
+
+.choice{display:flex;gap:9px;align-items:flex-start;padding:12px;background:#15151f;border:1px solid var(--line);border-radius:14px;margin:8px 0}
+
+.choice input{width:17px;min-height:17px;margin-top:2px;accent-color:var(--purple)}
+
+.choice label{line-height:1.5;flex:1}
+
+.barrow{display:grid;grid-template-columns:88px 1fr 50px;gap:8px;align-items:center;margin:12px 0;font-size:11px}
+
+.bar{height:8px;background:#292938;border-radius:99px;overflow:hidden}
+
+.bar>div{height:100%;background:var(--purple);border-radius:99px}
+
+.bottom-space{height:12px}
+
+footer{text-align:center;color:#545469;font-size:10px;padding:25px 0 10px}
+
+[dir="ltr"] .hero:after{right:auto;left:-35px}
+
+[dir="ltr"] .bubble.user{align-self:flex-end}
+
+[dir="ltr"] .bubble.assistant{align-self:flex-start}
+
+@media(min-width:600px){main{padding:0 22px}.hero{padding:27px}.modal{border-radius:26px;margin:auto}.modal-backdrop{align-items:center;padding:20px}.balance{font-size:42px}}
+
+@media(max-width:360px){h1{font-size:23px}.balance{font-size:29px}.quick button{font-size:10px}.stat-value{font-size:17px}main{padding:0 12px}}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+
+  <div class="brand">
+
+    <div class="logo">N</div>
+
+    <div><div class="brandname">NEXUS</div><div class="brandtag" data-i18n="tag">YOUR PERSONAL DECISION SYSTEM</div></div>
+
+  </div>
+
+  <button class="iconbtn" onclick="navigate('settings')" aria-label="Settings">⚙</button>
+
+</header>
+
+<main>
+
+<section class="page active" id="page-home">
+
+  <div class="eyebrow" data-i18n="overview">YOUR DAY AT A GLANCE</div>
+
+  <h1 id="greeting">أهلاً بك</h1>
+
+  <p class="muted" id="todayLine"></p>
+
+  <div class="hero">
+
+    <div class="row between">
+
+      <div class="hero-label" data-i18n="currentBalance">CURRENT BALANCE</div>
+
+      <span class="pill" id="balancePill">DT</span>
+
+    </div>
+
+    <div class="balance" id="homeBalance">0.000 <span class="currency">DT</span></div>
+
+    <div class="muted small" data-i18n="balanceCalculated">Calculated from your recorded transactions</div>
+
+    <div class="row wrap" style="margin-top:18px">
+
+      <button class="btn btn-primary" onclick="openMoneyModal('income')" data-i18n="addMoney">+ Add money</button>
+
+      <button class="btn btn-secondary" onclick="openMoneyModal('expense')" data-i18n="addExpense">− Add expense</button>
+
+    </div>
+
+  </div>
+
+  <div class="grid section">
+
+    <div class="stat"><div class="stat-label" data-i18n="moneyIn">MONEY IN</div><div class="stat-value green" id="homeIncome">+0.000</div></div>
+
+    <div class="stat"><div class="stat-label" data-i18n="moneyOut">MONEY OUT</div><div class="stat-value red" id="homeExpense">−0.000</div></div>
+
+  </div>
+
+  <div class="quick">
+
+    <button onclick="navigate('ai')"><span class="qicon">✦</span><span data-i18n="aiHelp">AI Help</span></button>
+
+    <button onclick="openMissionModal()"><span class="qicon">◷</span><span data-i18n="newMission">New mission</span></button>
+
+    <button onclick="navigate('pocket','simulator')"><span class="qicon">◇</span><span data-i18n="decision">Decision</span></button>
+
+  </div>
+
+  <div class="section">
+
+    <div class="row between"><h2 data-i18n="nextMission">Next mission</h2><button class="btn btn-secondary btn-small" onclick="navigate('mission')" data-i18n="viewAll">View all</button></div>
+
+    <div id="homeMission"></div>
+
+  </div>
+
+  <div class="section">
+
+    <div class="row between"><h2 data-i18n="recentActivity">Recent activity</h2><button class="btn btn-secondary btn-small" onclick="navigate('pocket')" data-i18n="viewAll">View all</button></div>
+
+    <div id="homeTransactions" class="list"></div>
+
+  </div>
+
+  <div id="homeAlerts"></div>
+
+  <footer>NEXUS · Personal Decision System</footer>
+
+</section>
+
+<section class="page" id="page-ai">
+
+  <div class="eyebrow">NEXUS / INTELLIGENCE</div>
+
+  <h1 data-i18n="aiTitle">AI Help</h1>
+
+  <p class="muted" data-i18n="aiIntro">A personal assistant that uses your saved app data.</p>
+
+  <div class="notice" data-i18n="localAIWarning">This version uses local rules and calculations. It is not a connected generative AI model.</div>
+
+  <div class="grid section">
+
+    <button class="btn btn-secondary" onclick="setAiMode('chat')" id="aiChatTab" data-i18n="askQuestion">Ask a question</button>
+
+    <button class="btn btn-secondary" onclick="setAiMode('compare')" id="aiCompareTab" data-i18n="compareOptions">Compare options</button>
+
+  </div>
+
+  <div id="aiChatMode">
+
+    <div id="chatMessages" class="chat"></div>
+
+    <div class="chatbox">
+
+      <textarea id="chatInput" rows="1" data-i18n-placeholder="askPlaceholder" placeholder="Ask about your money, plans, or a decision..."></textarea>
+
+      <button class="btn btn-primary" style="min-width:54px" onclick="sendChat()" aria-label="Send">➤</button>
+
+    </div>
+
+    <div class="row wrap">
+
+      <button class="btn btn-secondary btn-small" onclick="quickQuestion('money')" data-i18n="moneyAdvice">Money advice</button>
+
+      <button class="btn btn-secondary btn-small" onclick="quickQuestion('tasks')" data-i18n="taskAdvice">Task priorities</button>
+
+      <button class="btn btn-secondary btn-small" onclick="quickQuestion('summary')" data-i18n="mySummary">My summary</button>
+
+    </div>
+
+  </div>
+
+  <div id="aiCompareMode" style="display:none">
+
+    <div class="card">
+
+      <h2 data-i18n="decisionSimulator">Decision simulator</h2>
+
+      <p class="muted small" data-i18n="decisionIntro">Compare a purchase against your balance, reserve, goals, and known obligations.</p>
+
+      <div class="field"><label data-i18n="purchaseName">What are you considering?</label><input id="buyName" placeholder="e.g. Headphones" data-i18n-placeholder="purchasePlaceholder"></div>
+
+      <div class="field"><label data-i18n="price">Price (DT)</label><input id="buyPrice" type="number" min="0" step="0.001" placeholder="0.000" inputmode="decimal"></div>
+
+      <div class="field"><label data-i18n="purchaseType">Is it necessary?</label><select id="buyNeed"><option value="optional" data-i18n="optional">Optional</option><option value="useful" data-i18n="useful">Useful</option><option value="essential" data-i18n="essential">Essential</option></select></div>
+
+      <div class="field"><label data-i18n="reserve">Desired emergency reserve (DT)</label><input id="buyReserve" type="number" min="0" step="0.001" value="0" inputmode="decimal"></div>
+
+      <div class="field"><label data-i18n="obligations">Upcoming obligations not already recorded (DT)</label><input id="buyObligations" type="number" min="0" step="0.001" value="0" inputmode="decimal"></div>
+
+      <div class="field"><label data-i18n="purchaseDeadline">Purchase deadline (optional)</label><input id="buyDeadline" type="date"></div>
+
+      <button class="btn btn-primary btn-block" onclick="runDecision()" data-i18n="analyzeDecision">Analyze decision</button>
+
+    </div>
+
+    <div id="decisionResult"></div>
+
+  </div>
+
+  <footer data-i18n="localFooter">Your saved information stays in this browser.</footer>
+
+</section>
+
+<section class="page" id="page-profile">
+
+  <div class="eyebrow">NEXUS / PERSONAL CONTEXT</div>
+
+  <h1 data-i18n="profileTitle">Your profile</h1>
+
+  <p class="muted" data-i18n="profileIntro">Your preferences help personalize local recommendations.</p>
+
+  <div class="card">
+
+    <h2 data-i18n="basicInfo">Basic information</h2>
+
+    <div class="field"><label data-i18n="firstName">First name</label><input id="pFirst" autocomplete="given-name"></div>
+
+    <div class="field"><label data-i18n="lastName">Last name</label><input id="pLast" autocomplete="family-name"></div>
+
+    <div class="grid">
+
+      <div class="field"><label data-i18n="age">Age</label><input id="pAge" type="number" min="1" max="120"></div>
+
+      <div class="field"><label data-i18n="gender">Gender (optional)</label><select id="pGender"><option value="" data-i18n="preferNot">Prefer not to say</option><option value="male" data-i18n="male">Male</option><option value="female" data-i18n="female">Female</option><option value="other" data-i18n="other">Other</option></select></div>
+
+    </div>
+
+    <button class="btn btn-primary btn-block" onclick="saveProfile()" data-i18n="saveProfile">Save profile</button>
+
+  </div>
+
+  <div class="section">
+
+    <div class="row between"><h2 data-i18n="personalQuestions">15 personal questions</h2><span class="pill" id="questionCount">0/15</span></div>
+
+    <p class="muted small" data-i18n="questionsNote">These are editable preferences, not a psychological diagnosis.</p>
+
+    <div id="questionList"></div>
+
+    <button class="btn btn-primary btn-block" style="margin-top:14px" onclick="saveAnswers()" data-i18n="saveAnswers">Save answers</button>
+
+  </div>
+
+  <div class="card">
+
+    <h2 data-i18n="preferencesSummary">Preferences summary</h2>
+
+    <div id="profileSummary" class="muted"></div>
+
+  </div>
+
+</section>
+
+<section class="page" id="page-pocket">
+
+  <div class="eyebrow">NEXUS / FINANCIAL CONTROL</div>
+
+  <h1 data-i18n="pocketTitle">Pocket</h1>
+
+  <p class="muted" data-i18n="pocketIntro">A clear record of your money.</p>
+
+  <div class="hero">
+
+    <div class="hero-label" data-i18n="currentBalance">CURRENT BALANCE</div>
+
+    <div class="balance" id="pocketBalance">0.000 <span class="currency">DT</span></div>
+
+    <div class="row wrap">
+
+      <button class="btn btn-primary" onclick="openMoneyModal('income')" data-i18n="addMoney">+ Add money</button>
+
+      <button class="btn btn-secondary" onclick="openMoneyModal('expense')" data-i18n="addExpense">− Add expense</button>
+
+    </div>
+
+  </div>
+
+  <div class="grid section">
+
+    <div class="stat"><div class="stat-label" data-i18n="totalIncome">TOTAL INCOME</div><div id="pocketIncome" class="stat-value green">0.000</div></div>
+
+    <div class="stat"><div class="stat-label" data-i18n="totalExpenses">TOTAL EXPENSES</div><div id="pocketExpense" class="stat-value red">0.000</div></div>
+
+  </div>
+
+  <div class="section">
+
+    <div class="tabs">
+
+      <button class="tab active" onclick="setPocketTab('transactions',this)" data-i18n="transactions">Transactions</button>
+
+      <button class="tab" onclick="setPocketTab('stats',this)" data-i18n="statistics">Statistics</button>
+
+      <button class="tab" onclick="setPocketTab('goals',this)" data-i18n="goals">Goals</button>
+
+      <button class="tab" onclick="setPocketTab('simulator',this)" data-i18n="decision">Decision</button>
+
+    </div>
+
+    <div id="pocketTransactions">
+
+      <div class="field"><label data-i18n="searchTransactions">Search transactions</label><input id="txSearch" oninput="renderTransactions()" data-i18n-placeholder="searchPlaceholder" placeholder="Search description or category"></div>
+
+      <div class="grid">
+
+        <div class="field"><label data-i18n="filterType">Type</label><select id="txFilter" onchange="renderTransactions()"><option value="all" data-i18n="all">All</option><option value="income" data-i18n="income">Income</option><option value="expense" data-i18n="expense">Expense</option></select></div>
+
+        <div class="field"><label data-i18n="filterPeriod">Period</label><select id="txPeriod" onchange="renderTransactions()"><option value="all" data-i18n="allTime">All time</option><option value="today" data-i18n="today">Today</option><option value="week" data-i18n="thisWeek">This week</option><option value="month" data-i18n="thisMonth">This month</option></select></div>
+
+      </div>
+
+      <div id="transactionList" class="list"></div>
+
+    </div>
+
+    <div id="pocketStats" style="display:none"></div>
+
+    <div id="pocketGoals" style="display:none">
+
+      <div class="card" style="margin-top:0">
+
+        <h2 data-i18n="createGoal">Create a financial goal</h2>
+
+        <div class="field"><label data-i18n="goalName">Goal name</label><input id="goalName" data-i18n-placeholder="goalPlaceholder" placeholder="e.g. New phone"></div>
+
+        <div class="field"><label data-i18n="targetAmount">Target amount (DT)</label><input id="goalTarget" type="number" min="0.001" step="0.001" inputmode="decimal"></div>
+
+        <div class="field"><label data-i18n="goalDeadline">Target date (optional)</label><input id="goalDate" type="date"></div>
+
+        <button class="btn btn-primary btn-block" onclick="addGoal()" data-i18n="addGoal">Add goal</button>
+
+      </div>
+
+      <div id="goalList" class="list" style="margin-top:12px"></div>
+
+    </div>
+
+    <div id="pocketSimulator" style="display:none"></div>
+
+  </div>
+
+</section>
+
+<section class="page" id="page-mission">
+
+  <div class="eyebrow">NEXUS / TIME MANAGEMENT</div>
+
+  <h1 data-i18n="missionTitle">Mission control</h1>
+
+  <p class="muted" data-i18n="missionIntro">Track deadlines and the time remaining for your tasks.</p>
+
+  <button class="btn btn-primary btn-block" onclick="openMissionModal()" data-i18n="createMission">+ Create mission</button>
+
+  <div class="grid section">
+
+    <div class="stat"><div class="stat-label" data-i18n="activeMissions">ACTIVE</div><div id="activeCount" class="stat-value">0</div></div>
+
+    <div class="stat"><div class="stat-label" data-i18n="completedMissions">COMPLETED</div><div id="completedCount" class="stat-value green">0</div></div>
+
+  </div>
+
+  <div class="section">
+
+    <div class="tabs">
+
+      <button class="tab active" onclick="setMissionTab('active',this)" data-i18n="active">Active</button>
+
+      <button class="tab" onclick="setMissionTab('completed',this)" data-i18n="completed">Completed</button>
+
+      <button class="tab" onclick="setMissionTab('all',this)" data-i18n="all">All</button>
+
+    </div>
+
+    <div id="missionList" class="list"></div>
+
+  </div>
+
+</section>
+
+<section class="page" id="page-settings">
+
+  <div class="eyebrow">NEXUS / CONFIGURATION</div>
+
+  <h1 data-i18n="settingsTitle">Settings</h1>
+
+  <div class="card">
+
+    <h2 data-i18n="appearanceLanguage">Appearance & language</h2>
+
+    <div class="field"><label data-i18n="language">Language</label><select id="settingLanguage" onchange="changeLanguage(this.value)"><option value="ar">العربية</option><option value="en">English</option></select></div>
+
+    <label class="check"><input id="settingSound" type="checkbox" onchange="setSound(this.checked)"> <span data-i18n="clickSounds">Subtle button sounds</span></label>
+
+  </div>
+
+  <div class="card">
+
+    <h2 data-i18n="financialSettings">Financial settings</h2>
+
+    <p class="muted small" data-i18n="openingBalanceNote">The opening balance is the amount you had when starting this ledger. Recorded transactions are added to or subtracted from it.</p>
+
+    <div class="field"><label data-i18n="openingBalance">Opening balance (DT)</label><input id="settingOpening" type="number" step="0.001" inputmode="decimal"></div>
+
+    <button class="btn btn-primary btn-block" onclick="saveOpening()" data-i18n="saveOpening">Save opening balance</button>
+
+  </div>
+
+  <div class="card">
+
+    <h2 data-i18n="dataManagement">Data management</h2>
+
+    <p class="muted small" data-i18n="localStorageNote">Data is stored in this browser only. Clearing browser data or changing devices may remove access to it. Export backups regularly.</p>
+
+    <div class="row wrap" style="margin-top:13px">
+
+      <button class="btn btn-secondary grow" onclick="exportJSON()" data-i18n="exportBackup">Export backup</button>
+
+      <button class="btn btn-secondary grow" onclick="document.getElementById('importFile').click()" data-i18n="importBackup">Import backup</button>
+
+      <input id="importFile" type="file" accept=".json,application/json" hidden onchange="importJSON(event)">
+
+    </div>
+
+    <button class="btn btn-secondary btn-block" style="margin-top:9px" onclick="exportCSV()" data-i18n="exportCSV">Export transactions CSV</button>
+
+    <div class="separator"></div>
+
+    <button class="btn btn-danger btn-block" onclick="resetAll()" data-i18n="deleteAllData">Delete all app data</button>
+
+  </div>
+
+  <div class="card">
+
+    <h2 data-i18n="about">About NEXUS</h2>
+
+    <p class="muted small" data-i18n="aboutText">A personal decision and organization tool. Local recommendations are based on recorded information and simple rules, not guaranteed predictions or professional financial advice.</p>
+
+    <div class="row between"><span class="muted small" data-i18n="appVersion">Application version</span><span class="pill">1.0.0</span></div>
+
+  </div>
+
+</section>
+
+</main>
+
+<nav class="bottom">
+
+  <button class="active" data-page="home" onclick="navigate('home')"><span class="navicon">⌂</span><span data-i18n="home">Home</span></button>
+
+  <button data-page="ai" onclick="navigate('ai')"><span class="navicon">✦</span><span data-i18n="aiHelp">AI Help</span></button>
+
+  <button data-page="pocket" onclick="navigate('pocket')"><span class="navicon">◇</span><span data-i18n="pocket">Pocket</span></button>
+
+  <button data-page="mission" onclick="navigate('mission')"><span class="navicon">◷</span><span data-i18n="mission">Mission</span></button>
+
+  <button data-page="profile" onclick="navigate('profile')"><span class="navicon">◎</span><span data-i18n="profile">Profile</span></button>
+
+</nav>
+
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop" onclick="if(event.target===this)closeModal()">
+
+  <div class="modal">
+
+    <div class="modal-head"><h2 id="modalTitle">Details</h2><button class="close" onclick="closeModal()" aria-label="Close">×</button></div>
+
+    <div id="modalBody"></div>
+
+  </div>
+
+</div>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script>
+
+"use strict";
+
+const STORE_KEY="nexus_personal_system_v1";
+
+const $=id=>document.getElementById(id);
+
+const now=()=>new Date();
+
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+
+const defaultData=()=>({
+
+ version:1,language:"ar",sound:false,openingBalance:0,
+
+ profile:{first:"",last:"",age:"",gender:"",answers:Array(15).fill("")},
+
+ transactions:[],missions:[],goals:[],chat:[],decisions:[]
+
+});
+
+let data=loadData();
+
+let pocketTab="transactions",missionTab="active",aiMode="chat",toastTimer=null,audioContext=null;
+
+let modalMissionId=null,modalTransactionId=null;
+
+function loadData(){
+
+ try{
+
+  const raw=localStorage.getItem(STORE_KEY);
+
+  if(!raw)return defaultData();
+
+  const parsed=JSON.parse(raw),base=defaultData();
+
+  return {...base,...parsed,
+
+   profile:{...base.profile,...(parsed.profile||{}),answers:Array.isArray(parsed.profile?.answers)?parsed.profile.answers.slice(0,15):base.profile.answers},
+
+   transactions:Array.isArray(parsed.transactions)?parsed.transactions:[],
+
+   missions:Array.isArray(parsed.missions)?parsed.missions:[],
+
+   goals:Array.isArray(parsed.goals)?parsed.goals:[],
+
+   chat:Array.isArray(parsed.chat)?parsed.chat:[],
+
+   decisions:Array.isArray(parsed.decisions)?parsed.decisions:[]
+
+  };
+
+ }catch(e){return defaultData()}
+
+}
+
+function persist(){
+
+ try{localStorage.setItem(STORE_KEY,JSON.stringify(data));return true}
+
+ catch(e){toast(tr("storageError"));return false}
+
+}
+
+const translations={
+
+ ar:{
+
+ tag:"نظامك الشخصي لاتخاذ القرارات",overview:"ملخص يومك",currentBalance:"الرصيد الحالي",balanceCalculated:"الرصيد محسوب من عملياتك المسجلة",addMoney:"+ إضافة مال",addExpense:"− إضافة مصروف",moneyIn:"الأموال الداخلة",moneyOut:"الأموال الخارجة",aiHelp:"المساعد",newMission:"مهمة جديدة",decision:"قرار",nextMission:"المهمة القادمة",viewAll:"عرض الكل",recentActivity:"آخر العمليات",home:"الرئيسية",pocket:"المحفظة",mission:"المهام",profile:"الملف",settingsTitle:"الإعدادات",aiTitle:"المساعد الشخصي",aiIntro:"مساعد يعتمد على البيانات المحفوظة داخل التطبيق.",localAIWarning:"هذه النسخة تستخدم قواعد وحسابات محلية، وليست نموذج ذكاء اصطناعي توليديًا متصلًا بالإنترنت.",askQuestion:"اسأل سؤالًا",compareOptions:"قارن خيارين",askPlaceholder:"اسأل عن أموالك أو خططك أو قرار...",moneyAdvice:"نصيحة مالية",taskAdvice:"أولويات المهام",mySummary:"ملخصي",decisionSimulator:"محاكي القرارات",decisionIntro:"قارن الشراء برصيدك والاحتياطي والالتزامات المعروفة.",purchaseName:"ما الذي تفكر في شرائه؟",purchasePlaceholder:"مثال: سماعات",price:"السعر (DT)",purchaseType:"هل هو ضروري؟",optional:"اختياري",useful:"مفيد",essential:"ضروري",reserve:"الاحتياطي المالي الذي تريد الحفاظ عليه (DT)",obligations:"التزامات قادمة غير مسجلة مسبقًا (DT)",purchaseDeadline:"آخر موعد للشراء (اختياري)",analyzeDecision:"حلّل القرار",localFooter:"تبقى معلوماتك المحفوظة في هذا المتصفح.",profileTitle:"ملفك الشخصي",profileIntro:"تساعد تفضيلاتك على تخصيص التوصيات المحلية.",basicInfo:"المعلومات الأساسية",firstName:"الاسم",lastName:"اللقب",age:"العمر",gender:"الجنس (اختياري)",preferNot:"أفضل عدم الإجابة",male:"ذكر",female:"أنثى",other:"آخر",saveProfile:"حفظ الملف",personalQuestions:"15 سؤالًا شخصيًا",questionsNote:"هذه تفضيلات قابلة للتعديل وليست تشخيصًا نفسيًا.",saveAnswers:"حفظ الإجابات",preferencesSummary:"ملخص التفضيلات",pocketTitle:"المحفظة",pocketIntro:"سجل واضح لأموالك.",totalIncome:"إجمالي الدخل",totalExpenses:"إجمالي المصروفات",transactions:"العمليات",statistics:"الإحصائيات",goals:"الأهداف",searchTransactions:"البحث في العمليات",searchPlaceholder:"ابحث في الوصف أو التصنيف",filterType:"النوع",filterPeriod:"الفترة",all:"الكل",income:"دخل",expense:"مصروف",allTime:"كل الوقت",today:"اليوم",thisWeek:"هذا الأسبوع",thisMonth:"هذا الشهر",createGoal:"إنشاء هدف مالي",goalName:"اسم الهدف",goalPlaceholder:"مثال: هاتف جديد",targetAmount:"المبلغ المستهدف (DT)",goalDeadline:"التاريخ المستهدف (اختياري)",addGoal:"إضافة هدف",missionTitle:"إدارة المهام",missionIntro:"تابع المواعيد النهائية والوقت المتبقي.",createMission:"+ إنشاء مهمة",activeMissions:"النشطة",completedMissions:"المنجزة",active:"نشطة",completed:"منجزة",allMissions:"كل المهام",appearanceLanguage:"المظهر واللغة",language:"اللغة",clickSounds:"أصوات نقر هادئة",financialSettings:"الإعدادات المالية",openingBalanceNote:"الرصيد الافتتاحي هو ما كنت تملكه عند بدء السجل. تُضاف العمليات إليه أو تُخصم منه.",openingBalance:"الرصيد الافتتاحي (DT)",saveOpening:"حفظ الرصيد الافتتاحي",dataManagement:"إدارة البيانات",localStorageNote:"تُحفظ البيانات في هذا المتصفح فقط. قد تفقدها عند مسح بيانات المتصفح أو تغيير الجهاز. صدّر نسخة احتياطية بانتظام.",exportBackup:"تصدير نسخة احتياطية",importBackup:"استيراد نسخة احتياطية",exportCSV:"تصدير سجل العمليات CSV",deleteAllData:"حذف جميع بيانات التطبيق",about:"حول NEXUS",aboutText:"أداة شخصية للقرارات والتنظيم. التوصيات المحلية مبنية على المعلومات المسجلة وقواعد بسيطة، وليست توقعات مضمونة أو نصيحة مالية مهنية.",appVersion:"إصدار التطبيق",noTransactions:"لا توجد عمليات بعد. أضف أول عملية للبدء.",noMissions:"لا توجد مهام هنا بعد.",noGoals:"لم تنشئ أهدافًا مالية بعد.",noMission:"لا توجد مهمة نشطة",due:"الموعد النهائي",starts:"البداية",remaining:"الوقت المتبقي",overdue:"متأخرة",timeAvailable:"الوقت المتاح",done:"منجزة",markDone:"إنجاز",reopen:"إعادة فتح",edit:"تعديل",delete:"حذف",cancel:"إلغاء",save:"حفظ",description:"الوصف",category:"التصنيف",dateTime:"التاريخ والوقت",amount:"المبلغ (DT)",source:"المصدر / الوصف",noteOptional:"ملاحظة (اختيارية)",transactionType:"نوع العملية",missionName:"اسم المهمة",missionDescription:"وصف المهمة (اختياري)",startTime:"وقت البداية",endTime:"وقت النهاية",create:"إنشاء",update:"تحديث",required:"يرجى إكمال الحقول المطلوبة.",invalidAmount:"أدخل مبلغًا صحيحًا أكبر من صفر.",missionPast:"موعد النهاية في الماضي. هل تريد حفظ المهمة كمتأخرة؟",saved:"تم الحفظ بنجاح.",deleted:"تم الحذف.",confirmDelete:"هل أنت متأكد من الحذف؟",confirmReset:"سيؤدي هذا إلى حذف جميع بيانات NEXUS نهائيًا من هذا المتصفح. صدّر نسخة احتياطية أولًا إن احتجت إليها. هل تريد المتابعة؟",storageError:"تعذر الحفظ. قد تكون مساحة تخزين المتصفح ممتلئة.",importConfirm:"سيستبدل الاستيراد بيانات التطبيق الحالية. هل تريد المتابعة؟",importSuccess:"تم استيراد النسخة الاحتياطية.",importError:"ملف النسخة الاحتياطية غير صالح.",exportSuccess:"تم تجهيز الملف.",transactionDeleted:"تم حذف العملية.",noAnswers:"لم تُسجّل تفضيلات بعد.",noChat:"مرحبًا! اسألني عن ميزانيتك أو مهامك أو قراراتك. سأوضح ما يمكن استنتاجه من بياناتك المحلية.",answerLimited:"أنا مساعد محلي بسيط، لذلك لا أستطيع معرفة معلومات لم تدخلها إلى التطبيق أو التنبؤ بالمستقبل.",moneyPrompt:"حلّل وضعي المالي اعتمادًا على السجل والأهداف.",tasksPrompt:"ساعدني في ترتيب مهامي الحالية.",summaryPrompt:"أعطني ملخصًا عن وضعي الحالي.",balance:"الرصيد",incomeTotal:"إجمالي الدخل",expenseTotal:"إجمالي المصروفات",net:"صافي التغير",goalProgress:"التقدم نحو الهدف",target:"المستهدف",remainingAmount:"المتبقي",decisionResult:"نتيجة التحليل",recommend:"التوصية",buyNow:"قد يكون الشراء ممكنًا",wait:"الأفضل الانتظار حاليًا",notEnough:"المعلومات غير كافية لتوصية موثوقة",reason:"الأسباب",afterPurchase:"الرصيد بعد الشراء",afterObligations:"بعد الالتزامات المعروفة",reserveGap:"الفارق عن الاحتياطي",limitations:"حدود التحليل",decisionSaved:"تم حفظ التحليل في سجل القرارات.",decisionHistory:"سجل القرارات",noDeadline:"لا يوجد موعد نهائي",goalCreated:"تم إنشاء الهدف.",missionCreated:"تم إنشاء المهمة.",noDescription:"دون وصف",priority:"الأولوية",lateTasks:"مهام متأخرة",lowBalance:"الرصيد سالب حاليًا. راجع المصروفات المسجلة.",nearDeadline:"هناك مهمة متأخرة أو قريبة من موعدها.",profileSaved:"تم حفظ الملف الشخصي.",answersSaved:"تم حفظ الإجابات.",categoryFood:"طعام",categoryTransport:"تنقل",categoryStudy:"دراسة",categoryShopping:"تسوق",categoryBills:"فواتير",categoryOther:"أخرى",question1:"عندما تواجه قرارًا صعبًا، ماذا تفضّل؟",question2:"ما الأولوية عند شراء شيء؟",question3:"كيف تتعامل مع أهدافك؟",question4:"عند وجود عدة مهام، ماذا تفعل؟",question5:"أي وصف يناسب أسلوبك أكثر؟",question6:"هل تشتري أحيانًا أشياء لم تكن تخطط لشرائها؟",question7:"هل تفضّل الاحتفاظ باحتياطي مالي للطوارئ؟",question8:"هل تؤجل المهام عندما يكون موعدها بعيدًا؟",question9:"هل تغيّر رأيك عندما تظهر معلومات جديدة؟",question10:"هل تفضّل أن يوضح المساعد أسباب توصيته؟",question11:"ما أهم هدف تريد تحقيقه خلال الأشهر القادمة؟",question12:"ما أكثر شيء يجعلك تندم على قرار اتخذته؟",question13:"ما الشيء الذي يستحق أن تدفع المال من أجله حتى لو كان غاليًا؟",question14:"ما أكثر مشكلة تتكرر في يومك وتريد حلها؟",question15:"كيف تريد أن يتصرف المساعد عندما يرى أن قرارك قد لا يناسبك؟",q1a:"تحليل التفاصيل",q1b:"قرار سريع",q1c:"استشارة شخص",q1d:"مقارنة النتائج",q2a:"السعر",q2b:"الجودة",q2c:"الحاجة الفعلية",q2d:"المتعة",q3a:"أخطط مسبقًا",q3b:"حسب الظروف",q3c:"أهداف قصيرة",q3d:"المرونة",q4a:"الأصعب",q4b:"الأقرب موعدًا",q4c:"الأسرع",q4d:"الأكثر أهمية",q5a:"حذر",q5b:"متوازن",q5c:"أحب التجربة",q5d:"أفضل النتائج السريعة",yes:"نعم",no:"لا",free1:"اكتب إجابتك...",free2:"اكتب إجابتك...",free3:"اكتب إجابتك...",free4:"اكتب إجابتك...",free5:"اكتب إجابتك...",choose:"اختر إجابة",periodDay:"اليوم",periodWeek:"الأسبوع",periodMonth:"الشهر",periodAll:"كل الوقت",emptyChart:"أضف عمليات مالية لرؤية الإحصائيات.",reserveOkay:"سيبقى رصيدك فوق الاحتياطي المحدد.",reserveLow:"سيصبح رصيدك أقل من الاحتياطي المحدد.",incomeUnknown:"لا توجد معلومات مؤكدة عن دخلك القادم.",taskOverdue:"متأخرة منذ",timeLeft:"متبقٍ",days:"يوم",hours:"ساعة",minutes:"دقيقة",seconds:"ثانية",noDate:"غير محدد",deleteGoalConfirm:"حذف هذا الهدف؟",goalDeleted:"تم حذف الهدف.",noGoalDeadline:"دون تاريخ مستهدف",decisionNotFinancial:"هذا التحليل حسابي، ولا يعرف كل ظروفك أو احتياجاتك.",suggestion:"اقتراح",suggestionMoney:"قارن مصروفاتك المسجلة مع هدفك القادم قبل شراء شيء اختياري.",suggestionTasks:"ابدأ بالمهمة المهمة والأقرب موعدًا، ثم أعد ترتيب القائمة وفق وقتك المتاح.",suggestionSummary:"سأعرض لك ما تدعمه البيانات المسجلة، دون افتراض معلومات غير موجودة.",typeQuestion:"اكتب سؤالك أولًا.",chatClear:"مسح المحادثة",clearChatConfirm:"هل تريد مسح المحادثة المحفوظة؟",newChat:"محادثة جديدة",weekly:"هذا الأسبوع",monthly:"هذا الشهر",opening:"الرصيد الافتتاحي",allTransactions:"كل العمليات",name:"الاسم",status:"الحالة",noData:"لا توجد بيانات كافية.",profileContext:"التفضيلات المحفوظة",deleteTransactionConfirm:"حذف هذه العملية؟",editTransaction:"تعديل العملية",newTransaction:"عملية جديدة",incomeSource:"مصدر الدخل",expenseSource:"سبب المصروف",todayAt:"اليوم",balancePositive:"رصيد إيجابي",balanceNegative:"رصيد سلبي",percentRemaining:"الوقت المتبقي",veryUrgent:"أقل من 20%: الموعد قريب جدًا",urgent:"20% إلى أقل من 50%: انتبه للوقت",moderate:"50% إلى أقل من 75%: الوقت يتناقص",comfortable:"75% أو أكثر: معظم الوقت متاح",goalTargetDate:"الموعد",noGoalsYet:"أضف هدفًا لتتبع التقدم",transactionDate:"تاريخ العملية",localAssistant:"المساعد المحلي",confidence:"مستوى الثقة",confidenceLow:"منخفض — توجد معلومات ناقصة",confidenceMedium:"متوسط — يعتمد على المدخلات الحالية",decisionEssential:"بما أنك تصفه بأنه ضروري، افحص أيضًا البدائل الأقل تكلفة.",decisionOptional:"هذا شراء اختياري؛ انتظر إذا كان سيؤثر على احتياطيك أو التزاماتك.",decisionUseful:"وازن بين فائدته الفعلية والتأثير على رصيدك.",deadlineSoon:"الموعد قريب، لكن ذلك وحده لا يثبت أن الشراء مناسب.",deleteProfileWarning:"ستبقى بقية بيانات التطبيق محفوظة.",goalProgressLabel:"الإنجاز",txTypeIncome:"دخل",txTypeExpense:"مصروف",balanceZero:"لا يوجد رصيد متبقٍ",askForData:"أدخل بيانات أكثر لتحسين هذا التحليل."
+
+ },
+
+ en:{
+
+ tag:"YOUR PERSONAL DECISION SYSTEM",overview:"YOUR DAY AT A GLANCE",currentBalance:"CURRENT BALANCE",balanceCalculated:"Calculated from your recorded transactions",addMoney:"+ Add money",addExpense:"− Add expense",moneyIn:"MONEY IN",moneyOut:"MONEY OUT",aiHelp:"AI Help",newMission:"New mission",decision:"Decision",nextMission:"Next mission",viewAll:"View all",recentActivity:"Recent activity",home:"Home",pocket:"Pocket",mission:"Mission",profile:"Profile",settingsTitle:"Settings",aiTitle:"AI Help",aiIntro:"A personal assistant that uses your saved app data.",localAIWarning:"This version uses local rules and calculations. It is not a connected generative AI model.",askQuestion:"Ask a question",compareOptions:"Compare options",askPlaceholder:"Ask about your money, plans, or a decision...",moneyAdvice:"Money advice",taskAdvice:"Task priorities",mySummary:"My summary",decisionSimulator:"Decision simulator",decisionIntro:"Compare a purchase against your balance, reserve, and known obligations.",purchaseName:"What are you considering?",purchasePlaceholder:"e.g. Headphones",price:"Price (DT)",purchaseType:"Is it necessary?",optional:"Optional",useful:"Useful",essential:"Essential",reserve:"Desired emergency reserve (DT)",obligations:"Upcoming obligations not already recorded (DT)",purchaseDeadline:"Purchase deadline (optional)",analyzeDecision:"Analyze decision",localFooter:"Your saved information stays in this browser.",profileTitle:"Your profile",profileIntro:"Your preferences help personalize local recommendations.",basicInfo:"Basic information",firstName:"First name",lastName:"Last name",age:"Age",gender:"Gender (optional)",preferNot:"Prefer not to say",male:"Male",female:"Female",other:"Other",saveProfile:"Save profile",personalQuestions:"15 personal questions",questionsNote:"These are editable preferences, not a psychological diagnosis.",saveAnswers:"Save answers",preferencesSummary:"Preferences summary",pocketTitle:"Pocket",pocketIntro:"A clear record of your money.",totalIncome:"TOTAL INCOME",totalExpenses:"TOTAL EXPENSES",transactions:"Transactions",statistics:"Statistics",goals:"Goals",searchTransactions:"Search transactions",searchPlaceholder:"Search description or category",filterType:"Type",filterPeriod:"Period",all:"All",income:"Income",expense:"Expense",allTime:"All time",today:"Today",thisWeek:"This week",thisMonth:"This month",createGoal:"Create a financial goal",goalName:"Goal name",goalPlaceholder:"e.g. New phone",targetAmount:"Target amount (DT)",goalDeadline:"Target date (optional)",addGoal:"Add goal",missionTitle:"Mission control",missionIntro:"Track deadlines and the time remaining for your tasks.",createMission:"+ Create mission",activeMissions:"ACTIVE",completedMissions:"COMPLETED",active:"Active",completed:"Completed",allMissions:"All missions",appearanceLanguage:"Appearance & language",language:"Language",clickSounds:"Subtle button sounds",financialSettings:"Financial settings",openingBalanceNote:"The opening balance is what you had when starting this ledger. Transactions are added to or subtracted from it.",openingBalance:"Opening balance (DT)",saveOpening:"Save opening balance",dataManagement:"Data management",localStorageNote:"Data is stored in this browser only. Clearing browser data or changing devices may remove access to it. Export backups regularly.",exportBackup:"Export backup",importBackup:"Import backup",exportCSV:"Export transactions CSV",deleteAllData:"Delete all app data",about:"About NEXUS",aboutText:"A personal decision and organization tool. Local recommendations use recorded information and simple rules, not guaranteed predictions or professional financial advice.",appVersion:"Application version",noTransactions:"No transactions yet. Add your first transaction to begin.",noMissions:"No missions here yet.",noGoals:"You have not created any financial goals.",due:"Deadline",starts:"Starts",remaining:"Time remaining",overdue:"Overdue",timeAvailable:"Time available",done:"Completed",markDone:"Complete",reopen:"Reopen",edit:"Edit",delete:"Delete",cancel:"Cancel",save:"Save",description:"Description",category:"Category",dateTime:"Date and time",amount:"Amount (DT)",source:"Source / description",noteOptional:"Note (optional)",transactionType:"Transaction type",missionName:"Mission name",missionDescription:"Mission description (optional)",startTime:"Start time",endTime:"End time",create:"Create",update:"Update",required:"Please complete the required fields.",invalidAmount:"Enter a valid amount greater than zero.",missionPast:"The deadline is in the past. Save this mission as overdue?",saved:"Saved successfully.",deleted:"Deleted.",confirmDelete:"Are you sure you want to delete this?",confirmReset:"This permanently deletes all NEXUS data in this browser. Export a backup first if needed. Continue?",storageError:"Could not save. Browser storage may be full.",importConfirm:"Importing will replace the current app data. Continue?",importSuccess:"Backup imported successfully.",importError:"The backup file is invalid.",exportSuccess:"File prepared.",transactionDeleted:"Transaction deleted.",noAnswers:"No preferences recorded yet.",noChat:"Hello! Ask me about your budget, tasks, or decisions. I will explain what can be inferred from your local data.",answerLimited:"I am a simple local assistant, so I cannot know information you have not entered or predict the future.",moneyPrompt:"Analyze my financial situation using my ledger and goals.",tasksPrompt:"Help me prioritize my current tasks.",summaryPrompt:"Give me a summary of my current situation.",balance:"Balance",incomeTotal:"Total income",expenseTotal:"Total expenses",net:"Net change",goalProgress:"Goal progress",target:"Target",remainingAmount:"Remaining",decisionResult:"Analysis result",recommend:"Recommendation",buyNow:"The purchase may be feasible",wait:"Waiting is preferable for now",notEnough:"There is not enough information for a reliable recommendation",reason:"Reasons",afterPurchase:"Balance after purchase",afterObligations:"After known obligations",reserveGap:"Gap against reserve",limitations:"Limitations",decisionSaved:"Analysis saved to decision history.",decisionHistory:"Decision history",noDeadline:"No deadline",goalCreated:"Goal created.",missionCreated:"Mission created.",noDescription:"No description",priority:"Priority",lateTasks:"Overdue missions",lowBalance:"Your balance is negative. Review your recorded expenses.",nearDeadline:"A mission is overdue or approaching its deadline.",profileSaved:"Profile saved.",answersSaved:"Answers saved.",categoryFood:"Food",categoryTransport:"Transport",categoryStudy:"Study",categoryShopping:"Shopping",categoryBills:"Bills",categoryOther:"Other",question1:"When facing a difficult decision, what do you prefer?",question2:"What matters most when buying something?",question3:"How do you approach your goals?",question4:"When you have several tasks, what do you do?",question5:"Which description fits your style best?",question6:"Do you sometimes buy things you did not plan to buy?",question7:"Do you prefer keeping emergency savings?",question8:"Do you postpone tasks when their deadlines are far away?",question9:"Do you change your mind when new information appears?",question10:"Do you want the assistant to explain its recommendations?",question11:"What is your most important goal for the coming months?",question12:"What most often makes you regret a decision?",question13:"What is worth paying more for?",question14:"What recurring daily problem would you like to solve?",question15:"How should the assistant respond when it thinks a decision may not suit you?",q1a:"Analyze details",q1b:"Decide quickly",q1c:"Ask someone",q1d:"Compare outcomes",q2a:"Price",q2b:"Quality",q2c:"Actual need",q2d:"Enjoyment",q3a:"Plan ahead",q3b:"Adapt to circumstances",q3c:"Short-term goals",q3d:"Stay flexible",q4a:"Hardest task",q4b:"Nearest deadline",q4c:"Quickest task",q4d:"Most important task",q5a:"Cautious",q5b:"Balanced",q5c:"Like to experiment",q5d:"Prefer quick results",yes:"Yes",no:"No",free1:"Write your answer...",free2:"Write your answer...",free3:"Write your answer...",free4:"Write your answer...",free5:"Write your answer...",choose:"Choose an answer",periodDay:"Today",periodWeek:"This week",periodMonth:"This month",periodAll:"All time",emptyChart:"Add transactions to see statistics.",reserveOkay:"Your balance will remain above the specified reserve.",reserveLow:"Your balance will fall below the specified reserve.",incomeUnknown:"There is no confirmed information about future income.",taskOverdue:"Overdue by",timeLeft:"Remaining",days:"days",hours:"hours",minutes:"minutes",seconds:"seconds",noDate:"Not set",deleteGoalConfirm:"Delete this goal?",goalDeleted:"Goal deleted.",decisionNotFinancial:"This is a calculation, and it cannot know all your circumstances or needs.",suggestion:"Suggestion",suggestionMoney:"Compare recorded spending with your next goal before making an optional purchase.",suggestionTasks:"Start with an important task that has a close deadline, then adjust to your available time.",suggestionSummary:"I will show what your saved data supports without assuming missing information.",typeQuestion:"Write your question first.",chatClear:"Clear chat",clearChatConfirm:"Clear the saved conversation?",newChat:"New chat",weekly:"This week",monthly:"This month",opening:"Opening balance",allTransactions:"All transactions",name:"Name",status:"Status",noData:"Not enough data.",profileContext:"Saved preferences",deleteTransactionConfirm:"Delete this transaction?",editTransaction:"Edit transaction",newTransaction:"New transaction",incomeSource:"Income source",expenseSource:"Expense reason",todayAt:"Today",balancePositive:"Positive balance",balanceNegative:"Negative balance",percentRemaining:"Time remaining",veryUrgent:"Below 20%: deadline is very close",urgent:"20% to below 50%: watch the time",moderate:"50% to below 75%: time is decreasing",comfortable:"75% or more: most time remains",goalTargetDate:"Target date",noGoalsYet:"Add a goal to track progress",transactionDate:"Transaction date",localAssistant:"Local assistant",confidence:"Confidence",confidenceLow:"Low — important information is missing",confidenceMedium:"Medium — based on current inputs",decisionEssential:"Since you describe it as essential, also check lower-cost alternatives.",decisionOptional:"This is optional; wait if it would affect your reserve or obligations.",decisionUseful:"Balance its practical benefit against its impact on your funds.",deadlineSoon:"The deadline is close, but that alone does not prove the purchase is suitable.",deleteProfileWarning:"Other app data will remain saved.",goalProgressLabel:"Progress",txTypeIncome:"Income",txTypeExpense:"Expense",balanceZero:"No balance remaining",askForData:"Enter more information to improve this analysis."
+
+ }
+
+};
+
+function tr(key){
+
+ const lang=data.language==="en"?"en":"ar";
+
+ return (translations[lang]&&translations[lang][key])||translations.en[key]||key;
+
+}
+
+function esc(value){
+
+ return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+}
+
+function money(n,showSign=false){
+
+ n=Number(n)||0;
+
+ const abs=Math.abs(n).toLocaleString(data.language==="ar"?"en-US":"en-US",{minimumFractionDigits:3,maximumFractionDigits:3});
+
+ const sign=showSign?(n>0?"+":n<0?"−":""):(n<0?"−":"");
+
+ return sign+abs+" DT";
+
+}
+
+function dateFmt(d,options={day:"numeric",month:"short",year:"numeric"}){
+
+ const dt=new Date(d);
+
+ if(!Number.isFinite(dt.getTime()))return tr("noDate");
+
+ try{return new Intl.DateTimeFormat(data.language==="ar"?"ar-TN":"en-GB",options).format(dt)}catch(e){return dt.toLocaleDateString()}
+
+}
+
+function datetimeLocalValue(date=new Date()){
+
+ const d=new Date(date.getTime()-date.getTimezoneOffset()*60000);
+
+ return d.toISOString().slice(0,16);
+
+}
+
+function toast(message){
+
+ const el=$("toast");el.textContent=message;el.classList.add("show");
+
+ clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2600);
+
+}
+
+function beep(){
+
+ if(!data.sound)return;
+
+ try{
+
+  audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();
+
+  const osc=audioContext.createOscillator(),gain=audioContext.createGain();
+
+  osc.type="sine";osc.frequency.value=500;gain.gain.value=.025;
+
+  osc.connect(gain);gain.connect(audioContext.destination);
+
+  osc.start();gain.gain.exponentialRampToValueAtTime(.0001,audioContext.currentTime+.055);
+
+  osc.stop(audioContext.currentTime+.06);
+
+ }catch(e){}
+
+}
+
+document.addEventListener("click",e=>{
+
+ if(e.target.closest("button"))beep();
+
+});
+
+function navigate(page,subtab){
+
+ const valid=["home","ai","profile","pocket","mission","settings"];
+
+ if(!valid.includes(page))page="home";
+
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+
+ $("page-"+page).classList.add("active");
+
+ document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+
+ if(page==="profile")renderProfile();
+
+ if(page==="pocket"){renderPocket();if(subtab)setPocketTab(subtab)}
+
+ if(page==="mission")renderMissions();
+
+ if(page==="ai"){renderChat();if(subtab==="compare")setAiMode("compare")}
+
+ if(page==="settings")fillSettings();
+
+ window.scrollTo({top:0,behavior:"smooth"});
+
+}
+
+function changeLanguage(lang){
+
+ data.language=lang==="en"?"en":"ar";persist();applyLanguage();renderAll();
+
+}
+
+function applyLanguage(){
+
+ const lang=data.language==="en"?"en":"ar";
+
+ document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+
+ document.title="NEXUS — Personal Decision System";
+
+ document.querySelectorAll("[data-i18n]").forEach(el=>{const key=el.dataset.i18n;if(translations[lang][key])el.textContent=translations[lang][key]});
+
+ document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const key=el.dataset.i18nPlaceholder;if(translations[lang][key])el.placeholder=translations[lang][key]});
+
+ if($("settingLanguage"))$("settingLanguage").value=lang;
+
+}
+
+function setSound(on){data.sound=!!on;persist()}
+
+function fillSettings(){
+
+ $("settingLanguage").value=data.language;
+
+ $("settingSound").checked=!!data.sound;
+
+ $("settingOpening").value=Number(data.openingBalance)||0;
+
+}
+
+function totals(){
+
+ let income=0,expense=0;
+
+ for(const t of data.transactions){
+
+  const a=Number(t.amount)||0;
+
+  if(t.type==="income")income+=a;else if(t.type==="expense")expense+=a;
+
+ }
+
+ return {income,expense,balance:(Number(data.openingBalance)||0)+income-expense,net:income-expense};
+
+}
+
+function renderAll(){applyLanguage();renderHome();renderPocket();renderMissions();renderProfile();renderChat();fillSettings()}
+
+function renderHome(){
+
+ const t=totals(),first=data.profile.first.trim();
+
+ const h=new Date().getHours();
+
+ const greeting=data.language==="ar"?(h<12?"صباح الخير":h<18?"مساء الخير":"مساء هادئ"):(h<12?"Good morning":h<18?"Good afternoon":"Good evening");
+
+ $("greeting").textContent=greeting+(first?"، "+first:"");
+
+ $("todayLine").textContent=dateFmt(now(),{weekday:"long",day:"numeric",month:"long"});
+
+ $("homeBalance").innerHTML=esc(money(t.balance)) ;
+
+ $("pocketBalance").textContent=money(t.balance);
+
+ $("homeIncome").textContent="+"+money(t.income);
+
+ $("homeExpense").textContent="−"+money(t.expense);
+
+ $("pocketIncome").textContent=money(t.income);
+
+ $("pocketExpense").textContent=money(t.expense);
+
+ $("balancePill").textContent=t.balance<0?tr("balanceNegative"):t.balance>0?tr("balancePositive"):tr("balanceZero");
+
+ $("balancePill").className="pill "+(t.balance<0?"red":t.balance>0?"green":"");
+
+ const upcoming=data.missions.filter(m=>!m.completed&&!m.deleted).sort((a,b)=>new Date(a.end)-new Date(b.end))[0];
+
+ $("homeMission").innerHTML=upcoming?missionCard(upcoming,true):`<div class="empty"><div class="empty-icon">◷</div>${tr("noMission")}<div style="margin-top:12px"><button class="btn btn-secondary btn-small" onclick="openMissionModal()">${tr("createMission")}</button></div></div>`;
+
+ const recent=[...data.transactions].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3);
+
+ $("homeTransactions").innerHTML=recent.length?recent.map(txCard).join(""):`<div class="empty">${tr("noTransactions")}</div>`;
+
+ let alerts="";
+
+ if(t.balance<0)alerts+=`<div class="notice danger">${tr("lowBalance")}</div>`;
+
+ if(data.missions.some(m=>!m.completed&&!m.deleted&&new Date(m.end).getTime()<Date.now()))alerts+=`<div class="notice warning">${tr("nearDeadline")}</div>`;
+
+ $("homeAlerts").innerHTML=alerts;
+
+}
+
+function transactionLabel(t){return t.description||tr(t.type==="income"?"income":"expense")}
+
+function txCard(t){
+
+ const sign=t.type==="income"?"+":"−";
+
+ const cls=t.type==="income"?"green":"red";
+
+ return `<div class="item"><div class="row between"><div class="grow"><div class="item-title">${esc(transactionLabel(t))}</div><div class="item-meta">${esc(t.category||tr("categoryOther"))} · ${esc(dateFmt(t.date,{day:"numeric",month:"short",year:"numeric"}))}</div></div><div class="${cls}" style="font-weight:800;white-space:nowrap">${sign}${esc(money(t.amount))}</div></div><div class="row wrap" style="margin-top:10px"><button class="btn btn-secondary btn-small" onclick="editTransaction('${esc(t.id)}')">${tr("edit")}</button><button class="btn btn-danger btn-small" onclick="deleteTransaction('${esc(t.id)}')">${tr("delete")}</button></div></div>`;
+
+}
+
+function openModal(title,html){
+
+ $("modalTitle").textContent=title;$("modalBody").innerHTML=html;$("modalBackdrop").classList.add("open");
+
+ document.body.style.overflow="hidden";
+
+}
+
+function closeModal(){
+
+ $("modalBackdrop").classList.remove("open");document.body.style.overflow="";
+
+ modalMissionId=null;modalTransactionId=null;
+
+}
+
+function openMoneyModal(type,tx=null){
+
+ modalTransactionId=tx?tx.id:null;
+
+ const isIncome=type==="income";
+
+ const date=tx?.date||new Date().toISOString();
+
+ openModal(tx?tr("editTransaction"):tr("newTransaction"),`
+
+ <div class="field"><label>${tr("transactionType")}</label><select id="mType"><option value="income" ${type==="income"?"selected":""}>${tr("income")}</option><option value="expense" ${type==="expense"?"selected":""}>${tr("expense")}</option></select></div>
+
+ <div class="field"><label>${tr("amount")}</label><input id="mAmount" type="number" min="0.001" step="0.001" inputmode="decimal" value="${tx?esc(tx.amount):""}" placeholder="0.000"></div>
+
+ <div class="field"><label>${tr("source")}</label><input id="mDescription" maxlength="120" value="${esc(tx?.description||"")}" placeholder="${tr(isIncome?"incomeSource":"expenseSource")}"></div>
+
+ <div class="field"><label>${tr("category")}</label><select id="mCategory">
+
+ <option value="Food">${tr("categoryFood")}</option><option value="Transport">${tr("categoryTransport")}</option><option value="Study">${tr("categoryStudy")}</option><option value="Shopping">${tr("categoryShopping")}</option><option value="Bills">${tr("categoryBills")}</option><option value="Other">${tr("categoryOther")}</option></select></div>
+
+ <div class="field"><label>${tr("transactionDate")}</label><input id="mDate" type="datetime-local" value="${datetimeLocalValue(new Date(date))}"></div>
+
+ <div class="field"><label>${tr("noteOptional")}</label><textarea id="mNote" maxlength="500">${esc(tx?.note||"")}</textarea></div>
+
+ <div class="row"><button class="btn btn-primary grow" onclick="saveTransaction()">${tx?tr("update"):tr("save")}</button><button class="btn btn-secondary" onclick="closeModal()">${tr("cancel")}</button></div>
+
+ `);
+
+ if(tx&&$("mCategory"))$("mCategory").value=tx.category||"Other";
+
+}
+
+function saveTransaction(){
+
+ const type=$("mType").value,amount=Number($("mAmount").value),description=$("mDescription").value.trim(),date=$("mDate").value;
+
+ if(!Number.isFinite(amount)||amount<=0){toast(tr("invalidAmount"));return}
+
+ if(!date){toast(tr("required"));return}
+
+ const existing=data.transactions.find(t=>t.id===modalTransactionId);
+
+ const tx={...(existing||{}),id:existing?.id||uid(),type,amount,description,category:$("mCategory").value,date:new Date(date).toISOString(),note:$("mNote").value.trim(),updatedAt:new Date().toISOString()};
+
+ if(existing)data.transactions=data.transactions.map(t=>t.id===existing.id?tx:t);else data.transactions.push(tx);
+
+ persist();closeModal();renderAll();toast(tr("saved"));
+
+}
+
+function editTransaction(id){
+
+ const tx=data.transactions.find(t=>t.id===id);if(tx)openMoneyModal(tx.type,tx);
+
+}
+
+function deleteTransaction(id){
+
+ if(!confirm(tr("deleteTransactionConfirm")))return;
+
+ data.transactions=data.transactions.filter(t=>t.id!==id);persist();renderAll();toast(tr("transactionDeleted"));
+
+}
+
+function setPocketTab(tab,button){
+
+ pocketTab=tab;
+
+ document.querySelectorAll("#page-pocket .tabs .tab").forEach(b=>b.classList.remove("active"));
+
+ if(button)button.classList.add("active");
+
+ else{
+
+  const index={transactions:0,stats:1,goals:2,simulator:3}[tab]??0;
+
+  const tabs=document.querySelectorAll("#page-pocket .tabs .tab");if(tabs[index])tabs[index].classList.add("active");
+
+ }
+
+ ["transactions","stats","goals","simulator"].forEach(t=>$("pocket"+t[0].toUpperCase()+t.slice(1)).style.display=t===tab?"block":"none");
+
+ if(tab==="transactions")renderTransactions();
+
+ if(tab==="stats")renderStats();
+
+ if(tab==="goals")renderGoals();
+
+ if(tab==="simulator")renderPocketSimulator();
+
+}
+
+function renderPocket(){renderHome();renderTransactions();renderStats();renderGoals();if(pocketTab==="simulator")renderPocketSimulator()}
+
+function renderTransactions(){
+
+ if(!$("transactionList"))return;
+
+ const q=($("txSearch")?.value||"").toLowerCase().trim(),type=$("txFilter")?.value||"all",period=$("txPeriod")?.value||"all";
+
+ const nowDate=new Date();
+
+ const list=[...data.transactions].filter(t=>{
+
+  if(type!=="all"&&t.type!==type)return false;
+
+  const dt=new Date(t.date);if(!Number.isFinite(dt.getTime()))return false;
+
+  if(period==="today"&&dt.toDateString()!==nowDate.toDateString())return false;
+
+  if(period==="week"&&(nowDate-dt)>7*86400000)return false;
+
+  if(period==="month"&&(dt.getMonth()!==nowDate.getMonth()||dt.getFullYear()!==nowDate.getFullYear()))return false;
+
+  return (String(t.description||"")+" "+String(t.category||"")+" "+String(t.note||"")).toLowerCase().includes(q);
+
+ }).sort((a,b)=>new Date(b.date)-new Date(a.date));
+
+ $("transactionList").innerHTML=list.length?list.map(txCard).join(""):`<div class="empty">${tr("noTransactions")}</div>`;
+
+}
+
+function renderStats(){
+
+ const el=$("pocketStats");if(!el)return;
+
+ const t=totals(),nowDate=new Date(),periods=[
+
+  ["periodDay",x=>new Date(x).toDateString()===nowDate.toDateString()],
+
+  ["periodWeek",x=>nowDate-new Date(x)<=7*86400000&&new Date(x)<=nowDate],
+
+  ["periodMonth",x=>new Date(x).getMonth()===nowDate.getMonth()&&new Date(x).getFullYear()===nowDate.getFullYear()],
+
+  ["periodAll",()=>true]
+
+ ];
+
+ let html=`<div class="grid"><div class="stat"><div class="stat-label">${tr("incomeTotal")}</div><div class="stat-value green">${money(t.income)}</div></div><div class="stat"><div class="stat-label">${tr("expenseTotal")}</div><div class="stat-value red">${money(t.expense)}</div></div></div><div class="card"><h2>${tr("net")}</h2><div class="stat-value ${t.net>=0?"green":"red"}">${money(t.net,true)}</div><div class="item-meta">${tr("opening")}: ${money(data.openingBalance)}</div></div>`;
+
+ periods.forEach(([label,filter])=>{
+
+  let inc=0,out=0;data.transactions.filter(x=>filter(x.date)).forEach(x=>{if(x.type==="income")inc+=Number(x.amount)||0;else out+=Number(x.amount)||0});
+
+  html+=`<div class="card"><div class="row between"><h3>${tr(label)}</h3><span class="pill">${money(inc-out,true)}</span></div><div class="barrow"><span>${tr("income")}</span><div class="bar"><div style="width:${inc+out?inc/(inc+out)*100:0}%"></div></div><span class="green">${money(inc)}</span></div><div class="barrow"><span>${tr("expense")}</span><div class="bar"><div style="width:${inc+out?out/(inc+out)*100:0}%;background:var(--red)"></div></div><span class="red">${money(out)}</span></div></div>`;
+
+ });
+
+ const categories={};data.transactions.filter(x=>x.type==="expense").forEach(x=>categories[x.category||"Other"]=(categories[x.category||"Other"]||0)+Number(x.amount||0));
+
+ const sum=Object.values(categories).reduce((a,b)=>a+b,0);
+
+ html+=`<div class="card"><h2>${tr("category")}</h2>`;
+
+ if(!sum)html+=`<div class="empty">${tr("emptyChart")}</div>`;
+
+ else Object.entries(categories).sort((a,b)=>b[1]-a[1]).forEach(([c,v])=>{html+=`<div class="barrow"><span>${esc(categoryLabel(c))}</span><div class="bar"><div style="width:${v/sum*100}%"></div></div><span>${(v/sum*100).toFixed(0)}%</span></div>`});
+
+ html+="</div>";el.innerHTML=html;
+
+}
+
+function categoryLabel(c){const m={Food:"categoryFood",Transport:"categoryTransport",Study:"categoryStudy",Shopping:"categoryShopping",Bills:"categoryBills",Other:"categoryOther"};return tr(m[c]||c)}
+
+function addGoal(){
+
+ const name=$("goalName").value.trim(),target=Number($("goalTarget").value),date=$("goalDate").value;
+
+ if(!name||!Number.isFinite(target)||target<=0){toast(tr("required"));return}
+
+ data.goals.push({id:uid(),name,target,date:date||"",createdAt:new Date().toISOString()});
+
+ persist();$("goalName").value="";$("goalTarget").value="";$("goalDate").value="";renderGoals();renderHome();toast(tr("goalCreated"));
+
+}
+
+function renderGoals(){
+
+ const el=$("goalList");if(!el)return;
+
+ el.innerHTML=data.goals.length?data.goals.map(g=>{
+
+  const bal=Math.max(0,totals().balance),progress=Math.min(100,bal/Number(g.target)*100||0);
+
+  return `<div class="item"><div class="row between"><div class="item-title">${esc(g.name)}</div><button class="btn btn-danger btn-small" onclick="deleteGoal('${esc(g.id)}')">${tr("delete")}</button></div><div class="item-meta">${tr("target")}: ${money(g.target)} · ${tr("remainingAmount")}: ${money(Math.max(0,g.target-bal))}</div><div class="progress"><div style="width:${progress}%"></div></div><div class="row between small muted"><span>${tr("goalProgressLabel")}</span><span>${progress.toFixed(1)}%</span></div><div class="item-meta">${g.date?tr("goalTargetDate")+": "+esc(dateFmt(g.date)):tr("noGoalDeadline")}</div></div>`;
+
+ }).join(""):`<div class="empty">${tr("noGoals")}</div>`;
+
+}
+
+function deleteGoal(id){if(!confirm(tr("deleteGoalConfirm")))return;data.goals=data.goals.filter(g=>g.id!==id);persist();renderGoals();renderHome();toast(tr("goalDeleted"))}
+
+function renderPocketSimulator(){
+
+ const el=$("pocketSimulator");if(!el)return;
+
+ el.innerHTML=`<div class="card" style="margin-top:0"><h2>${tr("decisionSimulator")}</h2><p class="muted small">${tr("decisionIntro")}</p><button class="btn btn-primary btn-block" onclick="navigate('ai','compare')">${tr("analyzeDecision")}</button></div>${data.decisions.length?`<div class="card"><h2>${tr("decisionHistory")}</h2>${data.decisions.slice(-5).reverse().map(d=>`<div class="item"><div class="item-title">${esc(d.name)}</div><div class="item-meta">${esc(d.recommendation)} · ${esc(dateFmt(d.date))}</div></div>`).join("")}</div>`:""}`;
+
+}
+
+function openMissionModal(mission=null){
+
+ modalMissionId=mission?mission.id:null;
+
+ const start=mission?.start?new Date(mission.start):new Date(),end=mission?.end?new Date(mission.end):new Date(Date.now()+86400000);
+
+ openModal(mission?tr("edit")+" — "+tr("mission"):tr("createMission"),`
+
+ <div class="field"><label>${tr("missionName")} *</label><input id="mmName" maxlength="100" value="${esc(mission?.name||"")}"></div>
+
+ <div class="field"><label>${tr("missionDescription")}</label><textarea id="mmDesc" maxlength="1000">${esc(mission?.description||"")}</textarea></div>
+
+ <div class="field"><label>${tr("startTime")}</label><input id="mmStart" type="datetime-local" value="${datetimeLocalValue(start)}"></div>
+
+ <div class="field"><label>${tr("endTime")} *</label><input id="mmEnd" type="datetime-local" value="${datetimeLocalValue(end)}"></div>
+
+ <div class="row"><button class="btn btn-primary grow" onclick="saveMission()">${mission?tr("update"):tr("create")}</button><button class="btn btn-secondary" onclick="closeModal()">${tr("cancel")}</button></div>
+
+ `);
+
+}
+
+function saveMission(){
+
+ const name=$("mmName").value.trim(),description=$("mmDesc").value.trim(),start=$("mmStart").value,end=$("mmEnd").value;
+
+ if(!name||!start||!end){toast(tr("required"));return}
+
+ const s=new Date(start),e=new Date(end);
+
+ if(!Number.isFinite(s.getTime())||!Number.isFinite(e.getTime())||e<=s){toast(data.language==="ar"?"يجب أن يكون موعد النهاية بعد البداية.":"The deadline must be after the start time.");return}
+
+ if(e.getTime()<Date.now()&&!confirm(tr("missionPast")))return;
+
+ const existing=data.missions.find(m=>m.id===modalMissionId);
+
+ const mission={...(existing||{}),id:existing?.id||uid(),name,description,start:s.toISOString(),end:e.toISOString(),completed:existing?.completed||false,deleted:false,createdAt:existing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
+
+ if(existing)data.missions=data.missions.map(m=>m.id===existing.id?mission:m);else data.missions.push(mission);
+
+ persist();closeModal();renderAll();toast(tr("missionCreated"));
+
+}
+
+function setMissionTab(tab,button){
+
+ missionTab=tab;
+
+ document.querySelectorAll("#page-mission .tabs .tab").forEach(b=>b.classList.remove("active"));
+
+ if(button)button.classList.add("active");
+
+ renderMissions();
+
+}
+
+function durationParts(ms){
+
+ ms=Math.max(0,ms);
+
+ const total=Math.floor(ms/1000);
+
+ return {d:Math.floor(total/86400),h:Math.floor(total%86400/3600),m:Math.floor(total%3600/60),s:total%60};
+
+}
+
+function countdown(ms){
+
+ const p=durationParts(ms);
+
+ if(data.language==="ar")return `${p.d} ي · ${p.h} س · ${p.m} د · ${p.s} ث`;
+
+ return `${p.d}d · ${p.h}h · ${p.m}m · ${p.s}s`;
+
+}
+
+function missionStatus(m){
+
+ const left=new Date(m.end).getTime()-Date.now();
+
+ if(m.completed)return {text:tr("done"),color:"green",percent:0,left};
+
+ if(left<=0)return {text:tr("overdue"),color:"red",percent:0,left};
+
+ const start=new Date(m.start).getTime(),end=new Date(m.end).getTime(),total=end-start;
+
+ const percent=total>0?Math.max(0,Math.min(100,left/total*100)):0;
+
+ let color="green";
+
+ if(percent<20)color="red";else if(percent<50)color="yellow";else if(percent<75)color="orange";
+
+ return {text:countdown(left),color,percent,left};
+
+}
+
+function missionCard(m,compact=false){
+
+ const st=missionStatus(m),due=new Date(m.end);
+
+ const stateText=m.completed?tr("done"):st.left<=0?tr("overdue"):tr("remaining");
+
+ return `<div class="item"><div class="row between"><div class="grow"><div class="item-title">${esc(m.name)}</div><div class="item-meta">${esc(m.description||tr("noDescription"))}</div></div><span class="pill ${st.color}">${esc(st.left<=0&&!m.completed?tr("overdue"):m.completed?tr("done"):Math.round(st.percent)+"%")}</span></div>
+
+ <div class="progress"><div style="width:${m.completed?100:st.percent}%;background:${st.color==="red"?"var(--red)":st.color==="yellow"?"var(--yellow)":st.color==="orange"?"var(--orange)":st.color==="green"?"var(--green)":"var(--purple)"}"></div></div>
+
+ <div class="row between wrap"><div class="item-meta">${stateText}: <strong class="${st.color}">${esc(m.completed?tr("done"):st.left<=0?countdown(-st.left):st.text)}</strong></div><div class="item-meta">${tr("due")}: ${esc(dateFmt(due,{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}))}</div></div>
+
+ ${compact?"":`<div class="row wrap" style="margin-top:10px"><button class="btn btn-secondary btn-small" onclick="openMissionModal(data.missions.find(x=>x.id==='${esc(m.id)}'))">${tr("edit")}</button><button class="btn ${m.completed?"btn-secondary":"btn-primary"} btn-small" onclick="toggleMission('${esc(m.id)}')">${m.completed?tr("reopen"):tr("markDone")}</button><button class="btn btn-danger btn-small" onclick="deleteMission('${esc(m.id)}')">${tr("delete")}</button></div>`}
+
+ </div>`;
+
+}
+
+function renderMissions(){
+
+ if(!$("missionList"))return;
+
+ const missions=data.missions.filter(m=>!m.deleted);
+
+ $("activeCount").textContent=missions.filter(m=>!m.completed).length;
+
+ $("completedCount").textContent=missions.filter(m=>m.completed).length;
+
+ const list=missions.filter(m=>missionTab==="all"||(missionTab==="completed"?m.completed:!m.completed)).sort((a,b)=>new Date(a.end)-new Date(b.end));
+
+ $("missionList").innerHTML=list.length?list.map(m=>missionCard(m,false)).join(""):`<div class="empty"><div class="empty-icon">◷</div>${tr("noMissions")}<div style="margin-top:12px"><button class="btn btn-secondary btn-small" onclick="openMissionModal()">${tr("createMission")}</button></div></div>`;
+
+}
+
+function toggleMission(id){
+
+ const m=data.missions.find(x=>x.id===id);if(!m)return;
+
+ m.completed=!m.completed;m.completedAt=m.completed?new Date().toISOString():null;
+
+ persist();renderAll();toast(tr("saved"));
+
+}
+
+function deleteMission(id){
+
+ if(!confirm(tr("confirmDelete")))return;
+
+ data.missions=data.missions.filter(m=>m.id!==id);persist();renderAll();toast(tr("deleted"));
+
+}
+
+const questions=[
+
+ {type:"choice",key:"question1",options:["q1a","q1b","q1c","q1d"]},
+
+ {type:"choice",key:"question2",options:["q2a","q2b","q2c","q2d"]},
+
+ {type:"choice",key:"question3",options:["q3a","q3b","q3c","q3d"]},
+
+ {type:"choice",key:"question4",options:["q4a","q4b","q4c","q4d"]},
+
+ {type:"choice",key:"question5",options:["q5a","q5b","q5c","q5d"]},
+
+ {type:"yesno",key:"question6"},{type:"yesno",key:"question7"},{type:"yesno",key:"question8"},{type:"yesno",key:"question9"},{type:"yesno",key:"question10"},
+
+ {type:"free",key:"question11",placeholder:"free1"},{type:"free",key:"question12",placeholder:"free2"},{type:"free",key:"question13",placeholder:"free3"},{type:"free",key:"question14",placeholder:"free4"},{type:"free",key:"question15",placeholder:"free5"}
+
+];
+
+function renderProfile(){
+
+ if(!$("questionList"))return;
+
+ const p=data.profile;
+
+ $("pFirst").value=p.first||"";$("pLast").value=p.last||"";$("pAge").value=p.age||"";$("pGender").value=p.gender||"";
+
+ $("questionList").innerHTML=questions.map((q,i)=>{
+
+  const value=p.answers[i]||"",label=tr(q.key);
+
+  if(q.type==="choice")return `<div class="card"><div class="row"><span class="pill">${i+1}/15</span><strong>${esc(label)}</strong></div>${q.options.map(o=>`<label class="choice"><input type="radio" name="question${i}" value="${o}" ${value===o?"checked":""}><span>${esc(tr(o))}</span></label>`).join("")}</div>`;
+
+  if(q.type==="yesno")return `<div class="card"><div class="row"><span class="pill">${i+1}/15</span><strong>${esc(label)}</strong></div><div class="row" style="margin-top:12px"><label class="choice grow"><input type="radio" name="question${i}" value="yes" ${value==="yes"?"checked":""}><span>${tr("yes")}</span></label><label class="choice grow"><input type="radio" name="question${i}" value="no" ${value==="no"?"checked":""}><span>${tr("no")}</span></label></div></div>`;
+
+  return `<div class="card"><div class="row"><span class="pill">${i+1}/15</span><strong>${esc(label)}</strong></div><textarea style="margin-top:12px" id="answer${i}" maxlength="1200" placeholder="${tr(q.placeholder)}">${esc(value)}</textarea></div>`;
+
+ }).join("");
+
+ $("questionCount").textContent=p.answers.filter(a=>String(a||"").trim()).length+"/15";
+
+ renderProfileSummary();
+
+}
+
+function saveProfile(){
+
+ const age=$("pAge").value;
+
+ if(age&&(Number(age)<1||Number(age)>120)){toast(tr("required"));return}
+
+ data.profile.first=$("pFirst").value.trim();
+
+ data.profile.last=$("pLast").value.trim();
+
+ data.profile.age=age;
+
+ data.profile.gender=$("pGender").value;
+
+ persist();renderProfile();renderHome();toast(tr("profileSaved"));
+
+}
+
+function saveAnswers(){
+
+ data.profile.answers=questions.map((q,i)=>{
+
+  if(q.type==="free")return $("answer"+i)?.value.trim()||"";
+
+  return document.querySelector(`input[name="question${i}"]:checked`)?.value||"";
+
+ });
+
+ persist();renderProfile();toast(tr("answersSaved"));
+
+}
+
+function renderProfileSummary(){
+
+ const answers=data.profile.answers.filter(a=>String(a||"").trim());
+
+ const full=[data.profile.first,data.profile.last].filter(Boolean).join(" ");
+
+ const info=[];
+
+ if(full)info.push(esc(full));
+
+ if(data.profile.age)info.push(esc(data.profile.age)+" "+(data.language==="ar"?"سنة":"years"));
+
+ if(answers.length)info.push(answers.length+"/15");
+
+ $("profileSummary").innerHTML=info.length?`<p>${info.join(" · ")}</p><p class="small">${tr("profileContext")}: ${answers.map(a=>esc(answerLabel(a))).join(" · ")}</p>`:`<p>${tr("noAnswers")}</p>`;
+
+}
+
+function answerLabel(a){if(translations[data.language]?.[a])return tr(a);if(a==="yes"||a==="no")return tr(a);return a}
+
+function setAiMode(mode){
+
+ aiMode=mode;
+
+ $("aiChatMode").style.display=mode==="chat"?"block":"none";
+
+ $("aiCompareMode").style.display=mode==="compare"?"block":"none";
+
+ $("aiChatTab").classList.toggle("btn-primary",mode==="chat");$("aiChatTab").classList.toggle("btn-secondary",mode!=="chat");
+
+ $("aiCompareTab").classList.toggle("btn-primary",mode==="compare");$("aiCompareTab").classList.toggle("btn-secondary",mode!=="compare");
+
+}
+
+function renderChat(){
+
+ const el=$("chatMessages");if(!el)return;
+
+ if(!data.chat.length){
+
+  el.innerHTML=`<div class="bubble assistant">${tr("noChat")}<span class="small">${tr("localAssistant")}</span></div>`;
+
+  return;
+
+ }
+
+ el.innerHTML=data.chat.slice(-60).map(m=>`<div class="bubble ${m.role==="user"?"user":"assistant"}">${esc(m.text)}${m.role==="assistant"?`<span class="small">${tr("localAssistant")}</span>`:""}</div>`).join("");
+
+}
+
+function sendChat(){
+
+ const text=$("chatInput").value.trim();
+
+ if(!text){toast(tr("typeQuestion"));return}
+
+ data.chat.push({role:"user",text,at:new Date().toISOString()});
+
+ const answer=localAnswer(text);
+
+ data.chat.push({role:"assistant",text:answer,at:new Date().toISOString()});
+
+ if(data.chat.length>120)data.chat=data.chat.slice(-120);
+
+ persist();$("chatInput").value="";renderChat();
+
+ $("chatMessages").scrollIntoView({behavior:"smooth",block:"end"});
+
+}
+
+$("chatInput").addEventListener("keydown",e=>{
+
+ if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendChat()}
+
+});
+
+function quickQuestion(type){
+
+ const prompts={money:tr("moneyPrompt"),tasks:tr("tasksPrompt"),summary:tr("summaryPrompt")};
+
+ $("chatInput").value=prompts[type]||"";sendChat();
+
+}
+
+function localAnswer(question){
+
+ const q=question.toLowerCase(),t=totals(),active=data.missions.filter(m=>!m.completed&&!m.deleted).sort((a,b)=>new Date(a.end)-new Date(b.end)),goals=data.goals;
+
+ const ar=data.language==="ar";
+
+ let out=[];
+
+ const hasMoney=/money|budget|expense|spend|balance|buy|purchase|مال|فلوس|مصروف|رصيد|شراء|اشتر|ميزاني|نقود|صرف/.test(q);
+
+ const hasTasks=/task|mission|deadline|time|priorit|مهم|مهمة|مهام|وقت|موعد|تأخير|أولوي/.test(q);
+
+ const hasSummary=/summary|situation|status|ملخص|وضعي|حالتي|ماذا تعرف/.test(q);
+
+ if(hasSummary){
+
+  out.push((ar?"ملخص بياناتك الحالية:":"Your current saved-data summary:"));
+
+  out.push((ar?"• الرصيد: ":"• Balance: ")+money(t.balance));
+
+  out.push((ar?"• إجمالي الدخل: ":"• Total income: ")+money(t.income));
+
+  out.push((ar?"• إجمالي المصروفات: ":"• Total expenses: ")+money(t.expense));
+
+  out.push((ar?"• المهام النشطة: ":"• Active missions: ")+active.length);
+
+  out.push((ar?"• الأهداف المالية: ":"• Financial goals: ")+goals.length);
+
+ }
+
+ if(hasMoney){
+
+  out.push(ar?"تحليل المحفظة:":"Pocket analysis:");
+
+  out.push((ar?"• الرصيد الحالي: ":"• Current balance: ")+money(t.balance));
+
+  out.push((ar?"• الدخل المسجل: ":"• Recorded income: ")+money(t.income));
+
+  out.push((ar?"• المصروفات المسجلة: ":"• Recorded expenses: ")+money(t.expense));
+
+  if(t.balance<0)out.push(ar?"تنبيه: الرصيد سالب وفق العمليات المسجلة. راجع السجل وحدد المصروفات الضرورية قبل أي شراء اختياري.":"Warning: your recorded balance is negative. Review your ledger and prioritize essentials before optional purchases.");
+
+  else if(t.balance===0)out.push(ar?"رصيدك المسجل صفر. لا تتخذ قرار شراء قبل التأكد من وجود مال متاح فعليًا.":"Your recorded balance is zero. Verify that money is actually available before making a purchase.");
+
+  else out.push(ar?"قبل الشراء، اطرح الالتزامات القريبة والاحتياطي الذي تريد الحفاظ عليه من الرصيد المتاح.":"Before buying, subtract upcoming obligations and your desired reserve from available funds.");
+
+  if(goals.length)out.push((ar?"أهدافك المسجلة: ":"Your saved goals: ")+goals.map(g=>g.name+" ("+money(g.target)+")").join("، "));
+
+ }
+
+ if(hasTasks){
+
+  out.push(ar?"أولويات المهام:":"Task priorities:");
+
+  if(!active.length)out.push(ar?"ليس لديك مهام نشطة مسجلة. أنشئ مهمة مع موعد نهائي حتى أساعدك في ترتيبها.":"You have no active missions recorded. Add missions with deadlines to help prioritize them.");
+
+  else active.slice(0,5).forEach((m,i)=>{
+
+   const left=new Date(m.end).getTime()-Date.now();
+
+   out.push(`${i+1}. ${m.name} — ${left<0?tr("overdue"):countdown(left)}${m.description?" · "+m.description:""}`);
+
+  });
+
+  out.push(ar?"اقتراح: ابدأ بالمهمة المهمة ذات الموعد الأقرب، مع مراعاة الوقت المطلوب فعلًا لإنجازها؛ هذه المدة غير مسجلة تلقائيًا.":"Suggestion: start with an important task whose deadline is close, while accounting for the actual effort required; effort duration is not recorded automatically.");
+
+ }
+
+ if(!out.length){
+
+  out.push(ar?"أستطيع مساعدتك في مراجعة ميزانيتك، وترتيب المهام، وفهم الأهداف المسجلة، أو مقارنة قرار شراء.":"I can help review your budget, prioritize missions, summarize saved goals, or compare a purchase.");
+
+  out.push(ar?"اكتب سؤالك بوضوح، وسأستخدم المعلومات المسجلة ذات الصلة.":"Ask a specific question and I will use relevant saved information.");
+
+ }
+
+ out.push("");
+
+ out.push(tr("answerLimited"));
+
+ return out.join("\n");
+
+}
+
+function runDecision(){
+
+ const name=$("buyName").value.trim(),price=Number($("buyPrice").value),need=$("buyNeed").value,reserve=Math.max(0,Number($("buyReserve").value)||0),obligations=Math.max(0,Number($("buyObligations").value)||0),deadline=$("buyDeadline").value;
+
+ if(!name||!Number.isFinite(price)||price<=0){toast(tr("required"));return}
+
+ const t=totals(),after=t.balance-price,afterOb=after-obligations,gap=afterOb-reserve;
+
+ const active=data.missions.filter(m=>!m.completed&&!m.deleted).length;
+
+ let recommendation,confidence;
+
+ if(t.balance<0||afterOb<0||gap<0&&need==="optional"){
+
+  recommendation=tr("wait");confidence=tr("confidenceMedium");
+
+ }else if(need==="essential"&&afterOb>=0){
+
+  recommendation=tr("buyNow");confidence=tr("confidenceMedium");
+
+ }else if(gap>=0&&need==="useful"){
+
+  recommendation=tr("buyNow");confidence=tr("confidenceMedium");
+
+ }else if(gap>=0&&need==="optional"){
+
+  recommendation=tr("notEnough");confidence=tr("confidenceLow");
+
+ }else{
+
+  recommendation=tr("notEnough");confidence=tr("confidenceLow");
+
+ }
+
+ const reasons=[];
+
+ reasons.push(tr("afterPurchase")+": "+money(after));
+
+ reasons.push(tr("afterObligations")+": "+money(afterOb));
+
+ reasons.push(tr("reserveGap")+": "+money(gap,true));
+
+ if(need==="essential")reasons.push(tr("decisionEssential"));
+
+ if(need==="optional")reasons.push(tr("decisionOptional"));
+
+ if(need==="useful")reasons.push(tr("decisionUseful"));
+
+ if(deadline){
+
+  const d=new Date(deadline+"T23:59:59");
+
+  if(d.getTime()-Date.now()<7*86400000)reasons.push(tr("deadlineSoon"));
+
+ }
+
+ if(active)reasons.push((data.language==="ar"?"لديك مهام نشطة: ":"Active missions: ")+active);
+
+ if(!data.profile.answers.some(a=>String(a).trim()))reasons.push(tr("askForData"));
+
+ reasons.push(tr("incomeUnknown"));
+
+ const result={id:uid(),name,price,need,reserve,obligations,deadline,recommendation,confidence,reasons,date:new Date().toISOString()};
+
+ data.decisions.push(result);if(data.decisions.length>100)data.decisions=data.decisions.slice(-100);
+
+ persist();
+
+ $("decisionResult").innerHTML=`<div class="card"><div class="eyebrow">${tr("decisionResult")}</div><h2 style="margin-top:8px">${esc(name)}</h2><div class="stat-value">${money(price)}</div><div class="notice ${recommendation===tr("wait")?"warning":recommendation===tr("buyNow")?"success":""}"><strong>${tr("recommend")}:</strong><br>${esc(recommendation)}</div><div class="item-meta" style="margin-top:10px">${tr("confidence")}: ${esc(confidence)}</div><div class="separator"></div><h3>${tr("reason")}</h3><div class="list">${reasons.map(r=>`<div class="item">${esc(r)}</div>`).join("")}</div><div class="notice warning">${tr("limitations")}<br>${tr("decisionNotFinancial")}</div><button class="btn btn-secondary btn-block" style="margin-top:12px" onclick="navigate('pocket','simulator')">${tr("decisionHistory")}</button></div>`;
+
+ toast(tr("decisionSaved"));
+
+}
+
+function saveOpening(){
+
+ const n=Number($("settingOpening").value);
+
+ if(!Number.isFinite(n)){toast(tr("required"));return}
+
+ data.openingBalance=n;persist();renderAll();toast(tr("saved"));
+
+}
+
+function downloadFile(filename,content,type){
+
+ const blob=new Blob([content],{type});
+
+ const url=URL.createObjectURL(blob),a=document.createElement("a");
+
+ a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+
+}
+
+function exportJSON(){
+
+ const payload={...data,exportedAt:new Date().toISOString(),app:"NEXUS"};
+
+ downloadFile("nexus-backup-"+new Date().toISOString().slice(0,10)+".json",JSON.stringify(payload,null,2),"application/json;charset=utf-8");
+
+ toast(tr("exportSuccess"));
+
+}
+
+function exportCSV(){
+
+ const headers=["id","type","amount","description","category","date","note"];
+
+ const rows=data.transactions.map(t=>headers.map(h=>csvCell(t[h]??"")).join(","));
+
+ downloadFile("nexus-transactions.csv","\uFEFF"+[headers.join(","),...rows].join("\r\n"),"text/csv;charset=utf-8");
+
+ toast(tr("exportSuccess"));
+
+}
+
+function csvCell(v){return '"'+String(v).replace(/"/g,'""')+'"'}
+
+function importJSON(event){
+
+ const file=event.target.files?.[0];if(!file)return;
+
+ if(!confirm(tr("importConfirm"))){event.target.value="";return}
+
+ const reader=new FileReader();
+
+ reader.onload=()=>{
+
+  try{
+
+   const parsed=JSON.parse(reader.result);
+
+   if(!parsed||typeof parsed!=="object"||!Array.isArray(parsed.transactions)||!Array.isArray(parsed.missions)||!parsed.profile)throw new Error("invalid");
+
+   const base=defaultData();
+
+   data={...base,...parsed,profile:{...base.profile,...parsed.profile,answers:Array.isArray(parsed.profile.answers)?parsed.profile.answers.slice(0,15):base.profile.answers},
+
+    transactions:parsed.transactions.filter(x=>x&&typeof x==="object"),
+
+    missions:parsed.missions.filter(x=>x&&typeof x==="object"),
+
+    goals:Array.isArray(parsed.goals)?parsed.goals.filter(x=>x&&typeof x==="object"):[],
+
+    chat:Array.isArray(parsed.chat)?parsed.chat.filter(x=>x&&typeof x==="object"):[],
+
+    decisions:Array.isArray(parsed.decisions)?parsed.decisions.filter(x=>x&&typeof x==="object"):[]
+
+   };
+
+   persist();applyLanguage();renderAll();toast(tr("importSuccess"));
+
+  }catch(e){toast(tr("importError"))}
+
+  event.target.value="";
+
+ };
+
+ reader.onerror=()=>{toast(tr("importError"));event.target.value=""};
+
+ reader.readAsText(file);
+
+}
+
+function resetAll(){
+
+ if(!confirm(tr("confirmReset")))return;
+
+ data=defaultData();persist();closeModal();renderAll();navigate("home");toast(tr("deleted"));
+
+}
+
+function updateClocks(){
+
+ if(!$("page-mission"))return;
+
+ if($("page-mission").classList.contains("active"))renderMissions();
+
+ renderHome();
+
+}
+
+window.addEventListener("focus",updateClocks);
+
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)updateClocks()});
+
+setInterval(()=>{
+
+ if(document.visibilityState==="visible"){
+
+  if($("page-mission").classList.contains("active"))renderMissions();
+
+  const activeHome=$("page-home").classList.contains("active");
+
+  if(activeHome)renderHome();
+
+ }
+
+},1000);
+
+applyLanguage();
+
+renderAll();
+
+setAiMode("chat");
+
+setPocketTab("transactions");
+
+</script>
+
+</body>
+
+</html>
