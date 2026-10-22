@@ -8,241 +8,273 @@
 
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 
-<meta name="theme-color" content="#09090d">
+<meta name="theme-color" content="#09090f">
 
-<title>NEXUS — Personal Decision System</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>NEXUS — Personal Control</title>
 
 <style>
 
-:root{--bg:#09090d;--panel:#12121a;--panel2:#191923;--line:#292938;--purple:#895cff;--purple2:#b39aff;--text:#f7f6ff;--muted:#9291a7;--green:#45d6a0;--red:#ff627c;--yellow:#ffca67;--orange:#ff985c;--radius:22px}
+:root{--bg:#08080e;--panel:#11111b;--panel2:#171724;--line:#29283b;--purple:#9874ff;--purple2:#7048e8;--text:#f6f4ff;--muted:#9290a9;--green:#45dfab;--red:#ff617e;--yellow:#ffd166;--orange:#ff9e5e;--radius:22px}
 
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
-html{background:var(--bg);scroll-behavior:smooth}
+html{scroll-behavior:smooth}
 
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:14px;min-height:100vh;padding-bottom:calc(92px + env(safe-area-inset-bottom));}
+body{margin:0;background:radial-gradient(ellipse at 85% -10%,#2a1b50 0,transparent 38%),radial-gradient(ellipse at -20% 70%,#17152c 0,transparent 35%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;min-height:100vh;padding-bottom:105px}
 
 button,input,textarea,select{font:inherit}
 
-button{cursor:pointer}
+button{cursor:pointer;color:inherit}
 
-button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--purple2);outline-offset:2px}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--purple)}
 
-.app{width:100%;max-width:760px;margin:auto;min-height:100vh}
+.app{max-width:760px;margin:auto;padding:env(safe-area-inset-top,12px) 16px 20px}
 
-header{padding:calc(18px + env(safe-area-inset-top)) 20px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:17px 2px 21px}
 
 .brand{display:flex;align-items:center;gap:11px}
 
-.logo{width:43px;height:43px;border-radius:15px;background:linear-gradient(140deg,#a587ff,#6638d8);display:grid;place-items:center;font-weight:900;font-size:19px;box-shadow:0 7px 24px #895cff30}
+.logo{width:44px;height:44px;border-radius:16px;background:linear-gradient(145deg,#b29bff,#6741d4 60%,#34216c);box-shadow:0 7px 22px #7048e844,inset 0 1px 1px #ffffff70;display:grid;place-items:center;font-size:23px;font-weight:900}
 
-.brandname{font-size:18px;font-weight:850;letter-spacing:2px}
+.brand h1{font-size:22px;letter-spacing:3px;margin:0}
 
-.brandtag{font-size:9px;letter-spacing:1.3px;color:var(--muted);margin-top:3px}
+.brand small{display:block;font-size:9px;letter-spacing:1.5px;color:var(--muted);margin-top:3px}
 
-.iconbtn{width:42px;height:42px;border-radius:15px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:18px}
+.top-actions{display:flex;gap:8px}
 
-main{padding:0 16px}
+.icon-btn{width:42px;height:42px;border:1px solid var(--line);background:#171622;border-radius:15px;display:grid;place-items:center;font-size:18px;box-shadow:inset 0 1px #ffffff08}
 
-.page{display:none;animation:appear .2s ease}
+.made{text-align:center;color:#8b87a4;font-size:9px;letter-spacing:1.5px;line-height:1.8;margin:0 0 20px}
+
+.made b{color:#d5caff;font-weight:700}
+
+.page{display:none;animation:fade .22s ease}
 
 .page.active{display:block}
 
-@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 
-.eyebrow{font-size:10px;color:var(--purple2);letter-spacing:1.8px;font-weight:800;text-transform:uppercase}
+.heading{margin:4px 0 20px}
 
-h1{font-size:27px;line-height:1.25;letter-spacing:-.5px;margin:8px 0}
+.eyebrow{color:var(--purple);font-size:10px;letter-spacing:2px;font-weight:800;text-transform:uppercase}
 
-h2{font-size:17px;margin:0 0 14px}
+.heading h2{font-size:29px;margin:7px 0 6px;letter-spacing:-.5px}
 
-h3{font-size:14px;margin:0 0 8px}
+.heading p{color:var(--muted);font-size:13px;line-height:1.7;margin:0}
 
-p{line-height:1.65}
+.card{background:linear-gradient(145deg,#171724f5,#101019f5);border:1px solid var(--line);border-radius:var(--radius);padding:19px;margin-bottom:14px;box-shadow:0 12px 30px #0000001a,inset 0 1px #ffffff07}
+
+.card-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+
+.card-title h3{font-size:15px;margin:0}
+
+.card-title small{font-size:11px;color:var(--muted)}
+
+.hero{position:relative;overflow:hidden;padding:23px;border-radius:27px;background:linear-gradient(135deg,#29204b,#171426 60%,#101019);border:1px solid #524177;box-shadow:0 15px 40px #0004,inset 0 1px #ffffff12;margin-bottom:15px}
+
+.hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid #b8a4ff18;right:-65px;top:-85px;box-shadow:0 0 0 20px #b8a4ff07,0 0 0 42px #b8a4ff05}
+
+.hero-label{font-size:11px;color:#c2b4ef}
+
+.hero-number{font-size:36px;font-weight:800;letter-spacing:-1px;margin:9px 0 5px;direction:ltr;text-align:right}
+
+.hero-foot{font-size:11px;color:#b6b0cb}
+
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+
+.stat{padding:16px;border-radius:20px;background:linear-gradient(145deg,#171724,#101019);border:1px solid var(--line);min-width:0}
+
+.stat .s-icon{width:35px;height:35px;border-radius:12px;background:#8e6bff1c;display:grid;place-items:center;font-size:17px;margin-bottom:12px}
+
+.stat .s-label{font-size:11px;color:var(--muted)}
+
+.stat .s-value{font-size:21px;font-weight:800;margin-top:6px;overflow-wrap:anywhere}
+
+.stat .s-sub{font-size:10px;color:var(--muted);margin-top:5px}
+
+.btn{border:0;border-radius:15px;padding:13px 16px;background:linear-gradient(135deg,#a78bff,#7048e8);color:white;font-size:13px;font-weight:750;box-shadow:0 6px 18px #7048e830;transition:transform .15s,filter .15s}
+
+.btn:active{transform:scale(.97);filter:brightness(.9)}
+
+.btn.secondary{background:#201d31;border:1px solid #39324e;box-shadow:none;color:#ddd4ff}
+
+.btn.ghost{background:transparent;border:1px solid var(--line);box-shadow:none;color:#c9c5dc}
+
+.btn.danger{background:#401d2a;border:1px solid #6b2a3d;box-shadow:none;color:#ff9bb0}
+
+.btn.small{padding:9px 12px;font-size:11px;border-radius:12px}
+
+.btn.full{width:100%}
+
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+
+label{display:block;color:#b6b1cc;font-size:12px;margin:0 0 8px}
+
+.field{margin-bottom:14px}
+
+input,textarea,select{width:100%;border:1px solid #302e43;background:#0d0d15;color:var(--text);padding:13px 14px;border-radius:14px;outline:none;font-size:13px;min-width:0}
+
+input:focus,textarea:focus,select:focus{border-color:#8e70ec;box-shadow:0 0 0 3px #9874ff18}
+
+textarea{resize:vertical;min-height:90px;line-height:1.7}
+
+input[type=checkbox]{width:19px;height:19px;accent-color:var(--purple)}
+
+input[type=range]{padding:0;accent-color:var(--purple)}
+
+select option{background:#151421}
+
+.row-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
 
 .muted{color:var(--muted)}
 
-.small{font-size:11px}
+.smalltext{font-size:11px;line-height:1.7;color:var(--muted)}
 
-.section{margin-top:24px}
+.divider{height:1px;background:var(--line);margin:16px 0}
 
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:17px;margin-top:12px;min-width:0}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:20px;font-size:10px;background:#29243a;color:#d4c9ff;border:1px solid #39304f}
 
-.hero{background:radial-gradient(ellipse at 90% 0%,#7545dc30,transparent 55%),linear-gradient(145deg,#191624,#111119);border:1px solid #39304f;border-radius:27px;padding:23px 20px;position:relative;overflow:hidden;margin-top:12px}
+.dot{width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block}
 
-.hero:after{content:"";position:absolute;width:135px;height:135px;border-radius:50%;border:1px solid #a98aff1b;right:-35px;bottom:-65px;box-shadow:0 0 0 17px #a98aff08,0 0 0 36px #a98aff05;pointer-events:none}
+.progress{height:7px;background:#292637;border-radius:20px;overflow:hidden;margin-top:10px}
 
-.hero-label{color:#c4b5fd;font-size:11px;letter-spacing:1.3px}
+.progress>div{height:100%;border-radius:20px;background:linear-gradient(90deg,#6845d6,#b19aff);transition:width .3s}
 
-.balance{font-size:35px;font-weight:850;letter-spacing:-1.5px;margin:10px 0 5px;overflow-wrap:anywhere}
+.task{padding:15px;border:1px solid var(--line);border-radius:17px;background:#0e0e17;margin-bottom:10px}
 
-.currency{font-size:13px;color:var(--muted);font-weight:500;letter-spacing:0}
+.task-top{display:flex;justify-content:space-between;gap:10px;align-items:start}
 
-.row{display:flex;align-items:center;gap:10px}
+.task h4{font-size:14px;margin:0 0 6px}
 
-.between{justify-content:space-between}
+.task p{font-size:12px;line-height:1.7;color:var(--muted);margin:0 0 10px;white-space:pre-wrap;overflow-wrap:anywhere}
 
-.wrap{flex-wrap:wrap}
+.task-time{font-size:11px;direction:ltr;text-align:right;font-variant-numeric:tabular-nums;color:#d9ceff;margin-top:12px}
 
-.grow{flex:1;min-width:0}
+.status{font-size:10px;padding:5px 8px;border-radius:9px;background:#252136;white-space:nowrap}
 
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.status.green{color:var(--green);background:#15332d}
 
-.stat{background:var(--panel);border:1px solid var(--line);padding:15px;border-radius:19px;min-width:0}
+.status.red{color:#ff8ca2;background:#381d2a}
 
-.stat-label{font-size:11px;color:var(--muted);margin-bottom:8px}
+.status.yellow{color:var(--yellow);background:#39301a}
 
-.stat-value{font-size:20px;font-weight:800;overflow-wrap:anywhere}
+.status.orange{color:var(--orange);background:#3b281d}
 
-.green{color:var(--green)!important}.red{color:var(--red)!important}.yellow{color:var(--yellow)!important}.orange{color:var(--orange)!important}.purple{color:var(--purple2)!important}
+.transaction{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid #292737}
 
-.btn{border:0;border-radius:15px;padding:12px 16px;font-weight:750;transition:transform .12s,opacity .12s;min-height:44px}
+.transaction:last-child{border-bottom:0}
 
-.btn:active{transform:scale(.98)}
+.tx-left{display:flex;align-items:center;gap:10px;min-width:0}
 
-.btn-primary{background:var(--purple);color:white}
+.tx-icon{width:37px;height:37px;border-radius:13px;background:#232035;display:grid;place-items:center;flex-shrink:0}
 
-.btn-secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+.tx-name{font-size:12px;font-weight:700;overflow-wrap:anywhere}
 
-.btn-danger{background:#ff627c19;border:1px solid #ff627c48;color:var(--red)}
+.tx-date{font-size:10px;color:var(--muted);margin-top:4px}
 
-.btn-small{padding:8px 11px;min-height:35px;border-radius:12px;font-size:12px}
+.tx-amount{font-size:13px;font-weight:800;direction:ltr;white-space:nowrap}
 
-.btn-block{width:100%}
+.tx-amount.income{color:var(--green)}
 
-.quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+.tx-amount.expense{color:var(--red)}
 
-.quick button{padding:13px 5px;border:1px solid var(--line);background:var(--panel);border-radius:17px;color:var(--text);font-size:11px;font-weight:700}
+.tx-actions{display:flex;gap:5px;margin-top:8px}
 
-.quick .qicon{display:block;font-size:20px;margin-bottom:8px}
+.tx-actions button{font-size:10px;background:none;border:1px solid var(--line);border-radius:8px;padding:5px 7px;color:var(--muted)}
 
-.progress{height:6px;background:#292938;border-radius:99px;overflow:hidden;margin:13px 0 8px}
+.empty{text-align:center;padding:26px 10px;color:var(--muted);font-size:12px;line-height:1.8}
 
-.progress>div{height:100%;border-radius:99px;background:var(--purple);transition:width .3s}
+.empty .empty-icon{font-size:27px;margin-bottom:8px}
 
-.list{display:flex;flex-direction:column;gap:9px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:20;padding:10px 9px calc(10px + env(safe-area-inset-bottom));background:#0b0b12ed;backdrop-filter:blur(24px);border-top:1px solid #302b43}
 
-.item{padding:13px;border:1px solid var(--line);border-radius:17px;background:#15151f;min-width:0}
+.nav-inner{max-width:740px;margin:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
 
-.item-title{font-weight:750;overflow-wrap:anywhere}
+.nav-item{background:transparent;border:0;border-radius:14px;color:#7f7b96;padding:9px 2px 7px;font-size:9px;display:flex;align-items:center;flex-direction:column;gap:5px;min-width:0}
 
-.item-meta{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.6}
+.nav-item .nav-icon{font-size:19px;line-height:1.1}
 
-.pill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:5px 9px;font-size:10px;background:#895cff18;color:var(--purple2);border:1px solid #895cff35;white-space:nowrap}
+.nav-item.active{color:#d8ccff;background:#211a34}
 
-.pill.red{background:#ff627c13;border-color:#ff627c40}
+.nav-item.active .nav-icon{filter:drop-shadow(0 0 8px #9874ff88)}
 
-.pill.green{background:#45d6a013;border-color:#45d6a040}
+.switch-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
 
-.pill.yellow{background:#ffca6713;border-color:#ffca6740}
+.switch-row:last-child{border-bottom:0}
 
-.empty{text-align:center;padding:26px 12px;color:var(--muted);border:1px dashed #353547;border-radius:18px;margin-top:10px}
+.switch{position:relative;width:46px;height:27px;flex-shrink:0}
 
-.empty-icon{font-size:27px;margin-bottom:8px}
+.switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
 
-.field{display:flex;flex-direction:column;gap:7px;margin:13px 0}
+.switch span{position:absolute;inset:0;border-radius:20px;background:#353244;pointer-events:none;transition:.2s}
 
-.field label{font-size:12px;color:#c4c2d5;font-weight:650}
+.switch span:after{content:"";position:absolute;width:21px;height:21px;border-radius:50%;background:#f5f2ff;top:3px;right:3px;transition:.2s;box-shadow:0 1px 4px #0005}
 
-input,textarea,select{width:100%;min-width:0;border:1px solid #333344;border-radius:14px;background:#0e0e15;color:var(--text);padding:12px 13px;outline:none}
+.switch input:checked+span{background:#7954e7}
 
-input,select{min-height:45px}
+.switch input:checked+span:after{right:22px}
 
-textarea{min-height:92px;resize:vertical}
+.question{padding:15px 0;border-bottom:1px solid var(--line)}
 
-input:focus,textarea:focus,select:focus{border-color:var(--purple)}
+.question:last-child{border-bottom:0}
 
-input::placeholder,textarea::placeholder{color:#656579}
+.question h4{font-size:13px;line-height:1.7;margin:0 0 11px}
 
-select option{background:#12121a}
+.question .qnum{color:var(--purple);font-size:10px;letter-spacing:1px;margin-bottom:6px}
 
-label.check{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px}
+.options{display:grid;gap:8px}
 
-label.check input{width:18px;min-height:18px;accent-color:var(--purple)}
+.option{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #302d43;border-radius:13px;background:#0c0c14;font-size:12px;cursor:pointer}
 
-.tabs{display:flex;gap:7px;overflow-x:auto;padding:3px 0 8px;scrollbar-width:none}
+.option:has(input:checked){border-color:#8064d8;background:#211b35}
 
-.tabs::-webkit-scrollbar{display:none}
+.option input{width:16px;height:16px;flex-shrink:0}
 
-.tab{border:1px solid var(--line);border-radius:13px;padding:9px 12px;background:var(--panel);color:var(--muted);white-space:nowrap;font-size:12px}
+.chart{height:150px;width:100%;display:block}
 
-.tab.active{background:#895cff23;border-color:#895cff70;color:#d5c7ff}
+.bar-row{display:grid;grid-template-columns:65px 1fr 65px;gap:8px;align-items:center;margin:12px 0;font-size:10px}
 
-nav.bottom{position:fixed;z-index:20;bottom:0;left:0;right:0;padding:8px 7px calc(8px + env(safe-area-inset-bottom));background:#0d0d13ed;backdrop-filter:blur(20px);border-top:1px solid #292938;display:flex;justify-content:space-around;max-width:760px;margin:auto}
+.bar-track{height:8px;border-radius:9px;background:#292637;overflow:hidden}
 
-nav button{flex:1;min-width:0;border:0;background:none;color:#77778e;font-size:10px;padding:7px 0;border-radius:14px}
+.bar-track div{height:100%;border-radius:9px;background:linear-gradient(90deg,#6c47dc,#b19aff)}
 
-nav button .navicon{font-size:19px;display:block;margin-bottom:4px}
+.goal{padding:13px;border-radius:15px;border:1px solid var(--line);margin-bottom:10px}
 
-nav button.active{background:#895cff19;color:#c7b5ff}
+.toast-area{position:fixed;top:calc(10px + env(safe-area-inset-top));left:12px;right:12px;z-index:100;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
 
-nav button.active .navicon{filter:drop-shadow(0 0 5px #895cff55)}
+.toast{max-width:480px;width:100%;background:#211b32;border:1px solid #574580;border-radius:16px;padding:13px 16px;box-shadow:0 10px 35px #0008;font-size:12px;line-height:1.7;animation:fade .2s}
 
-.notice{padding:12px 13px;border-radius:15px;background:#895cff13;border:1px solid #895cff35;color:#cfc1ff;font-size:12px;line-height:1.65;margin-top:12px}
+.modal-backdrop{position:fixed;inset:0;background:#000a;backdrop-filter:blur(9px);z-index:50;display:none;align-items:flex-end;justify-content:center;padding:15px}
 
-.notice.warning{background:#ffca6710;border-color:#ffca6740;color:var(--yellow)}
+.modal-backdrop.show{display:flex}
 
-.notice.danger{background:#ff627c10;border-color:#ff627c40;color:var(--red)}
+.modal{width:100%;max-width:600px;max-height:88dvh;overflow:auto;background:#11111b;border:1px solid #38334e;border-radius:25px;padding:22px;box-shadow:0 25px 80px #000a}
 
-.notice.success{background:#45d6a010;border-color:#45d6a040;color:var(--green)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
 
-.separator{height:1px;background:var(--line);margin:15px 0}
+.modal-head h3{margin:0;font-size:18px}
 
-.modal-backdrop{position:fixed;inset:0;background:#000b;z-index:50;display:none;align-items:flex-end;justify-content:center;padding-top:30px}
+.close-btn{border:1px solid var(--line);background:#211f2e;border-radius:12px;width:35px;height:35px;font-size:19px}
 
-.modal-backdrop.open{display:flex}
+.ai-output{white-space:pre-wrap;overflow-wrap:anywhere;direction:auto;background:#0a0a12;border:1px solid #37304d;border-radius:16px;padding:16px;font-size:12px;line-height:1.9;max-height:42vh;overflow:auto}
 
-.modal{width:100%;max-width:600px;max-height:90dvh;overflow-y:auto;background:#111119;border:1px solid #343445;border-radius:26px 26px 0 0;padding:21px 18px calc(25px + env(safe-area-inset-bottom));animation:slideup .2s ease}
+.warning{border:1px solid #5b4828;background:#2a2317;color:#e6cb8e;border-radius:14px;padding:12px;font-size:11px;line-height:1.7;margin-bottom:13px}
 
-@keyframes slideup{from{transform:translateY(20px);opacity:.6}to{transform:translateY(0);opacity:1}}
+.good{color:var(--green)}.bad{color:var(--red)}
 
-.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+[dir=ltr] .hero-number{text-align:left}
 
-.close{width:36px;height:36px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);color:white;font-size:19px}
+[dir=ltr] .task-time{text-align:left}
 
-.toast{position:fixed;z-index:80;bottom:calc(92px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#292536;border:1px solid #51446e;color:white;border-radius:14px;padding:12px 17px;font-size:12px;max-width:90vw;text-align:center;transition:.2s}
+[dir=ltr] .options{direction:ltr}
 
-.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(min-width:650px){.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.app{padding-left:24px;padding-right:24px}.heading h2{font-size:32px}}
 
-.chat{display:flex;flex-direction:column;gap:10px;margin:15px 0}
-
-.bubble{padding:13px 14px;border-radius:17px;max-width:92%;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
-
-.bubble.user{align-self:flex-start;background:#895cff28;border:1px solid #895cff45}
-
-.bubble.assistant{align-self:flex-end;background:var(--panel2);border:1px solid var(--line)}
-
-.bubble .small{display:block;color:var(--muted);margin-top:8px}
-
-.chatbox{position:sticky;bottom:80px;background:var(--bg);padding:9px 0;display:flex;gap:8px;align-items:flex-end}
-
-.chatbox textarea{min-height:46px;max-height:125px}
-
-.choice{display:flex;gap:9px;align-items:flex-start;padding:12px;background:#15151f;border:1px solid var(--line);border-radius:14px;margin:8px 0}
-
-.choice input{width:17px;min-height:17px;margin-top:2px;accent-color:var(--purple)}
-
-.choice label{line-height:1.5;flex:1}
-
-.barrow{display:grid;grid-template-columns:88px 1fr 50px;gap:8px;align-items:center;margin:12px 0;font-size:11px}
-
-.bar{height:8px;background:#292938;border-radius:99px;overflow:hidden}
-
-.bar>div{height:100%;background:var(--purple);border-radius:99px}
-
-.bottom-space{height:12px}
-
-footer{text-align:center;color:#545469;font-size:10px;padding:25px 0 10px}
-
-[dir="ltr"] .hero:after{right:auto;left:-35px}
-
-[dir="ltr"] .bubble.user{align-self:flex-end}
-
-[dir="ltr"] .bubble.assistant{align-self:flex-start}
-
-@media(min-width:600px){main{padding:0 22px}.hero{padding:27px}.modal{border-radius:26px;margin:auto}.modal-backdrop{align-items:center;padding:20px}.balance{font-size:42px}}
-
-@media(max-width:360px){h1{font-size:23px}.balance{font-size:29px}.quick button{font-size:10px}.stat-value{font-size:17px}main{padding:0 12px}}
+@media(max-width:380px){.app{padding-left:11px;padding-right:11px}.card{padding:15px}.hero{padding:18px}.heading h2{font-size:25px}.hero-number{font-size:30px}.nav-item{font-size:8px}.row-fields{gap:7px}}
 
 </style>
 
@@ -250,305 +282,161 @@ footer{text-align:center;color:#545469;font-size:10px;padding:25px 0 10px}
 
 <body>
 
+<div class="toast-area" id="toastArea"></div>
+
 <div class="app">
 
-<header>
+<header class="top">
 
   <div class="brand">
 
     <div class="logo">N</div>
 
-    <div><div class="brandname">NEXUS</div><div class="brandtag" data-i18n="tag">YOUR PERSONAL DECISION SYSTEM</div></div>
+    <div><h1>NEXUS</h1><small>PERSONAL CONTROL SYSTEM</small></div>
 
   </div>
 
-  <button class="iconbtn" onclick="navigate('settings')" aria-label="Settings">⚙</button>
+  <div class="top-actions">
+
+    <button class="icon-btn" id="headerBell" aria-label="Notifications" onclick="openPage('settings')">♧</button>
+
+    <button class="icon-btn" aria-label="Profile" onclick="openPage('profile')">◉</button>
+
+  </div>
 
 </header>
+
+<div class="made">MADE IN TUNISIA 🇹🇳<br><b>BY JASSER NOUAILI</b></div>
 
 <main>
 
 <section class="page active" id="page-home">
 
-  <div class="eyebrow" data-i18n="overview">YOUR DAY AT A GLANCE</div>
-
-  <h1 id="greeting">أهلاً بك</h1>
-
-  <p class="muted" id="todayLine"></p>
+  <div class="heading"><div class="eyebrow" data-i="overview">YOUR SPACE</div><h2 id="greeting">أهلًا بك في NEXUS.</h2><p data-i="homeSub">كل ما تحتاجه لإدارة يومك، في مكان واحد.</p></div>
 
   <div class="hero">
 
-    <div class="row between">
+    <div class="hero-label" data-i="nextMission">أقرب مهمة قادمة</div>
 
-      <div class="hero-label" data-i18n="currentBalance">CURRENT BALANCE</div>
+    <div class="hero-number" id="homeCountdown">--:--:--</div>
 
-      <span class="pill" id="balancePill">DT</span>
+    <div class="hero-foot" id="homeMissionName">لا توجد مهام قادمة</div>
 
-    </div>
+    <div class="progress"><div id="homeProgress" style="width:0%"></div></div>
 
-    <div class="balance" id="homeBalance">0.000 <span class="currency">DT</span></div>
-
-    <div class="muted small" data-i18n="balanceCalculated">Calculated from your recorded transactions</div>
-
-    <div class="row wrap" style="margin-top:18px">
-
-      <button class="btn btn-primary" onclick="openMoneyModal('income')" data-i18n="addMoney">+ Add money</button>
-
-      <button class="btn btn-secondary" onclick="openMoneyModal('expense')" data-i18n="addExpense">− Add expense</button>
-
-    </div>
+    <div class="btn-row" style="margin-top:17px"><button class="btn secondary small" onclick="openPage('mission')" data-i="viewMissions">عرض المهام</button><button class="btn ghost small" onclick="openModal('missionModal')" data-i="newMission">+ مهمة جديدة</button></div>
 
   </div>
 
-  <div class="grid section">
+  <div class="grid2">
 
-    <div class="stat"><div class="stat-label" data-i18n="moneyIn">MONEY IN</div><div class="stat-value green" id="homeIncome">+0.000</div></div>
+    <div class="stat"><div class="s-icon">✓</div><div class="s-label" data-i="activeTasks">المهام النشطة</div><div class="s-value" id="homeActive">0</div><div class="s-sub" data-i="activeSub">تحتاج إلى متابعتك</div></div>
 
-    <div class="stat"><div class="stat-label" data-i18n="moneyOut">MONEY OUT</div><div class="stat-value red" id="homeExpense">−0.000</div></div>
-
-  </div>
-
-  <div class="quick">
-
-    <button onclick="navigate('ai')"><span class="qicon">✦</span><span data-i18n="aiHelp">AI Help</span></button>
-
-    <button onclick="openMissionModal()"><span class="qicon">◷</span><span data-i18n="newMission">New mission</span></button>
-
-    <button onclick="navigate('pocket','simulator')"><span class="qicon">◇</span><span data-i18n="decision">Decision</span></button>
+    <div class="stat"><div class="s-icon">◷</div><div class="s-label" data-i="completedTasks">المهام المكتملة</div><div class="s-value" id="homeDone">0</div><div class="s-sub" data-i="doneSub">إنجازاتك حتى الآن</div></div>
 
   </div>
 
-  <div class="section">
+  <div class="card" style="margin-top:15px">
 
-    <div class="row between"><h2 data-i18n="nextMission">Next mission</h2><button class="btn btn-secondary btn-small" onclick="navigate('mission')" data-i18n="viewAll">View all</button></div>
+    <div class="card-title"><h3 data-i="dailyFocus">تركيزك اليوم</h3><span class="pill"><span class="dot"></span><span data-i="localData">بيانات محلية</span></span></div>
 
-    <div id="homeMission"></div>
+    <p class="smalltext" id="homeFocus">أضف مهمة واضحة لتبدأ بتنظيم يومك.</p>
 
-  </div>
-
-  <div class="section">
-
-    <div class="row between"><h2 data-i18n="recentActivity">Recent activity</h2><button class="btn btn-secondary btn-small" onclick="navigate('pocket')" data-i18n="viewAll">View all</button></div>
-
-    <div id="homeTransactions" class="list"></div>
+    <div class="btn-row"><button class="btn full" onclick="openModal('aiModal')" data-i="askAI">جهّز سؤالًا لـ ChatGPT ↗</button></div>
 
   </div>
 
-  <div id="homeAlerts"></div>
-
-  <footer>NEXUS · Personal Decision System</footer>
-
-</section>
-
-<section class="page" id="page-ai">
-
-  <div class="eyebrow">NEXUS / INTELLIGENCE</div>
-
-  <h1 data-i18n="aiTitle">AI Help</h1>
-
-  <p class="muted" data-i18n="aiIntro">A personal assistant that uses your saved app data.</p>
-
-  <div class="notice" data-i18n="localAIWarning">This version uses local rules and calculations. It is not a connected generative AI model.</div>
-
-  <div class="grid section">
-
-    <button class="btn btn-secondary" onclick="setAiMode('chat')" id="aiChatTab" data-i18n="askQuestion">Ask a question</button>
-
-    <button class="btn btn-secondary" onclick="setAiMode('compare')" id="aiCompareTab" data-i18n="compareOptions">Compare options</button>
-
-  </div>
-
-  <div id="aiChatMode">
-
-    <div id="chatMessages" class="chat"></div>
-
-    <div class="chatbox">
-
-      <textarea id="chatInput" rows="1" data-i18n-placeholder="askPlaceholder" placeholder="Ask about your money, plans, or a decision..."></textarea>
-
-      <button class="btn btn-primary" style="min-width:54px" onclick="sendChat()" aria-label="Send">➤</button>
-
-    </div>
-
-    <div class="row wrap">
-
-      <button class="btn btn-secondary btn-small" onclick="quickQuestion('money')" data-i18n="moneyAdvice">Money advice</button>
-
-      <button class="btn btn-secondary btn-small" onclick="quickQuestion('tasks')" data-i18n="taskAdvice">Task priorities</button>
-
-      <button class="btn btn-secondary btn-small" onclick="quickQuestion('summary')" data-i18n="mySummary">My summary</button>
-
-    </div>
-
-  </div>
-
-  <div id="aiCompareMode" style="display:none">
-
-    <div class="card">
-
-      <h2 data-i18n="decisionSimulator">Decision simulator</h2>
-
-      <p class="muted small" data-i18n="decisionIntro">Compare a purchase against your balance, reserve, goals, and known obligations.</p>
-
-      <div class="field"><label data-i18n="purchaseName">What are you considering?</label><input id="buyName" placeholder="e.g. Headphones" data-i18n-placeholder="purchasePlaceholder"></div>
-
-      <div class="field"><label data-i18n="price">Price (DT)</label><input id="buyPrice" type="number" min="0" step="0.001" placeholder="0.000" inputmode="decimal"></div>
-
-      <div class="field"><label data-i18n="purchaseType">Is it necessary?</label><select id="buyNeed"><option value="optional" data-i18n="optional">Optional</option><option value="useful" data-i18n="useful">Useful</option><option value="essential" data-i18n="essential">Essential</option></select></div>
-
-      <div class="field"><label data-i18n="reserve">Desired emergency reserve (DT)</label><input id="buyReserve" type="number" min="0" step="0.001" value="0" inputmode="decimal"></div>
-
-      <div class="field"><label data-i18n="obligations">Upcoming obligations not already recorded (DT)</label><input id="buyObligations" type="number" min="0" step="0.001" value="0" inputmode="decimal"></div>
-
-      <div class="field"><label data-i18n="purchaseDeadline">Purchase deadline (optional)</label><input id="buyDeadline" type="date"></div>
-
-      <button class="btn btn-primary btn-block" onclick="runDecision()" data-i18n="analyzeDecision">Analyze decision</button>
-
-    </div>
-
-    <div id="decisionResult"></div>
-
-  </div>
-
-  <footer data-i18n="localFooter">Your saved information stays in this browser.</footer>
-
-</section>
-
-<section class="page" id="page-profile">
-
-  <div class="eyebrow">NEXUS / PERSONAL CONTEXT</div>
-
-  <h1 data-i18n="profileTitle">Your profile</h1>
-
-  <p class="muted" data-i18n="profileIntro">Your preferences help personalize local recommendations.</p>
-
-  <div class="card">
-
-    <h2 data-i18n="basicInfo">Basic information</h2>
-
-    <div class="field"><label data-i18n="firstName">First name</label><input id="pFirst" autocomplete="given-name"></div>
-
-    <div class="field"><label data-i18n="lastName">Last name</label><input id="pLast" autocomplete="family-name"></div>
-
-    <div class="grid">
-
-      <div class="field"><label data-i18n="age">Age</label><input id="pAge" type="number" min="1" max="120"></div>
-
-      <div class="field"><label data-i18n="gender">Gender (optional)</label><select id="pGender"><option value="" data-i18n="preferNot">Prefer not to say</option><option value="male" data-i18n="male">Male</option><option value="female" data-i18n="female">Female</option><option value="other" data-i18n="other">Other</option></select></div>
-
-    </div>
-
-    <button class="btn btn-primary btn-block" onclick="saveProfile()" data-i18n="saveProfile">Save profile</button>
-
-  </div>
-
-  <div class="section">
-
-    <div class="row between"><h2 data-i18n="personalQuestions">15 personal questions</h2><span class="pill" id="questionCount">0/15</span></div>
-
-    <p class="muted small" data-i18n="questionsNote">These are editable preferences, not a psychological diagnosis.</p>
-
-    <div id="questionList"></div>
-
-    <button class="btn btn-primary btn-block" style="margin-top:14px" onclick="saveAnswers()" data-i18n="saveAnswers">Save answers</button>
-
-  </div>
-
-  <div class="card">
-
-    <h2 data-i18n="preferencesSummary">Preferences summary</h2>
-
-    <div id="profileSummary" class="muted"></div>
-
-  </div>
+  <div class="smalltext" style="text-align:center;margin-top:18px" data-i="privacyNote">بياناتك محفوظة على هذا الجهاز فقط.</div>
 
 </section>
 
 <section class="page" id="page-pocket">
 
-  <div class="eyebrow">NEXUS / FINANCIAL CONTROL</div>
-
-  <h1 data-i18n="pocketTitle">Pocket</h1>
-
-  <p class="muted" data-i18n="pocketIntro">A clear record of your money.</p>
+  <div class="heading"><div class="eyebrow">FINANCIAL CONTROL</div><h2 data-i="pocketTitle">Pocket Money</h2><p data-i="pocketSub">كل عملية محسوبة، وكل قرار أوضح.</p></div>
 
   <div class="hero">
 
-    <div class="hero-label" data-i18n="currentBalance">CURRENT BALANCE</div>
+    <div class="hero-label" data-i="currentBalance">الرصيد الحالي</div><div class="hero-number" id="pBalance">0.000 DT</div>
 
-    <div class="balance" id="pocketBalance">0.000 <span class="currency">DT</span></div>
+    <div class="hero-foot" data-i="balanceFormula">الرصيد الافتتاحي + الدخل − المصروفات</div>
 
-    <div class="row wrap">
+    <div class="btn-row" style="margin-top:17px"><button class="btn small" onclick="openModal('transactionModal');setTxType('expense')" data-i="addExpense">− مصروف</button><button class="btn secondary small" onclick="openModal('transactionModal');setTxType('income')" data-i="addIncome">+ دخل</button><button class="btn ghost small" onclick="openModal('balanceModal')" data-i="openingBalance">الرصيد الافتتاحي</button></div>
 
-      <button class="btn btn-primary" onclick="openMoneyModal('income')" data-i18n="addMoney">+ Add money</button>
+  </div>
 
-      <button class="btn btn-secondary" onclick="openMoneyModal('expense')" data-i18n="addExpense">− Add expense</button>
+  <div class="grid2">
+
+    <div class="stat"><div class="s-icon">↗</div><div class="s-label" data-i="totalIncome">إجمالي الدخل</div><div class="s-value good" id="pIncome">0 DT</div><div class="s-sub" data-i="allRecorded">كل العمليات المسجلة</div></div>
+
+    <div class="stat"><div class="s-icon">↘</div><div class="s-label" data-i="totalExpenses">إجمالي المصروفات</div><div class="s-value bad" id="pExpenses">0 DT</div><div class="s-sub" data-i="allRecorded">كل العمليات المسجلة</div></div>
+
+  </div>
+
+  <div class="card" style="margin-top:14px">
+
+    <div class="card-title"><h3 data-i="analysis">تحليل المصروفات</h3><select id="chartPeriod" style="width:auto;padding:8px;font-size:10px" onchange="renderPocket()"><option value="all">الكل</option><option value="month">هذا الشهر</option><option value="week">آخر 7 أيام</option></select></div>
+
+    <div id="pChart"></div>
+
+    <div class="divider"></div>
+
+    <div class="grid2">
+
+      <div><div class="smalltext" data-i="netThisPeriod">صافي الفترة</div><div id="pNet" style="font-size:18px;font-weight:800;margin-top:5px">0 DT</div></div>
+
+      <div><div class="smalltext" data-i="transactionCount">عدد العمليات</div><div id="pCount" style="font-size:18px;font-weight:800;margin-top:5px">0</div></div>
 
     </div>
 
   </div>
 
-  <div class="grid section">
+  <div class="card">
 
-    <div class="stat"><div class="stat-label" data-i18n="totalIncome">TOTAL INCOME</div><div id="pocketIncome" class="stat-value green">0.000</div></div>
+    <div class="card-title"><h3 data-i="goals">الأهداف المالية</h3><button class="btn secondary small" onclick="openModal('goalModal')" data-i="addGoal">+ هدف</button></div>
 
-    <div class="stat"><div class="stat-label" data-i18n="totalExpenses">TOTAL EXPENSES</div><div id="pocketExpense" class="stat-value red">0.000</div></div>
+    <div id="goalList"></div>
 
   </div>
 
-  <div class="section">
+  <div class="card">
 
-    <div class="tabs">
+    <div class="card-title"><h3 data-i="purchaseSimulator">محاكي قرار الشراء</h3><span class="pill">AI READY</span></div>
 
-      <button class="tab active" onclick="setPocketTab('transactions',this)" data-i18n="transactions">Transactions</button>
+    <p class="smalltext" data-i="purchaseHelp">أدخل ثمن الشيء لتجهّز رسالة تحليل تراعي رصيدك وأهدافك.</p>
 
-      <button class="tab" onclick="setPocketTab('stats',this)" data-i18n="statistics">Statistics</button>
+    <div class="row-fields">
 
-      <button class="tab" onclick="setPocketTab('goals',this)" data-i18n="goals">Goals</button>
+      <div class="field"><label data-i="itemName">اسم الشيء</label><input id="buyName" placeholder="مثال: حذاء"></div>
 
-      <button class="tab" onclick="setPocketTab('simulator',this)" data-i18n="decision">Decision</button>
-
-    </div>
-
-    <div id="pocketTransactions">
-
-      <div class="field"><label data-i18n="searchTransactions">Search transactions</label><input id="txSearch" oninput="renderTransactions()" data-i18n-placeholder="searchPlaceholder" placeholder="Search description or category"></div>
-
-      <div class="grid">
-
-        <div class="field"><label data-i18n="filterType">Type</label><select id="txFilter" onchange="renderTransactions()"><option value="all" data-i18n="all">All</option><option value="income" data-i18n="income">Income</option><option value="expense" data-i18n="expense">Expense</option></select></div>
-
-        <div class="field"><label data-i18n="filterPeriod">Period</label><select id="txPeriod" onchange="renderTransactions()"><option value="all" data-i18n="allTime">All time</option><option value="today" data-i18n="today">Today</option><option value="week" data-i18n="thisWeek">This week</option><option value="month" data-i18n="thisMonth">This month</option></select></div>
-
-      </div>
-
-      <div id="transactionList" class="list"></div>
+      <div class="field"><label data-i="itemPrice">الثمن (DT)</label><input id="buyPrice" type="number" min="0" step="0.001" placeholder="0.000"></div>
 
     </div>
 
-    <div id="pocketStats" style="display:none"></div>
+    <div class="field"><label data-i="priority">مدى الحاجة</label><select id="buyNeed"><option value="need">ضروري</option><option value="useful">مفيد لكن يمكن الانتظار</option><option value="want">رغبة فقط</option></select></div>
 
-    <div id="pocketGoals" style="display:none">
+    <button class="btn full" onclick="preparePurchaseQuestion()" data-i="analyzePurchase">تحليل القرار مع ChatGPT</button>
 
-      <div class="card" style="margin-top:0">
+  </div>
 
-        <h2 data-i18n="createGoal">Create a financial goal</h2>
+  <div class="card">
 
-        <div class="field"><label data-i18n="goalName">Goal name</label><input id="goalName" data-i18n-placeholder="goalPlaceholder" placeholder="e.g. New phone"></div>
+    <div class="card-title"><h3 data-i="transactions">سجل العمليات</h3><span class="smalltext" id="txCountLabel">0</span></div>
 
-        <div class="field"><label data-i18n="targetAmount">Target amount (DT)</label><input id="goalTarget" type="number" min="0.001" step="0.001" inputmode="decimal"></div>
+    <div class="field"><input id="txSearch" placeholder="ابحث في العمليات..." oninput="renderTransactions()"></div>
 
-        <div class="field"><label data-i18n="goalDeadline">Target date (optional)</label><input id="goalDate" type="date"></div>
+    <div class="row-fields">
 
-        <button class="btn btn-primary btn-block" onclick="addGoal()" data-i18n="addGoal">Add goal</button>
+      <select id="txFilter" onchange="renderTransactions()"><option value="all">كل العمليات</option><option value="income">الدخل</option><option value="expense">المصروفات</option></select>
 
-      </div>
-
-      <div id="goalList" class="list" style="margin-top:12px"></div>
+      <select id="txSort" onchange="renderTransactions()"><option value="new">الأحدث أولًا</option><option value="old">الأقدم أولًا</option><option value="high">الأعلى مبلغًا</option></select>
 
     </div>
 
-    <div id="pocketSimulator" style="display:none"></div>
+    <div id="transactionList" style="margin-top:10px"></div>
+
+    <div class="divider"></div>
+
+    <div class="btn-row"><button class="btn secondary small" onclick="exportCSV()" data-i="exportCSV">تصدير CSV</button><button class="btn ghost small" onclick="exportBackup()" data-i="backup">نسخة JSON</button><button class="btn ghost small" onclick="document.getElementById('importFile').click()" data-i="importBackup">استيراد نسخة</button><input type="file" id="importFile" accept=".json,application/json" hidden onchange="importBackup(this)"></div>
 
   </div>
 
@@ -556,35 +444,109 @@ footer{text-align:center;color:#545469;font-size:10px;padding:25px 0 10px}
 
 <section class="page" id="page-mission">
 
-  <div class="eyebrow">NEXUS / TIME MANAGEMENT</div>
+  <div class="heading"><div class="eyebrow">TIME MANAGEMENT</div><h2 data-i="missionTitle">Missions</h2><p data-i="missionSub">وقتك واضح، وتقدمك محسوب.</p></div>
 
-  <h1 data-i18n="missionTitle">Mission control</h1>
+  <div class="grid2">
 
-  <p class="muted" data-i18n="missionIntro">Track deadlines and the time remaining for your tasks.</p>
+    <div class="stat"><div class="s-icon">◷</div><div class="s-label" data-i="activeTasks">المهام النشطة</div><div class="s-value" id="mActive">0</div></div>
 
-  <button class="btn btn-primary btn-block" onclick="openMissionModal()" data-i18n="createMission">+ Create mission</button>
-
-  <div class="grid section">
-
-    <div class="stat"><div class="stat-label" data-i18n="activeMissions">ACTIVE</div><div id="activeCount" class="stat-value">0</div></div>
-
-    <div class="stat"><div class="stat-label" data-i18n="completedMissions">COMPLETED</div><div id="completedCount" class="stat-value green">0</div></div>
+    <div class="stat"><div class="s-icon">✓</div><div class="s-label" data-i="completedTasks">المهام المكتملة</div><div class="s-value" id="mDone">0</div></div>
 
   </div>
 
-  <div class="section">
+  <div class="card" style="margin-top:14px">
 
-    <div class="tabs">
+    <div class="card-title"><h3 data-i="allMissions">كل المهام</h3><button class="btn small" onclick="openModal('missionModal')" data-i="newMission">+ مهمة جديدة</button></div>
 
-      <button class="tab active" onclick="setMissionTab('active',this)" data-i18n="active">Active</button>
+    <div class="smalltext" style="margin-bottom:14px" data-i="missionLegend">الأخضر: 75% أو أكثر من الوقت متبقٍ · البرتقالي: 50% · الأصفر: 20% · الأحمر: أقل من 20%.</div>
 
-      <button class="tab" onclick="setMissionTab('completed',this)" data-i18n="completed">Completed</button>
+    <div id="missionList"></div>
 
-      <button class="tab" onclick="setMissionTab('all',this)" data-i18n="all">All</button>
+  </div>
+
+</section>
+
+<section class="page" id="page-ai">
+
+  <div class="heading"><div class="eyebrow">PERSONAL DECISION ENGINE</div><h2>AI HELP</h2><p data-i="aiSub">جهّز معطياتك وسؤالك في رسالة واحدة إلى ChatGPT.</p></div>
+
+  <div class="hero">
+
+    <div class="hero-label">NEXUS × CHATGPT</div><div style="font-size:23px;font-weight:850;margin:10px 0" data-i="aiHero">معطياتك. سؤالك. اقتراح واضح.</div>
+
+    <div class="hero-foot" data-i="aiHeroSub">NEXUS يجهّز الرسالة؛ ChatGPT يحلّل ويجيب.</div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-title"><h3 data-i="yourQuestion">ما سؤالك؟</h3><span class="pill">01 / INPUT</span></div>
+
+    <div class="field"><label data-i="questionLabel">السؤال أو القرار الذي تريد مناقشته</label><textarea id="aiQuestion" placeholder="مثال: هل أغيّر خطتي أم أستمر؟"></textarea></div>
+
+    <div class="field"><label data-i="extraContext">معلومات إضافية (اختياري)</label><textarea id="aiContext" placeholder="أي تفاصيل أخرى تريد أن يعرفها ChatGPT..."></textarea></div>
+
+    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="includeMoney">إرفاق المعطيات المالية</div><div class="smalltext" data-i="includeMoneySub">الرصيد والدخل والمصروفات والأهداف</div></div><label class="switch"><input type="checkbox" id="includeMoney" checked><span></span></label></div>
+
+    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="includeTasks">إرفاق المهام</div><div class="smalltext" data-i="includeTasksSub">المواعيد وحالة المهام</div></div><label class="switch"><input type="checkbox" id="includeTasks" checked><span></span></label></div>
+
+    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="includeProfile">إرفاق ملف الشخصية</div><div class="smalltext" data-i="includeProfileSub">بياناتك وإجابات أسئلة الشخصية</div></div><label class="switch"><input type="checkbox" id="includeProfile" checked><span></span></label></div>
+
+    <button class="btn full" style="margin-top:18px" onclick="prepareAI()" data-i="prepareMessage">إنشاء رسالة ChatGPT ↗</button>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-title"><h3 data-i="howWorks">كيف تعمل هذه الميزة؟</h3></div>
+
+    <div class="smalltext" style="font-size:12px;line-height:2.1" data-i="howWorksText">1. اكتب سؤالك.<br>2. يضيف NEXUS المعطيات التي اخترتها وتعليمات الإجابة المختصرة.<br>3. انسخ الرسالة والصقها في ChatGPT.<br>4. يجيب ChatGPT بناءً على الرسالة التي أرسلتها.</div>
+
+    <div class="warning" style="margin-top:14px" data-i="aiWarning">هذه الميزة لا ترسل البيانات تلقائيًا ولا تقرأ رد ChatGPT. لا ترفق معلومات حساسة لا تريد مشاركتها.</div>
+
+  </div>
+
+</section>
+
+<section class="page" id="page-profile">
+
+  <div class="heading"><div class="eyebrow">PERSONAL IDENTITY</div><h2 data-i="profileTitle">ملفك الشخصي</h2><p data-i="profileSub">أجب بصراحة؛ يمكنك تعديل معلوماتك متى شئت.</p></div>
+
+  <div class="card">
+
+    <div class="card-title"><h3 data-i="basicInfo">المعلومات الأساسية</h3><span class="pill">PROFILE</span></div>
+
+    <div class="row-fields">
+
+      <div class="field"><label data-i="firstName">الاسم</label><input id="firstName" autocomplete="given-name"></div>
+
+      <div class="field"><label data-i="lastName">اللقب</label><input id="lastName" autocomplete="family-name"></div>
+
+      <div class="field"><label data-i="age">العمر (اختياري)</label><input id="profileAge" type="number" min="1" max="120"></div>
+
+      <div class="field"><label data-i="gender">الجنس (اختياري)</label><select id="profileGender"><option value="">غير محدد</option><option value="male">ذكر</option><option value="female">أنثى</option><option value="other">أفضل عدم التحديد</option></select></div>
 
     </div>
 
-    <div id="missionList" class="list"></div>
+    <div class="field"><label data-i="aboutYou">ما الذي تريد تحقيقه؟</label><textarea id="profileAbout" placeholder="أهدافك، أولوياتك، ما تريد تحسينه..."></textarea></div>
+
+    <div class="field"><label data-i="decisionStyle">كيف تفضّل اتخاذ القرارات؟</label><select id="decisionStyle"><option value="">لم أحدد بعد</option><option value="logic">المنطق والأرقام</option><option value="balanced">موازنة المنطق والمشاعر</option><option value="intuition">الحدس والتجربة</option><option value="advice">أستشير الآخرين</option></select></div>
+
+    <button class="btn full" onclick="saveProfile()" data-i="saveProfile">حفظ الملف الشخصي</button>
+
+  </div>
+
+  <div class="card">
+
+    <div class="card-title"><h3 data-i="personality">أسئلة فهم الشخصية</h3><span class="pill" id="qProgress">0 / 20</span></div>
+
+    <p class="smalltext" data-i="personalitySub">20 سؤالًا أساسيًا. عند حفظ إجاباتك تختفي الأسئلة، وتبقى إجاباتك متاحة لتعديلها أو إعادة فتحها.</p>
+
+    <div id="questionnaire"></div>
+
+    <div id="questionActions" class="btn-row" style="margin-top:15px"></div>
+
+    <div id="questionSaved" class="smalltext" style="margin-top:12px"></div>
 
   </div>
 
@@ -592,63 +554,47 @@ footer{text-align:center;color:#545469;font-size:10px;padding:25px 0 10px}
 
 <section class="page" id="page-settings">
 
-  <div class="eyebrow">NEXUS / CONFIGURATION</div>
-
-  <h1 data-i18n="settingsTitle">Settings</h1>
+  <div class="heading"><div class="eyebrow">SYSTEM PREFERENCES</div><h2 data-i="settingsTitle">الإعدادات</h2><p data-i="settingsSub">تحكم في طريقة عمل NEXUS وبياناتك.</p></div>
 
   <div class="card">
 
-    <h2 data-i18n="appearanceLanguage">Appearance & language</h2>
+    <div class="card-title"><h3 data-i="appearance">المظهر والتجربة</h3></div>
 
-    <div class="field"><label data-i18n="language">Language</label><select id="settingLanguage" onchange="changeLanguage(this.value)"><option value="ar">العربية</option><option value="en">English</option></select></div>
+    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="language">لغة التطبيق</div><div class="smalltext" data-i="languageSub">العربية أو الإنجليزية</div></div><select id="languageSelect" style="width:125px" onchange="changeLanguage(this.value)"><option value="ar">العربية</option><option value="en">English</option></select></div>
 
-    <label class="check"><input id="settingSound" type="checkbox" onchange="setSound(this.checked)"> <span data-i18n="clickSounds">Subtle button sounds</span></label>
+    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="sound">أصوات الأزرار</div><div class="smalltext" data-i="soundSub">صوت خفيف عند التفاعل</div></div><label class="switch"><input type="checkbox" id="soundToggle"><span></span></label></div>
+
+    <div class="switch-row"><div><div style="font-size:12px;font-weight:700" data-i="notifications">الإشعارات</div><div class="smalltext" data-i="notificationsSub">تنبيهات عند فتح التطبيق وعند المواعيد القريبة</div></div><label class="switch"><input type="checkbox" id="notifyToggle"><span></span></label></div>
+
+    <div class="smalltext" id="notificationStatus" style="margin-top:10px"></div>
 
   </div>
 
   <div class="card">
 
-    <h2 data-i18n="financialSettings">Financial settings</h2>
+    <div class="card-title"><h3 data-i="extraQuestions">أسئلة إضافية اختيارية</h3><span class="pill" id="extraCount">0 / 5</span></div>
 
-    <p class="muted small" data-i18n="openingBalanceNote">The opening balance is the amount you had when starting this ledger. Recorded transactions are added to or subtracted from it.</p>
+    <p class="smalltext" data-i="extraQuestionsSub">أضف حتى خمسة أسئلة لفهمك بشكل أفضل. يمكنك تعديلها أو حذفها في أي وقت. تظهر الإجابات عند تجهيز رسالة ChatGPT.</p>
 
-    <div class="field"><label data-i18n="openingBalance">Opening balance (DT)</label><input id="settingOpening" type="number" step="0.001" inputmode="decimal"></div>
+    <div id="extraQuestionList"></div>
 
-    <button class="btn btn-primary btn-block" onclick="saveOpening()" data-i18n="saveOpening">Save opening balance</button>
+    <button class="btn secondary full" style="margin-top:12px" onclick="addExtraQuestion()" id="addExtraBtn" data-i="addExtra">+ إضافة سؤال</button>
 
-  </div>
+    <div class="divider"></div>
 
-  <div class="card">
+    <div class="card-title"><h3 data-i="dataManagement">إدارة البيانات</h3></div>
 
-    <h2 data-i18n="dataManagement">Data management</h2>
+    <div class="smalltext" style="margin-bottom:14px" data-i="dataManagementSub">بياناتك محفوظة على هذا المتصفح. احفظ نسخة احتياطية قبل حذفها أو تغيير الجهاز.</div>
 
-    <p class="muted small" data-i18n="localStorageNote">Data is stored in this browser only. Clearing browser data or changing devices may remove access to it. Export backups regularly.</p>
-
-    <div class="row wrap" style="margin-top:13px">
-
-      <button class="btn btn-secondary grow" onclick="exportJSON()" data-i18n="exportBackup">Export backup</button>
-
-      <button class="btn btn-secondary grow" onclick="document.getElementById('importFile').click()" data-i18n="importBackup">Import backup</button>
-
-      <input id="importFile" type="file" accept=".json,application/json" hidden onchange="importJSON(event)">
-
-    </div>
-
-    <button class="btn btn-secondary btn-block" style="margin-top:9px" onclick="exportCSV()" data-i18n="exportCSV">Export transactions CSV</button>
-
-    <div class="separator"></div>
-
-    <button class="btn btn-danger btn-block" onclick="resetAll()" data-i18n="deleteAllData">Delete all app data</button>
+    <div class="btn-row"><button class="btn secondary small" onclick="exportBackup()" data-i="exportData">تصدير البيانات</button><button class="btn ghost small" onclick="document.getElementById('importFile').click()" data-i="importData">استيراد البيانات</button><button class="btn danger small" onclick="resetAllData()" data-i="resetData">حذف جميع البيانات</button></div>
 
   </div>
 
   <div class="card">
 
-    <h2 data-i18n="about">About NEXUS</h2>
+    <div class="card-title"><h3 data-i="aboutNexus">حول NEXUS</h3></div>
 
-    <p class="muted small" data-i18n="aboutText">A personal decision and organization tool. Local recommendations are based on recorded information and simple rules, not guaranteed predictions or professional financial advice.</p>
-
-    <div class="row between"><span class="muted small" data-i18n="appVersion">Application version</span><span class="pill">1.0.0</span></div>
+    <div class="smalltext">NEXUS · Personal Control System<br>Version 2.0<br><br>MADE IN TUNISIA 🇹🇳<br>BY JASSER NOUAILI</div>
 
   </div>
 
@@ -656,1154 +602,242 @@ footer{text-align:center;color:#545469;font-size:10px;padding:25px 0 10px}
 
 </main>
 
-<nav class="bottom">
-
-  <button class="active" data-page="home" onclick="navigate('home')"><span class="navicon">⌂</span><span data-i18n="home">Home</span></button>
-
-  <button data-page="ai" onclick="navigate('ai')"><span class="navicon">✦</span><span data-i18n="aiHelp">AI Help</span></button>
-
-  <button data-page="pocket" onclick="navigate('pocket')"><span class="navicon">◇</span><span data-i18n="pocket">Pocket</span></button>
-
-  <button data-page="mission" onclick="navigate('mission')"><span class="navicon">◷</span><span data-i18n="mission">Mission</span></button>
-
-  <button data-page="profile" onclick="navigate('profile')"><span class="navicon">◎</span><span data-i18n="profile">Profile</span></button>
-
-</nav>
-
 </div>
 
-<div class="modal-backdrop" id="modalBackdrop" onclick="if(event.target===this)closeModal()">
+<nav class="bottom-nav">
 
-  <div class="modal">
+  <div class="nav-inner">
 
-    <div class="modal-head"><h2 id="modalTitle">Details</h2><button class="close" onclick="closeModal()" aria-label="Close">×</button></div>
+    <button class="nav-item active" data-page="home" onclick="openPage('home')"><span class="nav-icon">⌂</span><span data-i="navHome">الرئيسية</span></button>
 
-    <div id="modalBody"></div>
+    <button class="nav-item" data-page="pocket" onclick="openPage('pocket')"><span class="nav-icon">◈</span><span data-i="navPocket">المال</span></button>
+
+    <button class="nav-item" data-page="mission" onclick="openPage('mission')"><span class="nav-icon">◷</span><span data-i="navMission">المهام</span></button>
+
+    <button class="nav-item" data-page="ai" onclick="openPage('ai')"><span class="nav-icon">✳</span><span>AI HELP</span></button>
+
+    <button class="nav-item" data-page="settings" onclick="openPage('settings')"><span class="nav-icon">⚙</span><span data-i="navSettings">الإعدادات</span></button>
 
   </div>
 
-</div>
+</nav>
 
-<div id="toast" class="toast" role="status"></div>
+<div class="modal-backdrop" id="missionModal" onclick="backdropClose(event,'missionModal')">
+
+<div class="modal"><div class="modal-head"><h3 id="missionModalTitle">مهمة جديدة</h3><button class="close-btn" onclick="closeModal('missionModal')">×</button></div>
+
+<form id="missionForm" onsubmit="saveMission(event)">
+
+<input type="hidden" id="missionId">
+
+<div class="field"><label data-i="missionName">اسم المهمة</label><input id="missionName" required maxlength="120" placeholder="مراجعة الدرس"></div>
+
+<div class="field"><label data-i="description">الوصف</label><textarea id="missionDesc" maxlength="1000" placeholder="تفاصيل المهمة..."></textarea></div>
+
+<div class="field"><label data-i="startTime">وقت البداية</label><input id="missionStart" type="datetime-local" required></div>
+
+<div class="field"><label data-i="deadline">الموعد النهائي</label><input id="missionDeadline" type="datetime-local" required></div>
+
+<div class="field"><label data-i="missionPriority">الأولوية</label><select id="missionPriority"><option value="normal">عادية</option><option value="high">عالية</option><option value="urgent">عاجلة</option></select></div>
+
+<div class="btn-row"><button class="btn" type="submit" data-i="save">حفظ</button><button class="btn ghost" type="button" onclick="closeModal('missionModal')" data-i="cancel">إلغاء</button></div>
+
+</form></div></div>
+
+<div class="modal-backdrop" id="transactionModal" onclick="backdropClose(event,'transactionModal')">
+
+<div class="modal"><div class="modal-head"><h3 id="txModalTitle">عملية مالية</h3><button class="close-btn" onclick="closeModal('transactionModal')">×</button></div>
+
+<form id="transactionForm" onsubmit="saveTransaction(event)">
+
+<input type="hidden" id="txId"><input type="hidden" id="txType" value="expense">
+
+<div class="field"><label data-i="operationName">اسم العملية</label><input id="txName" maxlength="140" required placeholder="مثال: طعام"></div>
+
+<div class="row-fields"><div class="field"><label data-i="amount">المبلغ (DT)</label><input id="txAmount" type="number" min="0.001" step="0.001" required></div><div class="field"><label data-i="operationDate">التاريخ</label><input id="txDate" type="date" required></div></div>
+
+<div class="field"><label data-i="category">التصنيف</label><select id="txCategory"><option value="food">طعام</option><option value="transport">نقل</option><option value="clothes">ملابس</option><option value="study">دراسة</option><option value="entertainment">ترفيه</option><option value="work">عمل</option><option value="gift">هدية</option><option value="other">أخرى</option></select></div>
+
+<div class="field"><label data-i="notes">ملاحظات (اختياري)</label><textarea id="txNotes" style="min-height:60px"></textarea></div>
+
+<div class="btn-row"><button class="btn" type="submit" data-i="save">حفظ</button><button class="btn ghost" type="button" onclick="closeModal('transactionModal')" data-i="cancel">إلغاء</button></div>
+
+</form></div></div>
+
+<div class="modal-backdrop" id="balanceModal" onclick="backdropClose(event,'balanceModal')">
+
+<div class="modal"><div class="modal-head"><h3 data-i="openingBalance">الرصيد الافتتاحي</h3><button class="close-btn" onclick="closeModal('balanceModal')">×</button></div>
+
+<p class="smalltext" data-i="openingBalanceHelp">أدخل رصيدك قبل تسجيل العمليات. سيُحسب الرصيد الحالي تلقائيًا.</p>
+
+<form onsubmit="saveOpeningBalance(event)"><div class="field"><label data-i="amount">المبلغ (DT)</label><input type="number" id="openingAmount" step="0.001" required></div><button class="btn full" type="submit" data-i="save">حفظ</button></form></div></div>
+
+<div class="modal-backdrop" id="goalModal" onclick="backdropClose(event,'goalModal')">
+
+<div class="modal"><div class="modal-head"><h3 id="goalModalTitle">هدف مالي جديد</h3><button class="close-btn" onclick="closeModal('goalModal')">×</button></div>
+
+<form onsubmit="saveGoal(event)"><input type="hidden" id="goalId">
+
+<div class="field"><label data-i="goalName">اسم الهدف</label><input id="goalName" required maxlength="100" placeholder="شراء حاسوب"></div>
+
+<div class="field"><label data-i="targetAmount">المبلغ المستهدف (DT)</label><input id="goalTarget" type="number" min="0.001" step="0.001" required></div>
+
+<div class="field"><label data-i="savedAmount">المبلغ الذي ادخرته (DT)</label><input id="goalSaved" type="number" min="0" step="0.001" value="0" required></div>
+
+<div class="field"><label data-i="goalDeadline">الموعد المستهدف (اختياري)</label><input id="goalDate" type="date"></div>
+
+<div class="btn-row"><button class="btn" type="submit" data-i="save">حفظ</button><button class="btn ghost" type="button" onclick="closeModal('goalModal')" data-i="cancel">إلغاء</button></div>
+
+</form></div></div>
+
+<div class="modal-backdrop" id="aiModal" onclick="backdropClose(event,'aiModal')">
+
+<div class="modal"><div class="modal-head"><h3 data-i="askAI">جهّز سؤالًا لـ ChatGPT</h3><button class="close-btn" onclick="closeModal('aiModal')">×</button></div>
+
+<p class="smalltext" data-i="aiModalHelp">اكتب سؤالك وسيجمع NEXUS المعطيات التي اخترتها في رسالة واحدة.</p>
+
+<div class="field"><textarea id="aiQuestionModal" placeholder="اكتب سؤالك هنا..."></textarea></div>
+
+<button class="btn full" onclick="prepareAIFromModal()" data-i="prepareMessage">إنشاء رسالة ChatGPT ↗</button>
+
+</div></div>
+
+<div class="modal-backdrop" id="messageModal" onclick="backdropClose(event,'messageModal')">
+
+<div class="modal"><div class="modal-head"><h3 data-i="readyMessage">رسالتك جاهزة</h3><button class="close-btn" onclick="closeModal('messageModal')">×</button></div>
+
+<p class="smalltext" data-i="readyMessageSub">راجع الرسالة، ثم انسخها والصقها في ChatGPT.</p>
+
+<div class="ai-output" id="generatedMessage"></div>
+
+<div class="btn-row" style="margin-top:14px"><button class="btn" onclick="copyGenerated()" data-i="copyMessage">نسخ الرسالة</button><button class="btn secondary" onclick="openChatGPT()" data-i="openChatGPT">فتح ChatGPT ↗</button><button class="btn ghost" onclick="closeModal('messageModal')" data-i="close">إغلاق</button></div>
+
+</div></div>
+
+<div class="modal-backdrop" id="extraModal" onclick="backdropClose(event,'extraModal')">
+
+<div class="modal"><div class="modal-head"><h3 id="extraModalTitle">سؤال إضافي</h3><button class="close-btn" onclick="closeModal('extraModal')">×</button></div>
+
+<form onsubmit="saveExtraQuestion(event)"><input type="hidden" id="extraId">
+
+<div class="field"><label data-i="questionText">نص السؤال</label><input id="extraText" maxlength="180" required></div>
+
+<div class="field"><label data-i="answerText">إجابتك (اختياري)</label><textarea id="extraAnswer"></textarea></div>
+
+<div class="btn-row"><button class="btn" type="submit" data-i="save">حفظ</button><button class="btn ghost" type="button" onclick="closeModal('extraModal')" data-i="cancel">إلغاء</button></div>
+
+</form></div></div>
 
 <script>
 
 "use strict";
 
-const STORE_KEY="nexus_personal_system_v1";
+const STORAGE_KEY="nexus_v2_jasser";
 
 const $=id=>document.getElementById(id);
 
-const now=()=>new Date();
+const nowISO=()=>new Date().toISOString();
+
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+
+const localDT=(date=new Date())=>{const d=new Date(date.getTime()-date.getTimezoneOffset()*60000);return d.toISOString().slice(0,16)};
 
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 
-const defaultData=()=>({
+const defaultState=()=>({version:2,language:"ar",sound:false,notifications:false,openingBalance:0,transactions:[],missions:[],goals:[],profile:{firstName:"",lastName:"",age:"",gender:"",about:"",decisionStyle:""},personality:{answered:false,answers:{}},extraQuestions:[],lastNotified:{},createdAt:nowISO()});
 
- version:1,language:"ar",sound:false,openingBalance:0,
+let state=loadState(),generatedText="",audioCtx=null;
 
- profile:{first:"",last:"",age:"",gender:"",answers:Array(15).fill("")},
+function loadState(){try{const x=JSON.parse(localStorage.getItem(STORAGE_KEY));if(!x||typeof x!=="object")return defaultState();const d=defaultState();return {...d,...x,profile:{...d.profile,...(x.profile||{})},personality:{...d.personality,...(x.personality||{})},transactions:Array.isArray(x.transactions)?x.transactions:[],missions:Array.isArray(x.missions)?x.missions:[],goals:Array.isArray(x.goals)?x.goals:[],extraQuestions:Array.isArray(x.extraQuestions)?x.extraQuestions.slice(0,5):[]}}catch(e){return defaultState()}}
 
- transactions:[],missions:[],goals:[],chat:[],decisions:[]
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}catch(e){toast("تعذّر حفظ البيانات. قد تكون مساحة التخزين ممتلئة.");return false}}
 
-});
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 
-let data=loadData();
+function fmt(n){return (Number(n)||0).toLocaleString(state.language==="ar"?"en-US":"en-US",{minimumFractionDigits:3,maximumFractionDigits:3})+" DT"}
 
-let pocketTab="transactions",missionTab="active",aiMode="chat",toastTimer=null,audioContext=null;
+function money(n){return (Number(n)||0).toFixed(3)+" DT"}
 
-let modalMissionId=null,modalTransactionId=null;
+function toast(msg){const el=document.createElement("div");el.className="toast";el.textContent=msg;$("toastArea").appendChild(el);setTimeout(()=>el.remove(),3600)}
 
-function loadData(){
+function playSound(){if(!state.sound)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.value=500;g.gain.value=.025;o.connect(g);g.connect(audioCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+.05);o.stop(audioCtx.currentTime+.05)}catch(e){}}
 
- try{
-
-  const raw=localStorage.getItem(STORE_KEY);
-
-  if(!raw)return defaultData();
-
-  const parsed=JSON.parse(raw),base=defaultData();
-
-  return {...base,...parsed,
-
-   profile:{...base.profile,...(parsed.profile||{}),answers:Array.isArray(parsed.profile?.answers)?parsed.profile.answers.slice(0,15):base.profile.answers},
-
-   transactions:Array.isArray(parsed.transactions)?parsed.transactions:[],
-
-   missions:Array.isArray(parsed.missions)?parsed.missions:[],
-
-   goals:Array.isArray(parsed.goals)?parsed.goals:[],
-
-   chat:Array.isArray(parsed.chat)?parsed.chat:[],
-
-   decisions:Array.isArray(parsed.decisions)?parsed.decisions:[]
-
-  };
-
- }catch(e){return defaultData()}
-
-}
-
-function persist(){
-
- try{localStorage.setItem(STORE_KEY,JSON.stringify(data));return true}
-
- catch(e){toast(tr("storageError"));return false}
-
-}
+document.addEventListener("click",e=>{if(e.target.closest("button"))playSound()},{passive:true});
 
 const translations={
 
- ar:{
+ar:{
 
- tag:"نظامك الشخصي لاتخاذ القرارات",overview:"ملخص يومك",currentBalance:"الرصيد الحالي",balanceCalculated:"الرصيد محسوب من عملياتك المسجلة",addMoney:"+ إضافة مال",addExpense:"− إضافة مصروف",moneyIn:"الأموال الداخلة",moneyOut:"الأموال الخارجة",aiHelp:"المساعد",newMission:"مهمة جديدة",decision:"قرار",nextMission:"المهمة القادمة",viewAll:"عرض الكل",recentActivity:"آخر العمليات",home:"الرئيسية",pocket:"المحفظة",mission:"المهام",profile:"الملف",settingsTitle:"الإعدادات",aiTitle:"المساعد الشخصي",aiIntro:"مساعد يعتمد على البيانات المحفوظة داخل التطبيق.",localAIWarning:"هذه النسخة تستخدم قواعد وحسابات محلية، وليست نموذج ذكاء اصطناعي توليديًا متصلًا بالإنترنت.",askQuestion:"اسأل سؤالًا",compareOptions:"قارن خيارين",askPlaceholder:"اسأل عن أموالك أو خططك أو قرار...",moneyAdvice:"نصيحة مالية",taskAdvice:"أولويات المهام",mySummary:"ملخصي",decisionSimulator:"محاكي القرارات",decisionIntro:"قارن الشراء برصيدك والاحتياطي والالتزامات المعروفة.",purchaseName:"ما الذي تفكر في شرائه؟",purchasePlaceholder:"مثال: سماعات",price:"السعر (DT)",purchaseType:"هل هو ضروري؟",optional:"اختياري",useful:"مفيد",essential:"ضروري",reserve:"الاحتياطي المالي الذي تريد الحفاظ عليه (DT)",obligations:"التزامات قادمة غير مسجلة مسبقًا (DT)",purchaseDeadline:"آخر موعد للشراء (اختياري)",analyzeDecision:"حلّل القرار",localFooter:"تبقى معلوماتك المحفوظة في هذا المتصفح.",profileTitle:"ملفك الشخصي",profileIntro:"تساعد تفضيلاتك على تخصيص التوصيات المحلية.",basicInfo:"المعلومات الأساسية",firstName:"الاسم",lastName:"اللقب",age:"العمر",gender:"الجنس (اختياري)",preferNot:"أفضل عدم الإجابة",male:"ذكر",female:"أنثى",other:"آخر",saveProfile:"حفظ الملف",personalQuestions:"15 سؤالًا شخصيًا",questionsNote:"هذه تفضيلات قابلة للتعديل وليست تشخيصًا نفسيًا.",saveAnswers:"حفظ الإجابات",preferencesSummary:"ملخص التفضيلات",pocketTitle:"المحفظة",pocketIntro:"سجل واضح لأموالك.",totalIncome:"إجمالي الدخل",totalExpenses:"إجمالي المصروفات",transactions:"العمليات",statistics:"الإحصائيات",goals:"الأهداف",searchTransactions:"البحث في العمليات",searchPlaceholder:"ابحث في الوصف أو التصنيف",filterType:"النوع",filterPeriod:"الفترة",all:"الكل",income:"دخل",expense:"مصروف",allTime:"كل الوقت",today:"اليوم",thisWeek:"هذا الأسبوع",thisMonth:"هذا الشهر",createGoal:"إنشاء هدف مالي",goalName:"اسم الهدف",goalPlaceholder:"مثال: هاتف جديد",targetAmount:"المبلغ المستهدف (DT)",goalDeadline:"التاريخ المستهدف (اختياري)",addGoal:"إضافة هدف",missionTitle:"إدارة المهام",missionIntro:"تابع المواعيد النهائية والوقت المتبقي.",createMission:"+ إنشاء مهمة",activeMissions:"النشطة",completedMissions:"المنجزة",active:"نشطة",completed:"منجزة",allMissions:"كل المهام",appearanceLanguage:"المظهر واللغة",language:"اللغة",clickSounds:"أصوات نقر هادئة",financialSettings:"الإعدادات المالية",openingBalanceNote:"الرصيد الافتتاحي هو ما كنت تملكه عند بدء السجل. تُضاف العمليات إليه أو تُخصم منه.",openingBalance:"الرصيد الافتتاحي (DT)",saveOpening:"حفظ الرصيد الافتتاحي",dataManagement:"إدارة البيانات",localStorageNote:"تُحفظ البيانات في هذا المتصفح فقط. قد تفقدها عند مسح بيانات المتصفح أو تغيير الجهاز. صدّر نسخة احتياطية بانتظام.",exportBackup:"تصدير نسخة احتياطية",importBackup:"استيراد نسخة احتياطية",exportCSV:"تصدير سجل العمليات CSV",deleteAllData:"حذف جميع بيانات التطبيق",about:"حول NEXUS",aboutText:"أداة شخصية للقرارات والتنظيم. التوصيات المحلية مبنية على المعلومات المسجلة وقواعد بسيطة، وليست توقعات مضمونة أو نصيحة مالية مهنية.",appVersion:"إصدار التطبيق",noTransactions:"لا توجد عمليات بعد. أضف أول عملية للبدء.",noMissions:"لا توجد مهام هنا بعد.",noGoals:"لم تنشئ أهدافًا مالية بعد.",noMission:"لا توجد مهمة نشطة",due:"الموعد النهائي",starts:"البداية",remaining:"الوقت المتبقي",overdue:"متأخرة",timeAvailable:"الوقت المتاح",done:"منجزة",markDone:"إنجاز",reopen:"إعادة فتح",edit:"تعديل",delete:"حذف",cancel:"إلغاء",save:"حفظ",description:"الوصف",category:"التصنيف",dateTime:"التاريخ والوقت",amount:"المبلغ (DT)",source:"المصدر / الوصف",noteOptional:"ملاحظة (اختيارية)",transactionType:"نوع العملية",missionName:"اسم المهمة",missionDescription:"وصف المهمة (اختياري)",startTime:"وقت البداية",endTime:"وقت النهاية",create:"إنشاء",update:"تحديث",required:"يرجى إكمال الحقول المطلوبة.",invalidAmount:"أدخل مبلغًا صحيحًا أكبر من صفر.",missionPast:"موعد النهاية في الماضي. هل تريد حفظ المهمة كمتأخرة؟",saved:"تم الحفظ بنجاح.",deleted:"تم الحذف.",confirmDelete:"هل أنت متأكد من الحذف؟",confirmReset:"سيؤدي هذا إلى حذف جميع بيانات NEXUS نهائيًا من هذا المتصفح. صدّر نسخة احتياطية أولًا إن احتجت إليها. هل تريد المتابعة؟",storageError:"تعذر الحفظ. قد تكون مساحة تخزين المتصفح ممتلئة.",importConfirm:"سيستبدل الاستيراد بيانات التطبيق الحالية. هل تريد المتابعة؟",importSuccess:"تم استيراد النسخة الاحتياطية.",importError:"ملف النسخة الاحتياطية غير صالح.",exportSuccess:"تم تجهيز الملف.",transactionDeleted:"تم حذف العملية.",noAnswers:"لم تُسجّل تفضيلات بعد.",noChat:"مرحبًا! اسألني عن ميزانيتك أو مهامك أو قراراتك. سأوضح ما يمكن استنتاجه من بياناتك المحلية.",answerLimited:"أنا مساعد محلي بسيط، لذلك لا أستطيع معرفة معلومات لم تدخلها إلى التطبيق أو التنبؤ بالمستقبل.",moneyPrompt:"حلّل وضعي المالي اعتمادًا على السجل والأهداف.",tasksPrompt:"ساعدني في ترتيب مهامي الحالية.",summaryPrompt:"أعطني ملخصًا عن وضعي الحالي.",balance:"الرصيد",incomeTotal:"إجمالي الدخل",expenseTotal:"إجمالي المصروفات",net:"صافي التغير",goalProgress:"التقدم نحو الهدف",target:"المستهدف",remainingAmount:"المتبقي",decisionResult:"نتيجة التحليل",recommend:"التوصية",buyNow:"قد يكون الشراء ممكنًا",wait:"الأفضل الانتظار حاليًا",notEnough:"المعلومات غير كافية لتوصية موثوقة",reason:"الأسباب",afterPurchase:"الرصيد بعد الشراء",afterObligations:"بعد الالتزامات المعروفة",reserveGap:"الفارق عن الاحتياطي",limitations:"حدود التحليل",decisionSaved:"تم حفظ التحليل في سجل القرارات.",decisionHistory:"سجل القرارات",noDeadline:"لا يوجد موعد نهائي",goalCreated:"تم إنشاء الهدف.",missionCreated:"تم إنشاء المهمة.",noDescription:"دون وصف",priority:"الأولوية",lateTasks:"مهام متأخرة",lowBalance:"الرصيد سالب حاليًا. راجع المصروفات المسجلة.",nearDeadline:"هناك مهمة متأخرة أو قريبة من موعدها.",profileSaved:"تم حفظ الملف الشخصي.",answersSaved:"تم حفظ الإجابات.",categoryFood:"طعام",categoryTransport:"تنقل",categoryStudy:"دراسة",categoryShopping:"تسوق",categoryBills:"فواتير",categoryOther:"أخرى",question1:"عندما تواجه قرارًا صعبًا، ماذا تفضّل؟",question2:"ما الأولوية عند شراء شيء؟",question3:"كيف تتعامل مع أهدافك؟",question4:"عند وجود عدة مهام، ماذا تفعل؟",question5:"أي وصف يناسب أسلوبك أكثر؟",question6:"هل تشتري أحيانًا أشياء لم تكن تخطط لشرائها؟",question7:"هل تفضّل الاحتفاظ باحتياطي مالي للطوارئ؟",question8:"هل تؤجل المهام عندما يكون موعدها بعيدًا؟",question9:"هل تغيّر رأيك عندما تظهر معلومات جديدة؟",question10:"هل تفضّل أن يوضح المساعد أسباب توصيته؟",question11:"ما أهم هدف تريد تحقيقه خلال الأشهر القادمة؟",question12:"ما أكثر شيء يجعلك تندم على قرار اتخذته؟",question13:"ما الشيء الذي يستحق أن تدفع المال من أجله حتى لو كان غاليًا؟",question14:"ما أكثر مشكلة تتكرر في يومك وتريد حلها؟",question15:"كيف تريد أن يتصرف المساعد عندما يرى أن قرارك قد لا يناسبك؟",q1a:"تحليل التفاصيل",q1b:"قرار سريع",q1c:"استشارة شخص",q1d:"مقارنة النتائج",q2a:"السعر",q2b:"الجودة",q2c:"الحاجة الفعلية",q2d:"المتعة",q3a:"أخطط مسبقًا",q3b:"حسب الظروف",q3c:"أهداف قصيرة",q3d:"المرونة",q4a:"الأصعب",q4b:"الأقرب موعدًا",q4c:"الأسرع",q4d:"الأكثر أهمية",q5a:"حذر",q5b:"متوازن",q5c:"أحب التجربة",q5d:"أفضل النتائج السريعة",yes:"نعم",no:"لا",free1:"اكتب إجابتك...",free2:"اكتب إجابتك...",free3:"اكتب إجابتك...",free4:"اكتب إجابتك...",free5:"اكتب إجابتك...",choose:"اختر إجابة",periodDay:"اليوم",periodWeek:"الأسبوع",periodMonth:"الشهر",periodAll:"كل الوقت",emptyChart:"أضف عمليات مالية لرؤية الإحصائيات.",reserveOkay:"سيبقى رصيدك فوق الاحتياطي المحدد.",reserveLow:"سيصبح رصيدك أقل من الاحتياطي المحدد.",incomeUnknown:"لا توجد معلومات مؤكدة عن دخلك القادم.",taskOverdue:"متأخرة منذ",timeLeft:"متبقٍ",days:"يوم",hours:"ساعة",minutes:"دقيقة",seconds:"ثانية",noDate:"غير محدد",deleteGoalConfirm:"حذف هذا الهدف؟",goalDeleted:"تم حذف الهدف.",noGoalDeadline:"دون تاريخ مستهدف",decisionNotFinancial:"هذا التحليل حسابي، ولا يعرف كل ظروفك أو احتياجاتك.",suggestion:"اقتراح",suggestionMoney:"قارن مصروفاتك المسجلة مع هدفك القادم قبل شراء شيء اختياري.",suggestionTasks:"ابدأ بالمهمة المهمة والأقرب موعدًا، ثم أعد ترتيب القائمة وفق وقتك المتاح.",suggestionSummary:"سأعرض لك ما تدعمه البيانات المسجلة، دون افتراض معلومات غير موجودة.",typeQuestion:"اكتب سؤالك أولًا.",chatClear:"مسح المحادثة",clearChatConfirm:"هل تريد مسح المحادثة المحفوظة؟",newChat:"محادثة جديدة",weekly:"هذا الأسبوع",monthly:"هذا الشهر",opening:"الرصيد الافتتاحي",allTransactions:"كل العمليات",name:"الاسم",status:"الحالة",noData:"لا توجد بيانات كافية.",profileContext:"التفضيلات المحفوظة",deleteTransactionConfirm:"حذف هذه العملية؟",editTransaction:"تعديل العملية",newTransaction:"عملية جديدة",incomeSource:"مصدر الدخل",expenseSource:"سبب المصروف",todayAt:"اليوم",balancePositive:"رصيد إيجابي",balanceNegative:"رصيد سلبي",percentRemaining:"الوقت المتبقي",veryUrgent:"أقل من 20%: الموعد قريب جدًا",urgent:"20% إلى أقل من 50%: انتبه للوقت",moderate:"50% إلى أقل من 75%: الوقت يتناقص",comfortable:"75% أو أكثر: معظم الوقت متاح",goalTargetDate:"الموعد",noGoalsYet:"أضف هدفًا لتتبع التقدم",transactionDate:"تاريخ العملية",localAssistant:"المساعد المحلي",confidence:"مستوى الثقة",confidenceLow:"منخفض — توجد معلومات ناقصة",confidenceMedium:"متوسط — يعتمد على المدخلات الحالية",decisionEssential:"بما أنك تصفه بأنه ضروري، افحص أيضًا البدائل الأقل تكلفة.",decisionOptional:"هذا شراء اختياري؛ انتظر إذا كان سيؤثر على احتياطيك أو التزاماتك.",decisionUseful:"وازن بين فائدته الفعلية والتأثير على رصيدك.",deadlineSoon:"الموعد قريب، لكن ذلك وحده لا يثبت أن الشراء مناسب.",deleteProfileWarning:"ستبقى بقية بيانات التطبيق محفوظة.",goalProgressLabel:"الإنجاز",txTypeIncome:"دخل",txTypeExpense:"مصروف",balanceZero:"لا يوجد رصيد متبقٍ",askForData:"أدخل بيانات أكثر لتحسين هذا التحليل."
+overview:"مساحتك الشخصية",homeSub:"كل ما تحتاجه لإدارة يومك، في مكان واحد.",nextMission:"أقرب مهمة قادمة",viewMissions:"عرض المهام",newMission:"+ مهمة جديدة",activeTasks:"المهام النشطة",completedTasks:"المهام المكتملة",activeSub:"تحتاج إلى متابعتك",doneSub:"إنجازاتك حتى الآن",dailyFocus:"تركيزك اليوم",localData:"بيانات محلية",privacyNote:"بياناتك محفوظة على هذا الجهاز فقط.",askAI:"جهّز سؤالًا لـ ChatGPT",pocketTitle:"Pocket Money",pocketSub:"كل عملية محسوبة، وكل قرار أوضح.",currentBalance:"الرصيد الحالي",balanceFormula:"الرصيد الافتتاحي + الدخل − المصروفات",addExpense:"− مصروف",addIncome:"+ دخل",openingBalance:"الرصيد الافتتاحي",totalIncome:"إجمالي الدخل",totalExpenses:"إجمالي المصروفات",allRecorded:"كل العمليات المسجلة",analysis:"تحليل المصروفات",netThisPeriod:"صافي الفترة",transactionCount:"عدد العمليات",goals:"الأهداف المالية",addGoal:"+ هدف",purchaseSimulator:"محاكي قرار الشراء",purchaseHelp:"أدخل ثمن الشيء لتجهّز رسالة تحليل تراعي رصيدك وأهدافك.",itemName:"اسم الشيء",itemPrice:"الثمن (DT)",priority:"مدى الحاجة",analyzePurchase:"تحليل القرار مع ChatGPT",transactions:"سجل العمليات",exportCSV:"تصدير CSV",backup:"نسخة JSON",importBackup:"استيراد نسخة",missionTitle:"المهام",missionSub:"وقتك واضح، وتقدمك محسوب.",allMissions:"كل المهام",missionLegend:"الأخضر: 75% أو أكثر من الوقت متبقٍ · البرتقالي: 50% · الأصفر: 20% · الأحمر: أقل من 20%.",aiSub:"جهّز معطياتك وسؤالك في رسالة واحدة إلى ChatGPT.",aiHero:"معطياتك. سؤالك. اقتراح واضح.",aiHeroSub:"NEXUS يجهّز الرسالة؛ ChatGPT يحلّل ويجيب.",yourQuestion:"ما سؤالك؟",questionLabel:"السؤال أو القرار الذي تريد مناقشته",extraContext:"معلومات إضافية (اختياري)",includeMoney:"إرفاق المعطيات المالية",includeMoneySub:"الرصيد والدخل والمصروفات والأهداف",includeTasks:"إرفاق المهام",includeTasksSub:"المواعيد وحالة المهام",includeProfile:"إرفاق ملف الشخصية",includeProfileSub:"بياناتك وإجابات أسئلة الشخصية",prepareMessage:"إنشاء رسالة ChatGPT ↗",howWorks:"كيف تعمل هذه الميزة؟",howWorksText:"1. اكتب سؤالك.<br>2. يضيف NEXUS المعطيات التي اخترتها وتعليمات الإجابة المختصرة.<br>3. انسخ الرسالة والصقها في ChatGPT.<br>4. يجيب ChatGPT بناءً على الرسالة التي أرسلتها.",aiWarning:"هذه الميزة لا ترسل البيانات تلقائيًا ولا تقرأ رد ChatGPT. لا ترفق معلومات حساسة لا تريد مشاركتها.",profileTitle:"ملفك الشخصي",profileSub:"أجب بصراحة؛ يمكنك تعديل معلوماتك متى شئت.",basicInfo:"المعلومات الأساسية",firstName:"الاسم",lastName:"اللقب",age:"العمر (اختياري)",gender:"الجنس (اختياري)",aboutYou:"ما الذي تريد تحقيقه؟",decisionStyle:"كيف تفضّل اتخاذ القرارات؟",saveProfile:"حفظ الملف الشخصي",personality:"أسئلة فهم الشخصية",personalitySub:"20 سؤالًا أساسيًا. عند حفظ إجاباتك تختفي الأسئلة، وتبقى إجاباتك متاحة لتعديلها أو إعادة فتحها.",settingsTitle:"الإعدادات",settingsSub:"تحكم في طريقة عمل NEXUS وبياناتك.",appearance:"المظهر والتجربة",language:"لغة التطبيق",languageSub:"العربية أو الإنجليزية",sound:"أصوات الأزرار",soundSub:"صوت خفيف عند التفاعل",notifications:"الإشعارات",notificationsSub:"تنبيهات عند فتح التطبيق وعند المواعيد القريبة",extraQuestions:"أسئلة إضافية اختيارية",extraQuestionsSub:"أضف حتى خمسة أسئلة لفهمك بشكل أفضل. يمكنك تعديلها أو حذفها في أي وقت. تظهر الإجابات عند تجهيز رسالة ChatGPT.",addExtra:"+ إضافة سؤال",dataManagement:"إدارة البيانات",dataManagementSub:"بياناتك محفوظة على هذا المتصفح. احفظ نسخة احتياطية قبل حذفها أو تغيير الجهاز.",exportData:"تصدير البيانات",importData:"استيراد البيانات",resetData:"حذف جميع البيانات",aboutNexus:"حول NEXUS",navHome:"الرئيسية",navPocket:"المال",navMission:"المهام",navSettings:"الإعدادات",missionName:"اسم المهمة",description:"الوصف",startTime:"وقت البداية",deadline:"الموعد النهائي",missionPriority:"الأولوية",save:"حفظ",cancel:"إلغاء",operationName:"اسم العملية",amount:"المبلغ (DT)",operationDate:"التاريخ",category:"التصنيف",notes:"ملاحظات (اختياري)",goalName:"اسم الهدف",targetAmount:"المبلغ المستهدف (DT)",savedAmount:"المبلغ الذي ادخرته (DT)",goalDeadline:"الموعد المستهدف (اختياري)",openingBalanceHelp:"أدخل رصيدك قبل تسجيل العمليات. سيُحسب الرصيد الحالي تلقائيًا.",readyMessage:"رسالتك جاهزة",readyMessageSub:"راجع الرسالة، ثم انسخها والصقها في ChatGPT.",copyMessage:"نسخ الرسالة",openChatGPT:"فتح ChatGPT ↗",close:"إغلاق",aiModalHelp:"اكتب سؤالك وسيجمع NEXUS المعطيات التي اخترتها في رسالة واحدة.",questionText:"نص السؤال",answerText:"إجابتك (اختياري)",extraQuestionsCount:"سؤال إضافي",allTransactions:"كل العمليات",emptyTransactions:"لا توجد عمليات مسجلة بعد.",emptyMissions:"لا توجد مهام بعد. أضف مهمتك الأولى.",emptyGoals:"لا توجد أهداف مالية. أنشئ هدفًا واضحًا لادخارك.",noUpcoming:"لا توجد مهام قادمة",noTasks:"أضف مهمة واضحة لتبدأ بتنظيم يومك.",due:"الوقت المتبقي",overdue:"متأخرة",completed:"مكتملة",upcoming:"قادمة",started:"جارية",edit:"تعديل",delete:"حذف",markDone:"إكمال",undoDone:"إعادة فتح",remaining:"متبقٍ",saved:"تم الحفظ",deleted:"تم الحذف",invalid:"تحقق من البيانات المدخلة.",confirmDelete:"هل تريد حذف هذا العنصر؟",confirmReset:"سيؤدي هذا إلى حذف جميع بيانات NEXUS من هذا المتصفح. هل أنت متأكد؟",copied:"تم نسخ الرسالة. افتح ChatGPT والصقها.",copyFailed:"تعذّر النسخ التلقائي. حدّد الرسالة وانسخها يدويًا.",noQuestion:"اكتب سؤالك أولًا.",noName:"غير محدد",exportDone:"تم تجهيز ملف التصدير.",importSuccess:"تم استيراد البيانات.",importFailed:"ملف غير صالح أو غير متوافق.",extraLimit:"يمكنك إضافة خمسة أسئلة فقط.",extraQuestionPlaceholder:"اكتب سؤالك",notificationsEnabled:"الإشعارات مفعّلة على مستوى التطبيق.",notificationsDisabled:"الإشعارات متوقفة.",notificationsUnsupported:"إشعارات النظام غير مدعومة في هذا المتصفح.",permissionDenied:"لم يُسمح بالإشعارات. يمكنك تغيير الإذن من إعدادات المتصفح.",missionTimeError:"يجب أن يكون الموعد النهائي بعد وقت البداية.",alreadySaved:"الإجابات محفوظة.",reopenQuestions:"تعديل الإجابات",saveAnswers:"حفظ الإجابات",resetAnswers:"إعادة فتح الأسئلة",noAnswers:"أجب عن الأسئلة ثم احفظها.",purchasePrompt:"أدخل اسم المنتج وثمنه الصحيحين.",purchaseTitle:"قرار شراء",purchaseBalance:"الرصيد بعد الشراء",purchaseNeed:"مدى الحاجة",need:"ضروري",useful:"مفيد لكن يمكن الانتظار",want:"رغبة فقط",income:"دخل",expense:"مصروف",opening:"رصيد افتتاحي",food:"طعام",transport:"نقل",clothes:"ملابس",study:"دراسة",entertainment:"ترفيه",work:"عمل",gift:"هدية",other:"أخرى",noCategory:"بدون تصنيف",startPrompt:"أضف مهمة واضحة لتبدأ بتنظيم يومك.",ageQuestion:"العمر غير محدد",extraAnswerPlaceholder:"اكتب إجابتك هنا",unknown:"غير محدد",deleteExtra:"حذف السؤال",editExtra:"تعديل السؤال",goalReached:"تم تحقيق الهدف",goalRemaining:"المتبقي للهدف",goalProgress:"نسبة التقدم",transactionSearch:"ابحث في العمليات...",all:"الكل",thisMonth:"هذا الشهر",lastWeek:"آخر 7 أيام",incomeFilter:"الدخل",expenseFilter:"المصروفات",newest:"الأحدث أولًا",oldest:"الأقدم أولًا",largest:"الأعلى مبلغًا",urgent:"عاجلة",high:"عالية",normal:"عادية",noProfileAnswers:"لم تُحفظ إجابات الشخصية بعد.",notSpecified:"غير محدد"
 
- },
+},
 
- en:{
+en:{
 
- tag:"YOUR PERSONAL DECISION SYSTEM",overview:"YOUR DAY AT A GLANCE",currentBalance:"CURRENT BALANCE",balanceCalculated:"Calculated from your recorded transactions",addMoney:"+ Add money",addExpense:"− Add expense",moneyIn:"MONEY IN",moneyOut:"MONEY OUT",aiHelp:"AI Help",newMission:"New mission",decision:"Decision",nextMission:"Next mission",viewAll:"View all",recentActivity:"Recent activity",home:"Home",pocket:"Pocket",mission:"Mission",profile:"Profile",settingsTitle:"Settings",aiTitle:"AI Help",aiIntro:"A personal assistant that uses your saved app data.",localAIWarning:"This version uses local rules and calculations. It is not a connected generative AI model.",askQuestion:"Ask a question",compareOptions:"Compare options",askPlaceholder:"Ask about your money, plans, or a decision...",moneyAdvice:"Money advice",taskAdvice:"Task priorities",mySummary:"My summary",decisionSimulator:"Decision simulator",decisionIntro:"Compare a purchase against your balance, reserve, and known obligations.",purchaseName:"What are you considering?",purchasePlaceholder:"e.g. Headphones",price:"Price (DT)",purchaseType:"Is it necessary?",optional:"Optional",useful:"Useful",essential:"Essential",reserve:"Desired emergency reserve (DT)",obligations:"Upcoming obligations not already recorded (DT)",purchaseDeadline:"Purchase deadline (optional)",analyzeDecision:"Analyze decision",localFooter:"Your saved information stays in this browser.",profileTitle:"Your profile",profileIntro:"Your preferences help personalize local recommendations.",basicInfo:"Basic information",firstName:"First name",lastName:"Last name",age:"Age",gender:"Gender (optional)",preferNot:"Prefer not to say",male:"Male",female:"Female",other:"Other",saveProfile:"Save profile",personalQuestions:"15 personal questions",questionsNote:"These are editable preferences, not a psychological diagnosis.",saveAnswers:"Save answers",preferencesSummary:"Preferences summary",pocketTitle:"Pocket",pocketIntro:"A clear record of your money.",totalIncome:"TOTAL INCOME",totalExpenses:"TOTAL EXPENSES",transactions:"Transactions",statistics:"Statistics",goals:"Goals",searchTransactions:"Search transactions",searchPlaceholder:"Search description or category",filterType:"Type",filterPeriod:"Period",all:"All",income:"Income",expense:"Expense",allTime:"All time",today:"Today",thisWeek:"This week",thisMonth:"This month",createGoal:"Create a financial goal",goalName:"Goal name",goalPlaceholder:"e.g. New phone",targetAmount:"Target amount (DT)",goalDeadline:"Target date (optional)",addGoal:"Add goal",missionTitle:"Mission control",missionIntro:"Track deadlines and the time remaining for your tasks.",createMission:"+ Create mission",activeMissions:"ACTIVE",completedMissions:"COMPLETED",active:"Active",completed:"Completed",allMissions:"All missions",appearanceLanguage:"Appearance & language",language:"Language",clickSounds:"Subtle button sounds",financialSettings:"Financial settings",openingBalanceNote:"The opening balance is what you had when starting this ledger. Transactions are added to or subtracted from it.",openingBalance:"Opening balance (DT)",saveOpening:"Save opening balance",dataManagement:"Data management",localStorageNote:"Data is stored in this browser only. Clearing browser data or changing devices may remove access to it. Export backups regularly.",exportBackup:"Export backup",importBackup:"Import backup",exportCSV:"Export transactions CSV",deleteAllData:"Delete all app data",about:"About NEXUS",aboutText:"A personal decision and organization tool. Local recommendations use recorded information and simple rules, not guaranteed predictions or professional financial advice.",appVersion:"Application version",noTransactions:"No transactions yet. Add your first transaction to begin.",noMissions:"No missions here yet.",noGoals:"You have not created any financial goals.",due:"Deadline",starts:"Starts",remaining:"Time remaining",overdue:"Overdue",timeAvailable:"Time available",done:"Completed",markDone:"Complete",reopen:"Reopen",edit:"Edit",delete:"Delete",cancel:"Cancel",save:"Save",description:"Description",category:"Category",dateTime:"Date and time",amount:"Amount (DT)",source:"Source / description",noteOptional:"Note (optional)",transactionType:"Transaction type",missionName:"Mission name",missionDescription:"Mission description (optional)",startTime:"Start time",endTime:"End time",create:"Create",update:"Update",required:"Please complete the required fields.",invalidAmount:"Enter a valid amount greater than zero.",missionPast:"The deadline is in the past. Save this mission as overdue?",saved:"Saved successfully.",deleted:"Deleted.",confirmDelete:"Are you sure you want to delete this?",confirmReset:"This permanently deletes all NEXUS data in this browser. Export a backup first if needed. Continue?",storageError:"Could not save. Browser storage may be full.",importConfirm:"Importing will replace the current app data. Continue?",importSuccess:"Backup imported successfully.",importError:"The backup file is invalid.",exportSuccess:"File prepared.",transactionDeleted:"Transaction deleted.",noAnswers:"No preferences recorded yet.",noChat:"Hello! Ask me about your budget, tasks, or decisions. I will explain what can be inferred from your local data.",answerLimited:"I am a simple local assistant, so I cannot know information you have not entered or predict the future.",moneyPrompt:"Analyze my financial situation using my ledger and goals.",tasksPrompt:"Help me prioritize my current tasks.",summaryPrompt:"Give me a summary of my current situation.",balance:"Balance",incomeTotal:"Total income",expenseTotal:"Total expenses",net:"Net change",goalProgress:"Goal progress",target:"Target",remainingAmount:"Remaining",decisionResult:"Analysis result",recommend:"Recommendation",buyNow:"The purchase may be feasible",wait:"Waiting is preferable for now",notEnough:"There is not enough information for a reliable recommendation",reason:"Reasons",afterPurchase:"Balance after purchase",afterObligations:"After known obligations",reserveGap:"Gap against reserve",limitations:"Limitations",decisionSaved:"Analysis saved to decision history.",decisionHistory:"Decision history",noDeadline:"No deadline",goalCreated:"Goal created.",missionCreated:"Mission created.",noDescription:"No description",priority:"Priority",lateTasks:"Overdue missions",lowBalance:"Your balance is negative. Review your recorded expenses.",nearDeadline:"A mission is overdue or approaching its deadline.",profileSaved:"Profile saved.",answersSaved:"Answers saved.",categoryFood:"Food",categoryTransport:"Transport",categoryStudy:"Study",categoryShopping:"Shopping",categoryBills:"Bills",categoryOther:"Other",question1:"When facing a difficult decision, what do you prefer?",question2:"What matters most when buying something?",question3:"How do you approach your goals?",question4:"When you have several tasks, what do you do?",question5:"Which description fits your style best?",question6:"Do you sometimes buy things you did not plan to buy?",question7:"Do you prefer keeping emergency savings?",question8:"Do you postpone tasks when their deadlines are far away?",question9:"Do you change your mind when new information appears?",question10:"Do you want the assistant to explain its recommendations?",question11:"What is your most important goal for the coming months?",question12:"What most often makes you regret a decision?",question13:"What is worth paying more for?",question14:"What recurring daily problem would you like to solve?",question15:"How should the assistant respond when it thinks a decision may not suit you?",q1a:"Analyze details",q1b:"Decide quickly",q1c:"Ask someone",q1d:"Compare outcomes",q2a:"Price",q2b:"Quality",q2c:"Actual need",q2d:"Enjoyment",q3a:"Plan ahead",q3b:"Adapt to circumstances",q3c:"Short-term goals",q3d:"Stay flexible",q4a:"Hardest task",q4b:"Nearest deadline",q4c:"Quickest task",q4d:"Most important task",q5a:"Cautious",q5b:"Balanced",q5c:"Like to experiment",q5d:"Prefer quick results",yes:"Yes",no:"No",free1:"Write your answer...",free2:"Write your answer...",free3:"Write your answer...",free4:"Write your answer...",free5:"Write your answer...",choose:"Choose an answer",periodDay:"Today",periodWeek:"This week",periodMonth:"This month",periodAll:"All time",emptyChart:"Add transactions to see statistics.",reserveOkay:"Your balance will remain above the specified reserve.",reserveLow:"Your balance will fall below the specified reserve.",incomeUnknown:"There is no confirmed information about future income.",taskOverdue:"Overdue by",timeLeft:"Remaining",days:"days",hours:"hours",minutes:"minutes",seconds:"seconds",noDate:"Not set",deleteGoalConfirm:"Delete this goal?",goalDeleted:"Goal deleted.",decisionNotFinancial:"This is a calculation, and it cannot know all your circumstances or needs.",suggestion:"Suggestion",suggestionMoney:"Compare recorded spending with your next goal before making an optional purchase.",suggestionTasks:"Start with an important task that has a close deadline, then adjust to your available time.",suggestionSummary:"I will show what your saved data supports without assuming missing information.",typeQuestion:"Write your question first.",chatClear:"Clear chat",clearChatConfirm:"Clear the saved conversation?",newChat:"New chat",weekly:"This week",monthly:"This month",opening:"Opening balance",allTransactions:"All transactions",name:"Name",status:"Status",noData:"Not enough data.",profileContext:"Saved preferences",deleteTransactionConfirm:"Delete this transaction?",editTransaction:"Edit transaction",newTransaction:"New transaction",incomeSource:"Income source",expenseSource:"Expense reason",todayAt:"Today",balancePositive:"Positive balance",balanceNegative:"Negative balance",percentRemaining:"Time remaining",veryUrgent:"Below 20%: deadline is very close",urgent:"20% to below 50%: watch the time",moderate:"50% to below 75%: time is decreasing",comfortable:"75% or more: most time remains",goalTargetDate:"Target date",noGoalsYet:"Add a goal to track progress",transactionDate:"Transaction date",localAssistant:"Local assistant",confidence:"Confidence",confidenceLow:"Low — important information is missing",confidenceMedium:"Medium — based on current inputs",decisionEssential:"Since you describe it as essential, also check lower-cost alternatives.",decisionOptional:"This is optional; wait if it would affect your reserve or obligations.",decisionUseful:"Balance its practical benefit against its impact on your funds.",deadlineSoon:"The deadline is close, but that alone does not prove the purchase is suitable.",deleteProfileWarning:"Other app data will remain saved.",goalProgressLabel:"Progress",txTypeIncome:"Income",txTypeExpense:"Expense",balanceZero:"No balance remaining",askForData:"Enter more information to improve this analysis."
-
- }
+overview:"YOUR SPACE",homeSub:"Everything you need to manage your day, in one place.",nextMission:"NEXT MISSION",viewMissions:"View missions",newMission:"+ New mission",activeTasks:"Active missions",completedTasks:"Completed missions",activeSub:"Need your attention",doneSub:"Your achievements",dailyFocus:"TODAY'S FOCUS",localData:"LOCAL DATA",privacyNote:"Your data stays on this device.",askAI:"Prepare a ChatGPT question",pocketTitle:"Pocket Money",pocketSub:"Every transaction counted. Every decision clearer.",currentBalance:"CURRENT BALANCE",balanceFormula:"Opening balance + income − expenses",addExpense:"− Expense",addIncome:"+ Income",openingBalance:"Opening balance",totalIncome:"TOTAL INCOME",totalExpenses:"TOTAL EXPENSES",allRecorded:"All recorded transactions",analysis:"Spending analysis",netThisPeriod:"Period net",transactionCount:"Transactions",goals:"Financial goals",addGoal:"+ Goal",purchaseSimulator:"Purchase decision simulator",purchaseHelp:"Enter the price to prepare an analysis using your balance and goals.",itemName:"Item name",itemPrice:"Price (DT)",priority:"Need level",analyzePurchase:"Analyze with ChatGPT",transactions:"Transactions",exportCSV:"Export CSV",backup:"JSON backup",importBackup:"Import backup",missionTitle:"Missions",missionSub:"Your time is clear. Your progress is measured.",allMissions:"All missions",missionLegend:"Green: 75%+ time remaining · Orange: 50% · Yellow: 20% · Red: under 20%.",aiSub:"Prepare your context and question in one message for ChatGPT.",aiHero:"Your context. Your question. A clear recommendation.",aiHeroSub:"NEXUS prepares the message; ChatGPT analyzes and answers.",yourQuestion:"What's your question?",questionLabel:"Question or decision you want to discuss",extraContext:"Additional context (optional)",includeMoney:"Include financial data",includeMoneySub:"Balance, income, expenses and goals",includeTasks:"Include missions",includeTasksSub:"Deadlines and mission status",includeProfile:"Include personal profile",includeProfileSub:"Profile and personality answers",prepareMessage:"Generate ChatGPT message ↗",howWorks:"How does it work?",howWorksText:"1. Enter your question.<br>2. NEXUS adds selected context and concise-answer instructions.<br>3. Copy the message and paste it into ChatGPT.<br>4. ChatGPT responds based on the message you sent.",aiWarning:"This feature does not send data automatically or read ChatGPT's reply. Do not include sensitive information you do not want to share.",profileTitle:"Your profile",profileSub:"Answer honestly. You can edit your information anytime.",basicInfo:"Basic information",firstName:"First name",lastName:"Last name",age:"Age (optional)",gender:"Gender (optional)",aboutYou:"What do you want to achieve?",decisionStyle:"How do you prefer to make decisions?",saveProfile:"Save profile",personality:"Personality questionnaire",personalitySub:"20 core questions. Save your answers to hide the questions. You can edit or reopen them later.",settingsTitle:"Settings",settingsSub:"Control your NEXUS experience and data.",appearance:"Appearance & experience",language:"App language",languageSub:"Arabic or English",sound:"Button sounds",soundSub:"Subtle interaction sound",notifications:"Notifications",notificationsSub:"Alerts when opening the app and for upcoming deadlines",extraQuestions:"Optional extra questions",extraQuestionsSub:"Add up to five questions. Edit or delete them anytime. Answers are included in your ChatGPT message.",addExtra:"+ Add question",dataManagement:"Data management",dataManagementSub:"Your data is stored in this browser. Back it up before deleting or changing devices.",exportData:"Export data",importData:"Import data",resetData:"Delete all data",aboutNexus:"About NEXUS",navHome:"Home",navPocket:"Pocket",navMission:"Missions",navSettings:"Settings",missionName:"Mission name",description:"Description",startTime:"Start time",deadline:"Deadline",missionPriority:"Priority",save:"Save",cancel:"Cancel",operationName:"Transaction name",amount:"Amount (DT)",operationDate:"Date",category:"Category",notes:"Notes (optional)",goalName:"Goal name",targetAmount:"Target amount (DT)",savedAmount:"Amount saved (DT)",goalDeadline:"Target date (optional)",openingBalanceHelp:"Enter your balance before recording transactions. Your current balance is calculated automatically.",readyMessage:"Your message is ready",readyMessageSub:"Review it, then copy and paste it into ChatGPT.",copyMessage:"Copy message",openChatGPT:"Open ChatGPT ↗",close:"Close",aiModalHelp:"Enter your question and NEXUS will combine it with your selected context.",questionText:"Question text",answerText:"Your answer (optional)",extraQuestionsCount:"Extra question",allTransactions:"All transactions",emptyTransactions:"No transactions yet.",emptyMissions:"No missions yet. Add your first mission.",emptyGoals:"No financial goals yet. Create a savings goal.",noUpcoming:"No upcoming missions",noTasks:"Add a clear mission to organize your day.",due:"Time remaining",overdue:"Overdue",completed:"Completed",upcoming:"Upcoming",started:"In progress",remaining:"remaining",edit:"Edit",delete:"Delete",markDone:"Complete",undoDone:"Reopen",saved:"Saved",deleted:"Deleted",invalid:"Please check your entries.",confirmDelete:"Delete this item?",confirmReset:"This deletes all NEXUS data in this browser. Are you sure?",copied:"Message copied. Open ChatGPT and paste it.",copyFailed:"Automatic copy failed. Select and copy the message manually.",noQuestion:"Enter your question first.",noName:"Not specified",exportDone:"Export file prepared.",importSuccess:"Data imported.",importFailed:"Invalid or incompatible file.",extraLimit:"You can add up to five questions.",extraQuestionPlaceholder:"Enter your question",notificationsEnabled:"App notifications are enabled.",notificationsDisabled:"Notifications are disabled.",notificationsUnsupported:"System notifications are not supported in this browser.",permissionDenied:"Notifications permission denied. Change it in browser settings.",missionTimeError:"The deadline must be after the start time.",alreadySaved:"Answers saved.",reopenQuestions:"Edit answers",saveAnswers:"Save answers",resetAnswers:"Reopen questions",noAnswers:"Answer the questions and save them.",purchasePrompt:"Enter a valid item name and price.",purchaseTitle:"Purchase decision",purchaseBalance:"Balance after purchase",purchaseNeed:"Need level",need:"Essential",useful:"Useful but can wait",want:"Just a want",income:"Income",expense:"Expense",opening:"Opening balance",food:"Food",transport:"Transport",clothes:"Clothes",study:"Study",entertainment:"Entertainment",work:"Work",gift:"Gift",other:"Other",noCategory:"Uncategorized",transactionSearch:"Search transactions...",all:"All",thisMonth:"This month",lastWeek:"Last 7 days",incomeFilter:"Income",expenseFilter:"Expenses",newest:"Newest first",oldest:"Oldest first",largest:"Largest amount",urgent:"Urgent",high:"High",normal:"Normal",noProfileAnswers:"No personality answers saved yet.",ageQuestion:"Age not specified",extraAnswerPlaceholder:"Enter your answer here",unknown:"Not specified",deleteExtra:"Delete question",editExtra:"Edit question",goalReached:"Goal reached",goalRemaining:"Remaining to goal",goalProgress:"Progress",transactionCount:"Transactions",allTransactions:"All transactions",startPrompt:"Add a clear mission to organize your day.",notSpecified:"Not specified"}
 
 };
 
-function tr(key){
+function t(k){return (translations[state.language]||translations.ar)[k]??translations.ar[k]??k}
 
- const lang=data.language==="en"?"en":"ar";
+function changeLanguage(lang){state.language=lang==="en"?"en":"ar";saveState();applyLanguage();renderAll()}
 
- return (translations[lang]&&translations[lang][key])||translations.en[key]||key;
+function applyLanguage(){const en=state.language==="en";document.documentElement.lang=state.language;document.documentElement.dir=en?"ltr":"rtl";$("languageSelect").value=state.language;document.querySelectorAll("[data-i]").forEach(el=>{const k=el.dataset.i;if(translations[state.language][k]!==undefined)el.innerHTML=translations[state.language][k]});$("txSearch").placeholder=t("transactionSearch");$("aiQuestion").placeholder=en?"e.g. Should I change my plan or continue?":"مثال: هل أغيّر خطتي أم أستمر؟";$("aiContext").placeholder=en?"Any details you want ChatGPT to know...":"أي تفاصيل أخرى تريد أن يعرفها ChatGPT...";$("buyName").placeholder=en?"e.g. Shoes":"مثال: حذاء";$("missionName").placeholder=en?"Review lesson":"مراجعة الدرس";$("missionDesc").placeholder=en?"Mission details...":"تفاصيل المهمة...";$("notificationStatus").textContent=notificationStatusText()}
 
-}
+function openPage(page){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$("page-"+page).classList.add("active");document.querySelectorAll(".nav-item").forEach(x=>x.classList.toggle("active",x.dataset.page===page));if(page==="profile")renderProfile();if(page==="pocket")renderPocket();if(page==="mission")renderMissions();if(page==="settings")renderSettings();window.scrollTo({top:0,behavior:"smooth"})}
 
-function esc(value){
+function openModal(id){$(id).classList.add("show");document.body.style.overflow="hidden"}
 
- return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function closeModal(id){$(id).classList.remove("show");if(!document.querySelector(".modal-backdrop.show"))document.body.style.overflow=""}
 
-}
+function backdropClose(e,id){if(e.target.id===id)closeModal(id)}
 
-function money(n,showSign=false){
+function moneyTotals(){const income=state.transactions.filter(x=>x.type==="income").reduce((s,x)=>s+x.amount,0);const expenses=state.transactions.filter(x=>x.type==="expense").reduce((s,x)=>s+x.amount,0);return {income,expenses,balance:Number(state.openingBalance)+income-expenses}}
 
- n=Number(n)||0;
+function activeMissions(){return state.missions.filter(m=>!m.completed)}
 
- const abs=Math.abs(n).toLocaleString(data.language==="ar"?"en-US":"en-US",{minimumFractionDigits:3,maximumFractionDigits:3});
+function sortedMissions(){return [...state.missions].sort((a,b)=>{if(a.completed!==b.completed)return a.completed?1:-1;return new Date(a.deadline)-new Date(b.deadline)})}
 
- const sign=showSign?(n>0?"+":n<0?"−":""):(n<0?"−":"");
+function nextMission(){return activeMissions().filter(m=>new Date(m.deadline)>new Date()).sort((a,b)=>new Date(a.deadline)-new Date(b.deadline))[0]||null}
 
- return sign+abs+" DT";
+function renderAll(){applyLanguage();renderHome();renderPocket();renderMissions();renderProfile();renderSettings()}
 
-}
+function renderHome(){const p=state.profile;const name=(p.firstName||"").trim();$("greeting").textContent=state.language==="en"?(name?`Welcome back, ${name}.`:"Welcome to NEXUS."):(name?`أهلًا ${name}، مرحبًا بك.`:"أهلًا بك في NEXUS.");const active=activeMissions();$("homeActive").textContent=active.length;$("homeDone").textContent=state.missions.filter(m=>m.completed).length;const m=nextMission();if(m){$("homeMissionName").textContent=m.name;const start=new Date(m.start).getTime(),end=new Date(m.deadline).getTime(),now=Date.now();$("homeProgress").style.width=(end>start?Math.max(0,Math.min(100,(end-now)/(end-start)*100)):0)+"%";}else{$("homeMissionName").textContent=t("noUpcoming");$("homeCountdown").textContent="--:--:--";$("homeProgress").style.width="0%"}$("homeFocus").textContent=active.length?(state.language==="en"?`${active.length} active mission(s). Focus on the closest deadline first.`:`لديك ${active.length} مهمة نشطة. ابدأ بالأقرب موعدًا.`):t("startPrompt");tickCountdown();$("headerBell").textContent=state.notifications?"♧":"♧"}
 
-function dateFmt(d,options={day:"numeric",month:"short",year:"numeric"}){
+function tickCountdown(){const m=nextMission();if(!m){$("homeCountdown").textContent="--:--:--";return}const diff=new Date(m.deadline).getTime()-Date.now();if(diff<=0){$("homeCountdown").textContent=state.language==="en"?"OVERDUE":"انتهى الوقت";return}const days=Math.floor(diff/86400000),hours=Math.floor(diff%86400000/3600000),mins=Math.floor(diff%3600000/60000),secs=Math.floor(diff%60000/1000);$("homeCountdown").textContent=(days?days+(state.language==="en"?"d ":"ي "):"")+String(hours).padStart(2,"0")+":"+String(mins).padStart(2,"0")+":"+String(secs).padStart(2,"0")}
 
- const dt=new Date(d);
+function periodTransactions(){const p=$("chartPeriod")?.value||"all";const now=new Date();return state.transactions.filter(x=>{const d=new Date((x.date||today())+"T12:00:00");if(p==="week")return now-d<=7*86400000&&now>=d;if(p==="month")return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();return true})}
 
- if(!Number.isFinite(dt.getTime()))return tr("noDate");
+function renderPocket(){const totals=moneyTotals();$("pBalance").textContent=fmt(totals.balance);$("pBalance").style.color=totals.balance<0?"var(--red)":"var(--text)";$("pIncome").textContent=fmt(totals.income);$("pExpenses").textContent=fmt(totals.expenses);const tx=periodTransactions(),net=tx.reduce((s,x)=>s+(x.type==="income"?x.amount:-x.amount),0);$("pNet").textContent=fmt(net);$("pNet").style.color=net<0?"var(--red)":"var(--green)";$("pCount").textContent=tx.length;renderChart(tx);renderTransactions();renderGoals()}
 
- try{return new Intl.DateTimeFormat(data.language==="ar"?"ar-TN":"en-GB",options).format(dt)}catch(e){return dt.toLocaleDateString()}
+function renderChart(tx){const cats={};tx.filter(x=>x.type==="expense").forEach(x=>cats[x.category||"other"]=(cats[x.category||"other"]||0)+x.amount);const entries=Object.entries(cats).sort((a,b)=>b[1]-a[1]);const total=entries.reduce((s,x)=>s+x[1],0);if(!entries.length){$("pChart").innerHTML=`<div class="empty"><div class="empty-icon">◈</div>${state.language==="en"?"No spending recorded for this period.":"لا توجد مصروفات مسجلة في هذه الفترة."}</div>`;return}$("pChart").innerHTML=entries.slice(0,6).map(([cat,val])=>`<div class="bar-row"><span>${escapeHTML(t(cat)||cat)}</span><div class="bar-track"><div style="width:${total?val/total*100:0}%"></div></div><span style="text-align:end;direction:ltr">${val.toFixed(2)}</span></div>`).join("")}
 
-}
+function renderTransactions(){if(!$("transactionList"))return;let list=[...state.transactions];const filter=$("txFilter").value,search=$("txSearch").value.trim().toLowerCase();if(filter!=="all")list=list.filter(x=>x.type===filter);if(search)list=list.filter(x=>(x.name+" "+(x.notes||"")+" "+t(x.category||"other")).toLowerCase().includes(search));const sort=$("txSort").value;list.sort((a,b)=>sort==="old"?new Date(a.date)-new Date(b.date):sort==="high"?b.amount-a.amount:new Date(b.date)-new Date(a.date));$("txCountLabel").textContent=list.length;if(!list.length){$("transactionList").innerHTML=`<div class="empty"><div class="empty-icon">◈</div>${t("emptyTransactions")}</div>`;return}$("transactionList").innerHTML=list.map(x=>`<div class="transaction"><div style="min-width:0;flex:1"><div class="tx-left"><div class="tx-icon">${x.type==="income"?"↗":"↘"}</div><div style="min-width:0"><div class="tx-name">${escapeHTML(x.name)}</div><div class="tx-date">${escapeHTML(x.date||"")} · ${escapeHTML(t(x.category||"other"))}</div>${x.notes?`<div class="smalltext">${escapeHTML(x.notes)}</div>`:""}</div></div><div class="tx-actions"><button onclick="editTransaction('${x.id}')">${t("edit")}</button><button onclick="deleteTransaction('${x.id}')">${t("delete")}</button></div></div><div class="tx-amount ${x.type}">${x.type==="income"?"+":"−"}${fmt(x.amount)}</div></div>`).join("")}
 
-function datetimeLocalValue(date=new Date()){
+function setTxType(type){$("txType").value=type;$("txModalTitle").textContent=type==="income"?t("addIncome"):t("addExpense");if(!$("txId").value){$("txName").value="";$("txAmount").value="";$("txDate").value=today();$("txNotes").value=""}}
 
- const d=new Date(date.getTime()-date.getTimezoneOffset()*60000);
+function saveTransaction(e){e.preventDefault();const name=$("txName").value.trim(),amount=Number($("txAmount").value),date=$("txDate").value;if(!name||!Number.isFinite(amount)||amount<=0||!date){toast(t("invalid"));return}const id=$("txId").value;const item={id:id||uid(),name,amount,type:$("txType").value,date,category:$("txCategory").value,notes:$("txNotes").value.trim(),updatedAt:nowISO()};if(id){const i=state.transactions.findIndex(x=>x.id===id);if(i>=0)state.transactions[i]=item;else state.transactions.push(item)}else state.transactions.push(item);saveState();closeModal("transactionModal");$("transactionForm").reset();$("txId").value="";$("txDate").value=today();renderAll();toast(t("saved"))}
 
- return d.toISOString().slice(0,16);
+function editTransaction(id){const x=state.transactions.find(a=>a.id===id);if(!x)return;$("txId").value=x.id;$("txName").value=x.name;$("txAmount").value=x.amount;$("txType").value=x.type;$("txDate").value=x.date||today();$("txCategory").value=x.category||"other";$("txNotes").value=x.notes||"";$("txModalTitle").textContent=t("edit");openModal("transactionModal")}
 
-}
+function deleteTransaction(id){if(!confirm(t("confirmDelete")))return;state.transactions=state.transactions.filter(x=>x.id!==id);saveState();renderAll();toast(t("deleted"))}
 
-function toast(message){
+function saveOpeningBalance(e){e.preventDefault();const v=Number($("openingAmount").value);if(!Number.isFinite(v)){toast(t("invalid"));return}state.openingBalance=v;saveState();closeModal("balanceModal");renderAll();toast(t("saved"))}
 
- const el=$("toast");el.textContent=message;el.classList.add("show");
+function renderGoals(){const el=$("goalList");if(!state.goals.length){el.innerHTML=`<div class="empty">${t("emptyGoals")}</div>`;return}el.innerHTML=state.goals.map(g=>{const pct=Math.min(100,Math.max(0,g.saved/g.target*100));return `<div class="goal"><div class="task-top"><div style="min-width:0"><div style="font-size:13px;font-weight:750">${escapeHTML(g.name)}</div><div class="smalltext" style="margin-top:5px">${fmt(g.saved)} / ${fmt(g.target)}</div></div><span class="pill">${pct.toFixed(0)}%</span></div><div class="progress"><div style="width:${pct}%"></div></div>${g.date?`<div class="smalltext" style="margin-top:7px">${escapeHTML(g.date)}</div>`:""}<div class="tx-actions"><button onclick="editGoal('${g.id}')">${t("edit")}</button><button onclick="deleteGoal('${g.id}')">${t("delete")}</button></div></div>`}).join("")}
 
- clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2600);
+function saveGoal(e){e.preventDefault();const name=$("goalName").value.trim(),target=Number($("goalTarget").value),saved=Number($("goalSaved").value);if(!name||target<=0||saved<0||!Number.isFinite(target)||!Number.isFinite(saved)){toast(t("invalid"));return}const id=$("goalId").value,item={id:id||uid(),name,target,saved,date:$("goalDate").value};if(id)state.goals=state.goals.map(g=>g.id===id?item:g);else state.goals.push(item);saveState();closeModal("goalModal");renderPocket();toast(t("saved"))}
 
-}
+function editGoal(id){const g=state.goals.find(x=>x.id===id);if(!g)return;$("goalId").value=g.id;$("goalName").value=g.name;$("goalTarget").value=g.target;$("goalSaved").value=g.saved;$("goalDate").value=g.date||"";$("goalModalTitle").textContent=t("edit");openModal("goalModal")}
 
-function beep(){
+function deleteGoal(id){if(!confirm(t("confirmDelete")))return;state.goals=state.goals.filter(g=>g.id!==id);saveState();renderPocket()}
 
- if(!data.sound)return;
+function saveMission(e){e.preventDefault();const name=$("missionName").value.trim(),start=$("missionStart").value,deadline=$("missionDeadline").value;if(!name||!start||!deadline||new Date(deadline)<=new Date(start)){toast(t("missionTimeError"));return}const id=$("missionId").value,old=state.missions.find(m=>m.id===id),item={id:id||uid(),name,description:$("missionDesc").value.trim(),start,deadline,priority:$("missionPriority").value,completed:old?old.completed:false,createdAt:old?old.createdAt:nowISO()};if(id)state.missions=state.missions.map(m=>m.id===id?item:m);else state.missions.push(item);saveState();closeModal("missionModal");$("missionForm").reset();$("missionId").value="";renderAll();toast(t("saved"))}
 
- try{
+function editMission(id){const m=state.missions.find(x=>x.id===id);if(!m)return;$("missionId").value=m.id;$("missionName").value=m.name;$("missionDesc").value=m.description||"";$("missionStart").value=m.start;$("missionDeadline").value=m.deadline;$("missionPriority").value=m.priority||"normal";$("missionModalTitle").textContent=t("edit");openModal("missionModal")}
 
-  audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();
+function toggleMission(id){state.missions=state.missions.map(m=>m.id===id?{...m,completed:!m.completed,completedAt:!m.completed?nowISO():null}:m);saveState();renderAll()}
 
-  const osc=audioContext.createOscillator(),gain=audioContext.createGain();
+function deleteMission(id){if(!confirm(t("confirmDelete")))return;state.missions=state.missions.filter(m=>m.id!==id);saveState();renderAll();toast(t("deleted"))}
 
-  osc.type="sine";osc.frequency.value=500;gain.gain.value=.025;
-
-  osc.connect(gain);gain.connect(audioContext.destination);
-
-  osc.start();gain.gain.exponentialRampToValueAtTime(.0001,audioContext.currentTime+.055);
-
-  osc.stop(audioContext.currentTime+.06);
-
- }catch(e){}
-
-}
-
-document.addEventListener("click",e=>{
-
- if(e.target.closest("button"))beep();
-
-});
-
-function navigate(page,subtab){
-
- const valid=["home","ai","profile","pocket","mission","settings"];
-
- if(!valid.includes(page))page="home";
-
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-
- $("page-"+page).classList.add("active");
-
- document.querySelectorAll("nav.bottom button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
-
- if(page==="profile")renderProfile();
-
- if(page==="pocket"){renderPocket();if(subtab)setPocketTab(subtab)}
-
- if(page==="mission")renderMissions();
-
- if(page==="ai"){renderChat();if(subtab==="compare")setAiMode("compare")}
-
- if(page==="settings")fillSettings();
-
- window.scrollTo({top:0,behavior:"smooth"});
-
-}
-
-function changeLanguage(lang){
-
- data.language=lang==="en"?"en":"ar";persist();applyLanguage();renderAll();
-
-}
-
-function applyLanguage(){
-
- const lang=data.language==="en"?"en":"ar";
-
- document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
-
- document.title="NEXUS — Personal Decision System";
-
- document.querySelectorAll("[data-i18n]").forEach(el=>{const key=el.dataset.i18n;if(translations[lang][key])el.textContent=translations[lang][key]});
-
- document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const key=el.dataset.i18nPlaceholder;if(translations[lang][key])el.placeholder=translations[lang][key]});
-
- if($("settingLanguage"))$("settingLanguage").value=lang;
-
-}
-
-function setSound(on){data.sound=!!on;persist()}
-
-function fillSettings(){
-
- $("settingLanguage").value=data.language;
-
- $("settingSound").checked=!!data.sound;
-
- $("settingOpening").value=Number(data.openingBalance)||0;
-
-}
-
-function totals(){
-
- let income=0,expense=0;
-
- for(const t of data.transactions){
-
-  const a=Number(t.amount)||0;
-
-  if(t.type==="income")income+=a;else if(t.type==="expense")expense+=a;
-
- }
-
- return {income,expense,balance:(Number(data.openingBalance)||0)+income-expense,net:income-expense};
-
-}
-
-function renderAll(){applyLanguage();renderHome();renderPocket();renderMissions();renderProfile();renderChat();fillSettings()}
-
-function renderHome(){
-
- const t=totals(),first=data.profile.first.trim();
-
- const h=new Date().getHours();
-
- const greeting=data.language==="ar"?(h<12?"صباح الخير":h<18?"مساء الخير":"مساء هادئ"):(h<12?"Good morning":h<18?"Good afternoon":"Good evening");
-
- $("greeting").textContent=greeting+(first?"، "+first:"");
-
- $("todayLine").textContent=dateFmt(now(),{weekday:"long",day:"numeric",month:"long"});
-
- $("homeBalance").innerHTML=esc(money(t.balance)) ;
-
- $("pocketBalance").textContent=money(t.balance);
-
- $("homeIncome").textContent="+"+money(t.income);
-
- $("homeExpense").textContent="−"+money(t.expense);
-
- $("pocketIncome").textContent=money(t.income);
-
- $("pocketExpense").textContent=money(t.expense);
-
- $("balancePill").textContent=t.balance<0?tr("balanceNegative"):t.balance>0?tr("balancePositive"):tr("balanceZero");
-
- $("balancePill").className="pill "+(t.balance<0?"red":t.balance>0?"green":"");
-
- const upcoming=data.missions.filter(m=>!m.completed&&!m.deleted).sort((a,b)=>new Date(a.end)-new Date(b.end))[0];
-
- $("homeMission").innerHTML=upcoming?missionCard(upcoming,true):`<div class="empty"><div class="empty-icon">◷</div>${tr("noMission")}<div style="margin-top:12px"><button class="btn btn-secondary btn-small" onclick="openMissionModal()">${tr("createMission")}</button></div></div>`;
-
- const recent=[...data.transactions].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3);
-
- $("homeTransactions").innerHTML=recent.length?recent.map(txCard).join(""):`<div class="empty">${tr("noTransactions")}</div>`;
-
- let alerts="";
-
- if(t.balance<0)alerts+=`<div class="notice danger">${tr("lowBalance")}</div>`;
-
- if(data.missions.some(m=>!m.completed&&!m.deleted&&new Date(m.end).getTime()<Date.now()))alerts+=`<div class="notice warning">${tr("nearDeadline")}</div>`;
-
- $("homeAlerts").innerHTML=alerts;
-
-}
-
-function transactionLabel(t){return t.description||tr(t.type==="income"?"income":"expense")}
-
-function txCard(t){
-
- const sign=t.type==="income"?"+":"−";
-
- const cls=t.type==="income"?"green":"red";
-
- return `<div class="item"><div class="row between"><div class="grow"><div class="item-title">${esc(transactionLabel(t))}</div><div class="item-meta">${esc(t.category||tr("categoryOther"))} · ${esc(dateFmt(t.date,{day:"numeric",month:"short",year:"numeric"}))}</div></div><div class="${cls}" style="font-weight:800;white-space:nowrap">${sign}${esc(money(t.amount))}</div></div><div class="row wrap" style="margin-top:10px"><button class="btn btn-secondary btn-small" onclick="editTransaction('${esc(t.id)}')">${tr("edit")}</button><button class="btn btn-danger btn-small" onclick="deleteTransaction('${esc(t.id)}')">${tr("delete")}</button></div></div>`;
-
-}
-
-function openModal(title,html){
-
- $("modalTitle").textContent=title;$("modalBody").innerHTML=html;$("modalBackdrop").classList.add("open");
-
- document.body.style.overflow="hidden";
-
-}
-
-function closeModal(){
-
- $("modalBackdrop").classList.remove("open");document.body.style.overflow="";
-
- modalMissionId=null;modalTransactionId=null;
-
-}
-
-function openMoneyModal(type,tx=null){
-
- modalTransactionId=tx?tx.id:null;
-
- const isIncome=type==="income";
-
- const date=tx?.date||new Date().toISOString();
-
- openModal(tx?tr("editTransaction"):tr("newTransaction"),`
-
- <div class="field"><label>${tr("transactionType")}</label><select id="mType"><option value="income" ${type==="income"?"selected":""}>${tr("income")}</option><option value="expense" ${type==="expense"?"selected":""}>${tr("expense")}</option></select></div>
-
- <div class="field"><label>${tr("amount")}</label><input id="mAmount" type="number" min="0.001" step="0.001" inputmode="decimal" value="${tx?esc(tx.amount):""}" placeholder="0.000"></div>
-
- <div class="field"><label>${tr("source")}</label><input id="mDescription" maxlength="120" value="${esc(tx?.description||"")}" placeholder="${tr(isIncome?"incomeSource":"expenseSource")}"></div>
-
- <div class="field"><label>${tr("category")}</label><select id="mCategory">
-
- <option value="Food">${tr("categoryFood")}</option><option value="Transport">${tr("categoryTransport")}</option><option value="Study">${tr("categoryStudy")}</option><option value="Shopping">${tr("categoryShopping")}</option><option value="Bills">${tr("categoryBills")}</option><option value="Other">${tr("categoryOther")}</option></select></div>
-
- <div class="field"><label>${tr("transactionDate")}</label><input id="mDate" type="datetime-local" value="${datetimeLocalValue(new Date(date))}"></div>
-
- <div class="field"><label>${tr("noteOptional")}</label><textarea id="mNote" maxlength="500">${esc(tx?.note||"")}</textarea></div>
-
- <div class="row"><button class="btn btn-primary grow" onclick="saveTransaction()">${tx?tr("update"):tr("save")}</button><button class="btn btn-secondary" onclick="closeModal()">${tr("cancel")}</button></div>
-
- `);
-
- if(tx&&$("mCategory"))$("mCategory").value=tx.category||"Other";
-
-}
-
-function saveTransaction(){
-
- const type=$("mType").value,amount=Number($("mAmount").value),description=$("mDescription").value.trim(),date=$("mDate").value;
-
- if(!Number.isFinite(amount)||amount<=0){toast(tr("invalidAmount"));return}
-
- if(!date){toast(tr("required"));return}
-
- const existing=data.transactions.find(t=>t.id===modalTransactionId);
-
- const tx={...(existing||{}),id:existing?.id||uid(),type,amount,description,category:$("mCategory").value,date:new Date(date).toISOString(),note:$("mNote").value.trim(),updatedAt:new Date().toISOString()};
-
- if(existing)data.transactions=data.transactions.map(t=>t.id===existing.id?tx:t);else data.transactions.push(tx);
-
- persist();closeModal();renderAll();toast(tr("saved"));
-
-}
-
-function editTransaction(id){
-
- const tx=data.transactions.find(t=>t.id===id);if(tx)openMoneyModal(tx.type,tx);
-
-}
-
-function deleteTransaction(id){
-
- if(!confirm(tr("deleteTransactionConfirm")))return;
-
- data.transactions=data.transactions.filter(t=>t.id!==id);persist();renderAll();toast(tr("transactionDeleted"));
-
-}
-
-function setPocketTab(tab,button){
-
- pocketTab=tab;
-
- document.querySelectorAll("#page-pocket .tabs .tab").forEach(b=>b.classList.remove("active"));
-
- if(button)button.classList.add("active");
-
- else{
-
-  const index={transactions:0,stats:1,goals:2,simulator:3}[tab]??0;
-
-  const tabs=document.querySelectorAll("#page-pocket .tabs .tab");if(tabs[index])tabs[index].classList.add("active");
-
- }
-
- ["transactions","stats","goals","simulator"].forEach(t=>$("pocket"+t[0].toUpperCase()+t.slice(1)).style.display=t===tab?"block":"none");
-
- if(tab==="transactions")renderTransactions();
-
- if(tab==="stats")renderStats();
-
- if(tab==="goals")renderGoals();
-
- if(tab==="simulator")renderPocketSimulator();
-
-}
-
-function renderPocket(){renderHome();renderTransactions();renderStats();renderGoals();if(pocketTab==="simulator")renderPocketSimulator()}
-
-function renderTransactions(){
-
- if(!$("transactionList"))return;
-
- const q=($("txSearch")?.value||"").toLowerCase().trim(),type=$("txFilter")?.value||"all",period=$("txPeriod")?.value||"all";
-
- const nowDate=new Date();
-
- const list=[...data.transactions].filter(t=>{
-
-  if(type!=="all"&&t.type!==type)return false;
-
-  const dt=new Date(t.date);if(!Number.isFinite(dt.getTime()))return false;
-
-  if(period==="today"&&dt.toDateString()!==nowDate.toDateString())return false;
-
-  if(period==="week"&&(nowDate-dt)>7*86400000)return false;
-
-  if(period==="month"&&(dt.getMonth()!==nowDate.getMonth()||dt.getFullYear()!==nowDate.getFullYear()))return false;
-
-  return (String(t.description||"")+" "+String(t.category||"")+" "+String(t.note||"")).toLowerCase().includes(q);
-
- }).sort((a,b)=>new Date(b.date)-new Date(a.date));
-
- $("transactionList").innerHTML=list.length?list.map(txCard).join(""):`<div class="empty">${tr("noTransactions")}</div>`;
-
-}
-
-function renderStats(){
-
- const el=$("pocketStats");if(!el)return;
-
- const t=totals(),nowDate=new Date(),periods=[
-
-  ["periodDay",x=>new Date(x).toDateString()===nowDate.toDateString()],
-
-  ["periodWeek",x=>nowDate-new Date(x)<=7*86400000&&new Date(x)<=nowDate],
-
-  ["periodMonth",x=>new Date(x).getMonth()===nowDate.getMonth()&&new Date(x).getFullYear()===nowDate.getFullYear()],
-
-  ["periodAll",()=>true]
-
- ];
-
- let html=`<div class="grid"><div class="stat"><div class="stat-label">${tr("incomeTotal")}</div><div class="stat-value green">${money(t.income)}</div></div><div class="stat"><div class="stat-label">${tr("expenseTotal")}</div><div class="stat-value red">${money(t.expense)}</div></div></div><div class="card"><h2>${tr("net")}</h2><div class="stat-value ${t.net>=0?"green":"red"}">${money(t.net,true)}</div><div class="item-meta">${tr("opening")}: ${money(data.openingBalance)}</div></div>`;
-
- periods.forEach(([label,filter])=>{
-
-  let inc=0,out=0;data.transactions.filter(x=>filter(x.date)).forEach(x=>{if(x.type==="income")inc+=Number(x.amount)||0;else out+=Number(x.amount)||0});
-
-  html+=`<div class="card"><div class="row between"><h3>${tr(label)}</h3><span class="pill">${money(inc-out,true)}</span></div><div class="barrow"><span>${tr("income")}</span><div class="bar"><div style="width:${inc+out?inc/(inc+out)*100:0}%"></div></div><span class="green">${money(inc)}</span></div><div class="barrow"><span>${tr("expense")}</span><div class="bar"><div style="width:${inc+out?out/(inc+out)*100:0}%;background:var(--red)"></div></div><span class="red">${money(out)}</span></div></div>`;
-
- });
-
- const categories={};data.transactions.filter(x=>x.type==="expense").forEach(x=>categories[x.category||"Other"]=(categories[x.category||"Other"]||0)+Number(x.amount||0));
-
- const sum=Object.values(categories).reduce((a,b)=>a+b,0);
-
- html+=`<div class="card"><h2>${tr("category")}</h2>`;
-
- if(!sum)html+=`<div class="empty">${tr("emptyChart")}</div>`;
-
- else Object.entries(categories).sort((a,b)=>b[1]-a[1]).forEach(([c,v])=>{html+=`<div class="barrow"><span>${esc(categoryLabel(c))}</span><div class="bar"><div style="width:${v/sum*100}%"></div></div><span>${(v/sum*100).toFixed(0)}%</span></div>`});
-
- html+="</div>";el.innerHTML=html;
-
-}
-
-function categoryLabel(c){const m={Food:"categoryFood",Transport:"categoryTransport",Study:"categoryStudy",Shopping:"categoryShopping",Bills:"categoryBills",Other:"categoryOther"};return tr(m[c]||c)}
-
-function addGoal(){
-
- const name=$("goalName").value.trim(),target=Number($("goalTarget").value),date=$("goalDate").value;
-
- if(!name||!Number.isFinite(target)||target<=0){toast(tr("required"));return}
-
- data.goals.push({id:uid(),name,target,date:date||"",createdAt:new Date().toISOString()});
-
- persist();$("goalName").value="";$("goalTarget").value="";$("goalDate").value="";renderGoals();renderHome();toast(tr("goalCreated"));
-
-}
-
-function renderGoals(){
-
- const el=$("goalList");if(!el)return;
-
- el.innerHTML=data.goals.length?data.goals.map(g=>{
-
-  const bal=Math.max(0,totals().balance),progress=Math.min(100,bal/Number(g.target)*100||0);
-
-  return `<div class="item"><div class="row between"><div class="item-title">${esc(g.name)}</div><button class="btn btn-danger btn-small" onclick="deleteGoal('${esc(g.id)}')">${tr("delete")}</button></div><div class="item-meta">${tr("target")}: ${money(g.target)} · ${tr("remainingAmount")}: ${money(Math.max(0,g.target-bal))}</div><div class="progress"><div style="width:${progress}%"></div></div><div class="row between small muted"><span>${tr("goalProgressLabel")}</span><span>${progress.toFixed(1)}%</span></div><div class="item-meta">${g.date?tr("goalTargetDate")+": "+esc(dateFmt(g.date)):tr("noGoalDeadline")}</div></div>`;
-
- }).join(""):`<div class="empty">${tr("noGoals")}</div>`;
-
-}
-
-function deleteGoal(id){if(!confirm(tr("deleteGoalConfirm")))return;data.goals=data.goals.filter(g=>g.id!==id);persist();renderGoals();renderHome();toast(tr("goalDeleted"))}
-
-function renderPocketSimulator(){
-
- const el=$("pocketSimulator");if(!el)return;
-
- el.innerHTML=`<div class="card" style="margin-top:0"><h2>${tr("decisionSimulator")}</h2><p class="muted small">${tr("decisionIntro")}</p><button class="btn btn-primary btn-block" onclick="navigate('ai','compare')">${tr("analyzeDecision")}</button></div>${data.decisions.length?`<div class="card"><h2>${tr("decisionHistory")}</h2>${data.decisions.slice(-5).reverse().map(d=>`<div class="item"><div class="item-title">${esc(d.name)}</div><div class="item-meta">${esc(d.recommendation)} · ${esc(dateFmt(d.date))}</div></div>`).join("")}</div>`:""}`;
-
-}
-
-function openMissionModal(mission=null){
-
- modalMissionId=mission?mission.id:null;
-
- const start=mission?.start?new Date(mission.start):new Date(),end=mission?.end?new Date(mission.end):new Date(Date.now()+86400000);
-
- openModal(mission?tr("edit")+" — "+tr("mission"):tr("createMission"),`
-
- <div class="field"><label>${tr("missionName")} *</label><input id="mmName" maxlength="100" value="${esc(mission?.name||"")}"></div>
-
- <div class="field"><label>${tr("missionDescription")}</label><textarea id="mmDesc" maxlength="1000">${esc(mission?.description||"")}</textarea></div>
-
- <div class="field"><label>${tr("startTime")}</label><input id="mmStart" type="datetime-local" value="${datetimeLocalValue(start)}"></div>
-
- <div class="field"><label>${tr("endTime")} *</label><input id="mmEnd" type="datetime-local" value="${datetimeLocalValue(end)}"></div>
-
- <div class="row"><button class="btn btn-primary grow" onclick="saveMission()">${mission?tr("update"):tr("create")}</button><button class="btn btn-secondary" onclick="closeModal()">${tr("cancel")}</button></div>
-
- `);
-
-}
-
-function saveMission(){
-
- const name=$("mmName").value.trim(),description=$("mmDesc").value.trim(),start=$("mmStart").value,end=$("mmEnd").value;
-
- if(!name||!start||!end){toast(tr("required"));return}
-
- const s=new Date(start),e=new Date(end);
-
- if(!Number.isFinite(s.getTime())||!Number.isFinite(e.getTime())||e<=s){toast(data.language==="ar"?"يجب أن يكون موعد النهاية بعد البداية.":"The deadline must be after the start time.");return}
-
- if(e.getTime()<Date.now()&&!confirm(tr("missionPast")))return;
-
- const existing=data.missions.find(m=>m.id===modalMissionId);
-
- const mission={...(existing||{}),id:existing?.id||uid(),name,description,start:s.toISOString(),end:e.toISOString(),completed:existing?.completed||false,deleted:false,createdAt:existing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
-
- if(existing)data.missions=data.missions.map(m=>m.id===existing.id?mission:m);else data.missions.push(mission);
-
- persist();closeModal();renderAll();toast(tr("missionCreated"));
-
-}
-
-function setMissionTab(tab,button){
-
- missionTab=tab;
-
- document.querySelectorAll("#page-mission .tabs .tab").forEach(b=>b.classList.remove("active"));
-
- if(button)button.classList.add("active");
-
- renderMissions();
-
-}
-
-function durationParts(ms){
-
- ms=Math.max(0,ms);
-
- const total=Math.floor(ms/1000);
-
- return {d:Math.floor(total/86400),h:Math.floor(total%86400/3600),m:Math.floor(total%3600/60),s:total%60};
-
-}
-
-function countdown(ms){
-
- const p=durationParts(ms);
-
- if(data.language==="ar")return `${p.d} ي · ${p.h} س · ${p.m} د · ${p.s} ث`;
-
- return `${p.d}d · ${p.h}h · ${p.m}m · ${p.s}s`;
-
-}
-
-function missionStatus(m){
-
- const left=new Date(m.end).getTime()-Date.now();
-
- if(m.completed)return {text:tr("done"),color:"green",percent:0,left};
-
- if(left<=0)return {text:tr("overdue"),color:"red",percent:0,left};
-
- const start=new Date(m.start).getTime(),end=new Date(m.end).getTime(),total=end-start;
-
- const percent=total>0?Math.max(0,Math.min(100,left/total*100)):0;
-
- let color="green";
-
- if(percent<20)color="red";else if(percent<50)color="yellow";else if(percent<75)color="orange";
-
- return {text:countdown(left),color,percent,left};
-
-}
-
-function missionCard(m,compact=false){
-
- const st=missionStatus(m),due=new Date(m.end);
-
- const stateText=m.completed?tr("done"):st.left<=0?tr("overdue"):tr("remaining");
-
- return `<div class="item"><div class="row between"><div class="grow"><div class="item-title">${esc(m.name)}</div><div class="item-meta">${esc(m.description||tr("noDescription"))}</div></div><span class="pill ${st.color}">${esc(st.left<=0&&!m.completed?tr("overdue"):m.completed?tr("done"):Math.round(st.percent)+"%")}</span></div>
-
- <div class="progress"><div style="width:${m.completed?100:st.percent}%;background:${st.color==="red"?"var(--red)":st.color==="yellow"?"var(--yellow)":st.color==="orange"?"var(--orange)":st.color==="green"?"var(--green)":"var(--purple)"}"></div></div>
-
- <div class="row between wrap"><div class="item-meta">${stateText}: <strong class="${st.color}">${esc(m.completed?tr("done"):st.left<=0?countdown(-st.left):st.text)}</strong></div><div class="item-meta">${tr("due")}: ${esc(dateFmt(due,{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}))}</div></div>
-
- ${compact?"":`<div class="row wrap" style="margin-top:10px"><button class="btn btn-secondary btn-small" onclick="openMissionModal(data.missions.find(x=>x.id==='${esc(m.id)}'))">${tr("edit")}</button><button class="btn ${m.completed?"btn-secondary":"btn-primary"} btn-small" onclick="toggleMission('${esc(m.id)}')">${m.completed?tr("reopen"):tr("markDone")}</button><button class="btn btn-danger btn-small" onclick="deleteMission('${esc(m.id)}')">${tr("delete")}</button></div>`}
-
- </div>`;
-
-}
-
-function renderMissions(){
-
- if(!$("missionList"))return;
-
- const missions=data.missions.filter(m=>!m.deleted);
-
- $("activeCount").textContent=missions.filter(m=>!m.completed).length;
-
- $("completedCount").textContent=missions.filter(m=>m.completed).length;
-
- const list=missions.filter(m=>missionTab==="all"||(missionTab==="completed"?m.completed:!m.completed)).sort((a,b)=>new Date(a.end)-new Date(b.end));
-
- $("missionList").innerHTML=list.length?list.map(m=>missionCard(m,false)).join(""):`<div class="empty"><div class="empty-icon">◷</div>${tr("noMissions")}<div style="margin-top:12px"><button class="btn btn-secondary btn-small" onclick="openMissionModal()">${tr("createMission")}</button></div></div>`;
-
-}
-
-function toggleMission(id){
-
- const m=data.missions.find(x=>x.id===id);if(!m)return;
-
- m.completed=!m.completed;m.completedAt=m.completed?new Date().toISOString():null;
-
- persist();renderAll();toast(tr("saved"));
-
-}
-
-function deleteMission(id){
-
- if(!confirm(tr("confirmDelete")))return;
-
- data.missions=data.missions.filter(m=>m.id!==id);persist();renderAll();toast(tr("deleted"));
-
-}
-
-const questions=[
-
- {type:"choice",key:"question1",options:["q1a","q1b","q1c","q1d"]},
-
- {type:"choice",key:"question2",options:["q2a","q2b","q2c","q2d"]},
-
- {type:"choice",key:"question3",options:["q3a","q3b","q3c","q3d"]},
-
- {type:"choice",key:"question4",options:["q4a","q4b","q4c","q4d"]},
-
- {type:"choice",key:"question5",options:["q5a","q5b","q5c","q5d"]},
-
- {type:"yesno",key:"question6"},{type:"yesno",key:"question7"},{type:"yesno",key:"question8"},{type:"yesno",key:"question9"},{type:"yesno",key:"question10"},
-
- {type:"free",key:"question11",placeholder:"free1"},{type:"free",key:"question12",placeholder:"free2"},{type:"free",key:"question13",placeholder:"free3"},{type:"free",key:"question14",placeholder:"free4"},{type:"free",key:"question15",placeholder:"free5"}
-
-];
-
-function renderProfile(){
-
- if(!$("questionList"))return;
-
- const p=data.profile;
-
- $("pFirst").value=p.first||"";$("pLast").value=p.last||"";$("pAge").value=p.age||"";$("pGender").value=p.gender||"";
-
- $("questionList").innerHTML=questions.map((q,i)=>{
-
-  const value=p.answers[i]||"",label=tr(q.key);
-
-  if(q.type==="choice")return `<div class="card"><div class="row"><span class="pill">${i+1}/15</span><strong>${esc(label)}</strong></div>${q.options.map(o=>`<label class="choice"><input type="radio" name="question${i}" value="${o}" ${value===o?"checked":""}><span>${esc(tr(o))}</span></label>`).join("")}</div>`;
-
-  if(q.type==="yesno")return `<div class="card"><div class="row"><span class="pill">${i+1}/15</span><strong>${esc(label)}</strong></div><div class="row" style="margin-top:12px"><label class="choice grow"><input type="radio" name="question${i}" value="yes" ${value==="yes"?"checked":""}><span>${tr("yes")}</span></label><label class="choice grow"><input type="radio" name="question${i}" value="no" ${value==="no"?"checked":""}><span>${tr("no")}</span></label></div></div>`;
-
-  return `<div class="card"><div class="row"><span class="pill">${i+1}/15</span><strong>${esc(label)}</strong></div><textarea style="margin-top:12px" id="answer${i}" maxlength="1200" placeholder="${tr(q.placeholder)}">${esc(value)}</textarea></div>`;
-
- }).join("");
-
- $("questionCount").textContent=p.answers.filter(a=>String(a||"").trim()).length+"/15";
-
- renderProfileSummary();
-
-}
-
-function saveProfile(){
-
- const age=$("pAge").value;
-
- if(age&&(Number(age)<1||Number(age)>120)){toast(tr("required"));return}
-
- data.profile.first=$("pFirst").value.trim();
-
- data.profile.last=$("pLast").value.trim();
-
- data.profile.age=age;
-
- data.profile.gender=$("pGender").value;
-
- persist();renderProfile();renderHome();toast(tr("profileSaved"));
-
-}
-
-function saveAnswers(){
-
- data.profile.answers=questions.map((q,i)=>{
-
-  if(q.type==="free")return $("answer"+i)?.value.trim()||"";
-
-  return document.querySelector(`input[name="question${i}"]:checked`)?.value||"";
-
- });
-
- persist();renderProfile();toast(tr("answersSaved"));
-
-}
-
-function renderProfileSummary(){
-
- const answers=data.profile.answers.filter(a=>String(a||"").trim());
-
- const full=[data.profile.first,data.profile.last].filter(Boolean).join(" ");
-
- const info=[];
-
- if(full)info.push(esc(full));
-
- if(data.profile.age)info.push(esc(data.profile.age)+" "+(data.language==="ar"?"سنة":"years"));
-
- if(answers.length)info.push(answers.length+"/15");
-
- $("profileSummary").innerHTML=info.length?`<p>${info.join(" · ")}</p><p class="small">${tr("profileContext")}: ${answers.map(a=>esc(answerLabel(a))).join(" · ")}</p>`:`<p>${tr("noAnswers")}</p>`;
-
-}
-
-function answerLabel(a){if(translations[data.language]?.[a])return tr(a);if(a==="yes"||a==="no")return tr(a);return a}
-
-function setAiMode(mode){
-
- aiMode=mode;
-
- $("aiChatMode").style.display=mode==="chat"?"block":"none";
-
- $("aiCompareMode").style.display=mode==="compare"?"block":"none";
-
- $("aiChatTab").classList.toggle("btn-primary",mode==="chat");$("aiChatTab").classList.toggle("btn-secondary",mode!=="chat");
-
- $("aiCompareTab").classList.toggle("btn-primary",mode==="compare");$("aiCompareTab").classList.toggle("btn-secondary",mode!=="compare");
-
-}
-
-function renderChat(){
-
- const el=$("chatMessages");if(!el)return;
-
- if(!data.chat.length){
-
-  el.innerHTML=`<div class="bubble assistant">${tr("noChat")}<span class="small">${tr("localAssistant")}</span></div>`;
-
-  return;
-
- }
-
- el.innerHTML=data.chat.slice(-60).map(m=>`<div class="bubble ${m.role==="user"?"user":"assistant"}">${esc(m.text)}${m.role==="assistant"?`<span class="small">${tr("localAssistant")}</span>`:""}</div>`).join("");
-
-}
-
-function sendChat(){
-
- const text=$("chatInput").value.trim();
-
- if(!text){toast(tr("typeQuestion"));return}
-
- data.chat.push({role:"user",text,at:new Date().toISOString()});
-
- const answer=localAnswer(text);
-
- data.chat.push({role:"assistant",text:answer,at:new Date().toISOString()});
-
- if(data.chat.length>120)data.chat=data.chat.slice(-120);
-
- persist();$("chatInput").value="";renderChat();
-
- $("chatMessages").scrollIntoView({behavior:"smooth",block:"end"});
-
-}
-
-$("chatInput").addEventListener("keydown",e=>{
-
- if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendChat()}
-
-});
-
-function quickQuestion(type){
-
- const prompts={money:tr("moneyPrompt"),tasks:tr("tasksPrompt"),summary:tr("summaryPrompt")};
-
- $("chatInput").value=prompts[type]||"";sendChat();
-
-}
-
-function localAnswer(question){
-
- const q=question.toLowerCase(),t=totals(),active=data.missions.filter(m=>!m.completed&&!m.deleted).sort((a,b)=>new Date(a.end)-new Date(b.end)),goals=data.goals;
-
- const ar=data.language==="ar";
-
- let out=[];
-
- const hasMoney=/money|budget|expense|spend|balance|buy|purchase|مال|فلوس|مصروف|رصيد|شراء|اشتر|ميزاني|نقود|صرف/.test(q);
-
- const hasTasks=/task|mission|deadline|time|priorit|مهم|مهمة|مهام|وقت|موعد|تأخير|أولوي/.test(q);
-
- const hasSummary=/summary|situation|status|ملخص|وضعي|حالتي|ماذا تعرف/.test(q);
-
- if(hasSummary){
-
-  out.push((ar?"ملخص بياناتك الحالية:":"Your current saved-data summary:"));
-
-  out.push((ar?"• الرصيد: ":"• Balance: ")+money(t.balance));
-
-  out.push((ar?"• إجمالي الدخل: ":"• Total income: ")+money(t.income));
-
-  out.push((ar?"• إجمالي المصروفات: ":"• Total expenses: ")+money(t.expense));
-
-  out.push((ar?"• المهام النشطة: ":"• Active missions: ")+active.length);
-
-  out.push((ar?"• الأهداف المالية: ":"• Financial goals: ")+goals.length);
-
- }
-
- if(hasMoney){
-
-  out.push(ar?"تحليل المحفظة:":"Pocket analysis:");
-
-  out.push((ar?"• الرصيد الحالي: ":"• Current balance: ")+money(t.balance));
-
-  out.push((ar?"• الدخل المسجل: ":"• Recorded income: ")+money(t.income));
-
-  out.push((ar?"• المصروفات المسجلة: ":"• Recorded expenses: ")+money(t.expense));
-
-  if(t.balance<0)out.push(ar?"تنبيه: الرصيد سالب وفق العمليات المسجلة. راجع السجل وحدد المصروفات الضرورية قبل أي شراء اختياري.":"Warning: your recorded balance is negative. Review your ledger and prioritize essentials before optional purchases.");
-
-  else if(t.balance===0)out.push(ar?"رصيدك المسجل صفر. لا تتخذ قرار شراء قبل التأكد من وجود مال متاح فعليًا.":"Your recorded balance is zero. Verify that money is actually available before making a purchase.");
-
-  else out.push(ar?"قبل الشراء، اطرح الالتزامات القريبة والاحتياطي الذي تريد الحفاظ عليه من الرصيد المتاح.":"Before buying, subtract upcoming obligations and your desired reserve from available funds.");
-
-  if(goals.length)out.push((ar?"أهدافك المسجلة: ":"Your saved goals: ")+goals.map(g=>g.name+" ("+money(g.target)+")").join("، "));
-
- }
-
- if(hasTasks){
-
-  out.push(ar?"أولويات المهام:":"Task priorities:");
-
-  if(!active.length)out.push(ar?"ليس لديك مهام نشطة مسجلة. أنشئ مهمة مع موعد نهائي حتى أساعدك في ترتيبها.":"You have no active missions recorded. Add missions with deadlines to help prioritize them.");
-
-  else active.slice(0,5).forEach((m,i)=>{
-
-   const left=new Date(m.end).getTime()-Date.now();
-
-   out.push(`${i+1}. ${m.name} — ${left<0?tr("overdue"):countdown(left)}${m.description?" · "+m.description:""}`);
-
-  });
-
-  out.push(ar?"اقتراح: ابدأ بالمهمة المهمة ذات الموعد الأقرب، مع مراعاة الوقت المطلوب فعلًا لإنجازها؛ هذه المدة غير مسجلة تلقائيًا.":"Suggestion: start with an important task whose deadline is close, while accounting for the actual effort required; effort duration is not recorded automatically.");
-
- }
-
- if(!out.length){
-
-  out.push(ar?"أستطيع مساعدتك في مراجعة ميزانيتك، وترتيب المهام، وفهم الأهداف المسجلة، أو مقارنة قرار شراء.":"I can help review your budget, prioritize missions, summarize saved goals, or compare a purchase.");
-
-  out.push(ar?"اكتب سؤالك بوضوح، وسأستخدم المعلومات المسجلة ذات الصلة.":"Ask a specific question and I will use relevant saved information.");
-
- }
-
- out.push("");
-
- out.push(tr("answerLimited"));
-
- return out.join("\n");
-
-}
-
-function runDecision(){
-
- const name=$("buyName").value.trim(),price=Number($("buyPrice").value),need=$("buyNeed").value,reserve=Math.max(0,Number($("buyReserve").value)||0),obligations=Math.max(0,Number($("buyObligations").value)||0),deadline=$("buyDeadline").value;
-
- if(!name||!Number.isFinite(price)||price<=0){toast(tr("required"));return}
-
- const t=totals(),after=t.balance-price,afterOb=after-obligations,gap=afterOb-reserve;
-
- const active=data.missions.filter(m=>!m.completed&&!m.deleted).length;
-
- let recommendation,confidence;
-
- if(t.balance<0||afterOb<0||gap<0&&need==="optional"){
-
-  recommendation=tr("wait");confidence=tr("confidenceMedium");
-
- }else if(need==="essential"&&afterOb>=0){
-
-  recommendation=tr("buyNow");confidence=tr("confidenceMedium");
-
- }else if(gap>=0&&need==="useful"){
-
-  recommendation=tr("buyNow");confidence=tr("confidenceMedium");
-
- }else if(gap>=0&&need==="optional"){
-
-  recommendation=tr("notEnough");confidence=tr("confidenceLow");
-
- }else{
-
-  recommendation=tr("notEnough");confidence=tr("confidenceLow");
-
- }
-
- const reasons=[];
-
- reasons.push(tr("afterPurchase")+": "+money(after));
-
- reasons.push(tr("afterObligations")+": "+money(afterOb));
-
- reasons.push(tr("reserveGap")+": "+money(gap,true));
-
- if(need==="essential")reasons.push(tr("decisionEssential"));
-
- if(need==="optional")reasons.push(tr("decisionOptional"));
-
- if(need==="useful")reasons.push(tr("decisionUseful"));
-
- if(deadline){
-
-  const d=new Date(deadline+"T23:59:59");
-
-  if(d.getTime()-Date.now()<7*86400000)reasons.push(tr("deadlineSoon"));
-
- }
-
- if(active)reasons.push((data.language==="ar"?"لديك مهام نشطة: ":"Active missions: ")+active);
-
- if(!data.profile.answers.some(a=>String(a).trim()))reasons.push(tr("askForData"));
-
- reasons.push(tr("incomeUnknown"));
-
- const result={id:uid(),name,price,need,reserve,obligations,deadline,recommendation,confidence,reasons,date:new Date().toISOString()};
-
- data.decisions.push(result);if(data.decisions.length>100)data.decisions=data.decisions.slice(-100);
-
- persist();
-
- $("decisionResult").innerHTML=`<div class="card"><div class="eyebrow">${tr("decisionResult")}</div><h2 style="margin-top:8px">${esc(name)}</h2><div class="stat-value">${money(price)}</div><div class="notice ${recommendation===tr("wait")?"warning":recommendation===tr("buyNow")?"success":""}"><strong>${tr("recommend")}:</strong><br>${esc(recommendation)}</div><div class="item-meta" style="margin-top:10px">${tr("confidence")}: ${esc(confidence)}</div><div class="separator"></div><h3>${tr("reason")}</h3><div class="list">${reasons.map(r=>`<div class="item">${esc(r)}</div>`).join("")}</div><div class="notice warning">${tr("limitations")}<br>${tr("decisionNotFinancial")}</div><button class="btn btn-secondary btn-block" style="margin-top:12px" onclick="navigate('pocket','simulator')">${tr("decisionHistory")}</button></div>`;
-
- toast(tr("decisionSaved"));
-
-}
-
-function saveOpening(){
-
- const n=Number($("settingOpening").value);
-
- if(!Number.isFinite(n)){toast(tr("required"));return}
-
- data.openingBalance=n;persist();renderAll();toast(tr("saved"));
-
-}
-
-function downloadFile(filename,content,type){
-
- const blob=new Blob([content],{type});
-
- const url=URL.createObjectURL(blob),a=document.createElement("a");
-
- a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
-
- setTimeout(()=>URL.revokeObjectURL(url),1000);
-
-}
-
-function exportJSON(){
-
- const payload={...data,exportedAt:new Date().toISOString(),app:"NEXUS"};
-
- downloadFile("nexus-backup-"+new Date().toISOString().slice(0,10)+".json",JSON.stringify(payload,null,2),"application/json;charset=utf-8");
-
- toast(tr("exportSuccess"));
-
-}
-
-function exportCSV(){
-
- const headers=["id","type","amount","description","category","date","note"];
-
- const rows=data.transactions.map(t=>headers.map(h=>csvCell(t[h]??"")).join(","));
-
- downloadFile("nexus-transactions.csv","\uFEFF"+[headers.join(","),...rows].join("\r\n"),"text/csv;charset=utf-8");
-
- toast(tr("exportSuccess"));
-
-}
-
-function csvCell(v){return '"'+String(v).replace(/"/g,'""')+'"'}
-
-function importJSON(event){
-
- const file=event.target.files?.[0];if(!file)return;
-
- if(!confirm(tr("importConfirm"))){event.target.value="";return}
-
- const reader=new FileReader();
-
- reader.onload=()=>{
-
-  try{
-
-   const parsed=JSON.parse(reader.result);
-
-   if(!parsed||typeof parsed!=="object"||!Array.isArray(parsed.transactions)||!Array.isArray(parsed.missions)||!parsed.profile)throw new Error("invalid");
-
-   const base=defaultData();
-
-   data={...base,...parsed,profile:{...base.profile,...parsed.profile,answers:Array.isArray(parsed.profile.answers)?parsed.profile.answers.slice(0,15):base.profile.answers},
-
-    transactions:parsed.transactions.filter(x=>x&&typeof x==="object"),
-
-    missions:parsed.missions.filter(x=>x&&typeof x==="object"),
-
-    goals:Array.isArray(parsed.goals)?parsed.goals.filter(x=>x&&typeof x==="object"):[],
-
-    chat:Array.isArray(parsed.chat)?parsed.chat.filter(x=>x&&typeof x==="object"):[],
-
-    decisions:Array.isArray(parsed.decisions)?parsed.decisions.filter(x=>x&&typeof x==="object"):[]
-
-   };
-
-   persist();applyLanguage();renderAll();toast(tr("importSuccess"));
-
-  }catch(e){toast(tr("importError"))}
-
-  event.target.value="";
-
- };
-
- reader.onerror=()=>{toast(tr("importError"));event.target.value=""};
-
- reader.readAsText(file);
-
-}
-
-function resetAll(){
-
- if(!confirm(tr("confirmReset")))return;
-
- data=defaultData();persist();closeModal();renderAll();navigate("home");toast(tr("deleted"));
-
-}
-
-function updateClocks(){
-
- if(!$("page-mission"))return;
-
- if($("page-mission").classList.contains("active"))renderMissions();
-
- renderHome();
-
-}
-
-window.addEventListener("focus",updateClocks);
-
-document.addEventListener("visibilitychange",()=>{if(!document.hidden)updateClocks()});
-
-setInterval(()=>{
-
- if(document.visibilityState==="visible"){
-
-  if($("page-mission").classList.contains("active"))renderMissions();
-
-  const activeHome=$("page-home").classList.contains("active");
-
-  if(activeHome)renderHome();
-
- }
-
-},1000);
-
-applyLanguage();
-
-renderAll();
-
-setAiMode("chat");
-
-setPocketTab("transactions");
-
-</script>
-
-</body>
-
-</html>
+function missionInfo(m){const now=Date.now(),start=new Date(m.start).getTime(),end=new Date(m.deadline).getTime(),duration=Math.max(1,end-start);if(m.completed)return{status:t("completed"),color:"green",pct:100,remaining:0};if(now>end)return{status:t("overdue"),color:"red",pct:0,remaining:now-end};if(now<start)return{status:t("upcoming"),color:"green",pct:Math.min(100,Math.max(0,(end-now)/duration*100)),remaining:end-now};const pct=Math.max(0,Math.min(100,(end-now)/duration*100));return{status:t("started"),color:pct<20?"red":pct<50?"yellow":pct<75?"orange":"
