@@ -1,225 +1,56 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>VYRO_01 Order Tutorial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0912">
+<title>NEXUS — Personal Decision System</title>
 <style>
-*{box-sizing:border-box}
-html,body{
-  margin:0;width:100%;height:100%;overflow:hidden;
-  background:#080808;color:white;
-  font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif
-}
-body{display:grid;place-items:center}
-.stage{
-  position:relative;
-  width:min(100vw,56.25vh);
-  height:min(100vh,177.78vw);
-  aspect-ratio:9/16;
-  overflow:hidden;background:#080808
-}
-.status{
-  position:absolute;z-index:5;top:0;left:0;right:0;
-  height:30px;padding:0 20px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:#080808;color:white;font-size:11px;font-weight:700
-}
-.site{
-  position:absolute;top:30px;left:0;
-  width:100%;height:calc(100% - 30px);
-  border:0;background:#080808
-}
-
-/* Coordinates calibrated from the real VYRO_01 form CSS */
-.value{
-  position:absolute;z-index:15;
-  left:14%;width:71%;height:22px;
-  display:none;align-items:center;
-  color:#fff;background:transparent;
-  font-size:clamp(12px,3.8vw,16px);
-  line-height:22px;font-weight:500;
-  white-space:nowrap;overflow:hidden;
-  pointer-events:none;text-shadow:0 1px 2px #000
-}
-.value.show{display:flex}
-
-/* Input text positions on a vertical iPhone viewport */
-.name{top:29.2%}
-.phone{top:38.7%}
-.address{top:47.8%}
-.note{top:74.9%}
-
-/* Red ellipse around the actual CONFIRM ORDER button */
-.ring{
-  position:absolute;z-index:16;
-  left:49.1%;top:83.1%;
-  width:42.2%;height:6.8%;
-  display:none;pointer-events:none;overflow:visible
-}
-.ring.show{display:block}
-
-.hint{
-  position:absolute;z-index:20;
-  top:5.5%;left:6%;right:6%;
-  padding:8px 10px;
-  background:#080808ed;
-  border-left:2px solid #bda36b;
-  color:white;text-align:center;
-  font-size:11px;line-height:1.5;
-  opacity:0;pointer-events:none
-}
-.hint.show{opacity:1}
-
-.end{
-  position:absolute;inset:0;z-index:30;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  background:#080808;color:white;
-  opacity:0;pointer-events:none;
-  transition:opacity .45s
-}
-.end.show{opacity:1}
-.end strong{
-  font-size:clamp(30px,9vw,43px);
-  font-weight:950;letter-spacing:4px
-}
-.end i{width:38px;height:1px;background:#bda36b;margin-top:15px}
-.end small{
-  margin-top:12px;color:#aaa;
-  font-size:7px;letter-spacing:3px
-}
-.controls{
-  position:fixed;z-index:50;bottom:10px;
-  left:0;right:0;display:flex;
-  justify-content:center;gap:7px
-}
-button{
-  padding:9px 12px;border:1px solid #555;
-  border-radius:22px;background:#222;color:white
-}
-@media(min-width:600px){
-  .stage{border:1px solid #333;border-radius:24px}
-}
-</style>
-</head>
-<body>
-<div class="stage">
-
-  <div class="status">
-    <span>9:41</span>
-    <span>●●●　Wi-Fi　▰</span>
-  </div>
-
-  <!-- The real VYRO_01 website -->
-  <iframe class="site"
-    src="https://jako2285.github.io/VYRO_01/"
-    title="VYRO_01 Official Store">
-  </iframe>
-
-  <!-- Visual text only: does not fill or submit the form -->
-  <div class="value name" id="name">FOLAN BEN FOLAN</div>
-  <div class="value phone" id="phone">56*******</div>
-  <div class="value address" id="address">YOUR ADRESSE</div>
-  <div class="value note" id="note">Code promo if u have</div>
-
-  <svg class="ring" id="ring"
-       viewBox="0 0 166 58"
-       preserveAspectRatio="none">
-    <ellipse cx="83" cy="29" rx="78" ry="24"
-      fill="none" stroke="#f01818" stroke-width="4"
-      stroke-linecap="round"
-      transform="rotate(-2 83 29)"/>
-  </svg>
-
-  <div class="hint" id="hint">
-    Open a product, tap ORDER NOW, then start this guide
-    when PLACE YOUR ORDER is visible.
-  </div>
-
-  <div class="end" id="end">
-    <strong>VYRO_01</strong>
-    <i></i>
-    <small>DEFINE YOUR STYLE</small>
-  </div>
-</div>
-
-<div class="controls" id="controls">
-  <button id="start">▶ Start 15s guide</button>
-  <button id="pause">Ⅱ Pause</button>
-  <button id="restart">↻ Restart</button>
-</div>
-
-<script>
-(()=>{
-  const $=id=>document.getElementById(id);
-  let startAt=0,elapsed=0,running=false,raf=0;
-
-  const values=[
-    $('name'),$('phone'),$('address'),$('note')
-  ];
-
-  function scene(t){
-    values.forEach(el=>
-      el.classList.toggle('show',t>=6&&t<13)
-    );
-
-    $('ring').classList.toggle(
-      'show',t>=9.5&&t<13
-    );
-
-    $('hint').classList.toggle('show',t<3);
-    $('end').classList.toggle('show',t>=13);
-  }
-
-  function tick(now){
-    if(!running)return;
-
-    elapsed=(now-startAt)/1000;
-    scene(elapsed);
-
-    if(elapsed>=15){
-      running=false;
-      $('controls').style.display='flex';
-      $('pause').textContent='Ⅱ Pause';
-      return;
-    }
-
-    raf=requestAnimationFrame(tick);
-  }
-
-  function start(){
-    cancelAnimationFrame(raf);
-    elapsed=0;
-    startAt=performance.now();
-    running=true;
-    $('controls').style.display='none';
-    scene(0);
-    raf=requestAnimationFrame(tick);
-  }
-
-  $('start').addEventListener('click',start);
-  $('restart').addEventListener('click',start);
-
-  $('pause').addEventListener('click',()=>{
-    if(running){
-      elapsed=(performance.now()-startAt)/1000;
-      running=false;
-      cancelAnimationFrame(raf);
-      $('controls').style.display='flex';
-      $('pause').textContent='▶ Resume';
-    }else{
-      startAt=performance.now()-elapsed*1000;
-      running=true;
-      $('controls').style.display='none';
-      $('pause').textContent='Ⅱ Pause';
-      raf=requestAnimationFrame(tick);
-    }
-  });
-
-  scene(0);
-})();
-</script>
-</body>
-</html>
+:root{color-scheme:dark;--bg:#09080e;--surface:#12101a;--surface2:#191522;--surface3:#211b2e;--line:#30283e;--purple:#9b75ff;--purple2:#7650e8;--text:#f7f4ff;--muted:#a9a1b9;--green:#4ade80;--red:#fb7185;--yellow:#facc15;--orange:#fb923c;--radius:21px;--nav-height:73px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% -20%,#28173d 0,transparent 48%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;min-height:100dvh;font-size:15px;line-height:1.55}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:active:not(:disabled){transform:scale(.97)}
+input,textarea,select{width:100%;min-width:0;background:#0d0b13;border:1px solid var(--line);border-radius:14px;color:var(--text);padding:13px 14px;outline:none}
+input::placeholder,textarea::placeholder{color:#777084}
+textarea{resize:vertical;min-height:95px}
+input[type=checkbox],input[type=radio]{width:auto;accent-color:var(--purple)}
+input[type=range]{padding:0;accent-color:var(--purple)}
+input[type=date],input[type=time],input[type=datetime-local]{color-scheme:dark}
+button,select{touch-action:manipulation}
+svg{width:21px;height:21px;display:block;flex-shrink:0}
+#app{max-width:740px;margin:auto;min-height:100dvh;padding-bottom:calc(var(--nav-height) + env(safe-area-inset-bottom) + 24px)}
+.topbar{position:sticky;top:0;z-index:20;padding:calc(env(safe-area-inset-top) + 12px) 18px 12px;display:flex;align-items:center;gap:12px;background:#0b0912eF;backdrop-filter:blur(20px);border-bottom:1px solid #ffffff0a}
+.brand-mark{width:43px;height:43px;border-radius:15px;background:linear-gradient(145deg,#a888ff,#7040d4);display:grid;place-items:center;box-shadow:0 6px 24px #8757ff35}
+.brand-mark svg{color:white;width:25px;height:25px}
+.brand{font-size:19px;font-weight:850;letter-spacing:1.7px;line-height:1.15}
+.brand-sub{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:4px}
+.top-spacer{flex:1}
+.icon-btn{width:43px;height:43px;border:1px solid var(--line);background:var(--surface);border-radius:15px;display:grid;place-items:center}
+.icon-btn svg{color:#c6b5ff}
+main{padding:19px 16px 24px}
+.page{animation:enter .22s ease}
+@keyframes enter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:27px;letter-spacing:-.5px;margin-bottom:6px;line-height:1.25}
+h2{font-size:18px;margin-bottom:13px}
+h3{font-size:15px;margin-bottom:8px}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.tiny{font-size:11px}
+.section{margin-top:24px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.section-head h2{margin:0}
+.card{background:linear-gradient(145deg,#171320,#100e17);border:1px solid var(--line);border-radius:var(--radius);padding:17px;min-width:0}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#25173b,#171123 62%,#111019);border:1px solid #49336b;border-radius:25px;padding:22px}
+.hero:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:#8d5bff10;filter:blur(3px);top:-75px;inset-inline-end:-55px;pointer-events:none}
+.hero-label{font-size:11px;letter-spacing:1.1px;color:#c9b7f7}
+.hero-value{font-size:34px;font-weight:850;letter-spacing:-1px;margin:7px 0}
+.hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:100px;padding:5px 10px;background:#ffffff0b;color:var(--muted);font-size:11px;border:1px solid #ffffff0c}
+.pill.good{background:#163322;color:var(--green);border-color:#28563a}
+.pill.bad{background:#351a24;color:var(--red);border-color:#5d
